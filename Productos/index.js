@@ -2,16 +2,18 @@
 
 function addItemCard(item, id) { 
     const itemHTML = '<div class="col-md-3" >\n' +  // Añadido <div class="col-md-3">
-        '<div class="card w-100" style="width: 18rem;">\n' +
+        '<div class="card w-100 h-100"  style="width: 18rem;">\n' +
         '      <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>'+ 
         '    <img src="'+item.img +'" class="card-img-top" alt="image">\n' +
-        '  <a href="#" class="btn btn-black w-100 mr-1">Agregar</a>\n' +
         '    <div class="info">' +
         '        <h5 class="card-title ">'+item.name+'</h5>\n' +
         '        <p class="card-text">'+item.precio+'</p>\n' +
         '        <p class="card-text">'+item.description+'</p>\n' +
+        '        <p class="card-text">'+item.categoria+'</p>\n' +
         '  <div class="clasificacion" id="clasificacion-'+id+'"></div> <!-- Contenedor para las estrellas -->' + 
+        
         '  </div>' +
+        '  <a href="#" class="btn btn-black w-100 mr-1">Agregar</a>\n' +
         '</div>\n' +
         '</div>\n' +  // Cerramos la etiqueta <div class="col-md-3">
         '<br/>';
@@ -40,36 +42,18 @@ function estrella(containerId, rating) {
 }
 
 
-
-addItemCard({
-    'name':'GPS 10S',
-    'img':'https://images.pexels.com/photos/3541555/pexels-photo-3541555.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'precio':'$ 120.000',
-    'description':'Orange and Apple juice ',
-    'rating': 4
-}, 1);
-
-addItemCard({
-    'name':'Tayto',
-    'img':'https://images.pexels.com/photos/415043/pexels-photo-415043.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'precio':'$ 150.000',
-    'description':'Cheese & Onion Chips',
-    'rating': 3
-}, 2);
-
-addItemCard({
-    'name':'GPS 10S',
-    'img':'https://images.pexels.com/photos/1643753/pexels-photo-1643753.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'precio':'$ 120.000',
-    'description':'Orange and Appleand delicious',
-    'rating': 5
-}, 3);
-
-addItemCard({
-    'name':'Tayto',
-    'img':'https://www.gs1india.org/media/Juice_pack.jpg',
-    'precio':'$ 150.000',
-    'description':'Cheese & Onion Chips',
-    'rating': 4
-}, 4);
-
+fetch('./data.json')
+    .then(response => response.json())
+    .then(data => {
+        data.item.forEach((product, index) => {
+            addItemCard({
+                name: product.name,
+                img: product.img,
+                precio: `$ ${product.precio.toFixed(2)}`, 
+                description: product.description,
+                categoria: product.categoria,
+                rating: 4 // Rating por defecto si no está en el JSON
+            }, index + 1);
+        });
+    })
+    .catch(error => console.error('Error al cargar los datos:', error));
