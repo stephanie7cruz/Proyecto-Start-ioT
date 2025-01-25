@@ -12,11 +12,13 @@ body {
   margin: 20px auto;
 }
 
+
 /* Estilo para cada fila de contenido */
 .content-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin-bottom: 20px;
 }
 
