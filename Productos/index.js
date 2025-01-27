@@ -1,4 +1,4 @@
-function addItemCard(item, id) { 
+function addItemCard(item, id) {
     const itemHTML = `
         <div class="col-md-3">
             <div class="card w-100 h-100" style="width: 18rem;">
@@ -45,7 +45,7 @@ function addToCart() {
     cartItemCount++; // Incrementa el contador
     const cartCountElement = document.getElementById("cart-count");
     cartCountElement.textContent = cartItemCount; // Actualiza el contador en el nav
-    localStorage.setItem("cartItemCount", cartItemCount); 
+    localStorage.setItem("cartItemCount", cartItemCount);
 }
 document.addEventListener("DOMContentLoaded", () => {
     const cartCountElement = document.getElementById("cart-count");
@@ -64,7 +64,7 @@ fetch('./data.json')
             addItemCard({
                 name: product.name,
                 img: product.img,
-                precio: `$ ${product.precio.toFixed(2)}`, 
+                precio: `$ ${product.precio.toFixed(2)}`,
                 description: product.description,
                 categoria: product.categoria,
                 rating: 4 // Rating por defecto si no está en el JSON
