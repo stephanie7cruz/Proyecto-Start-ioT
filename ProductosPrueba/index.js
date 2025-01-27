@@ -10,6 +10,7 @@
 // });
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
     let productos = [];
     const contenedorProductos = document.querySelector("#list-items");
@@ -75,10 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Función para alternar el estado del corazón
-    function toggleHeart(heartIcon) {
-        heartIcon.classList.toggle('active');
-    }
+
 
     // Función para agregar estrellas de calificación
     function estrella(containerId, rating) {
@@ -166,3 +164,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
+function toggleHeart(heartIcon) {
+    // console.log("Toggle Heart Function Triggered");
+    heartIcon.classList.toggle('active');
+}
