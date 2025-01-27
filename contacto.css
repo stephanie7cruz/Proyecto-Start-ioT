@@ -1,5 +1,5 @@
 /* Estilo general del cuerpo */
-body {
+.form-container body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
@@ -9,6 +9,13 @@ body {
     align-items: flex-start;
     min-height: 100vh;
     padding-top: 40px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
 }
 
 /* Contenedor principal */
@@ -294,4 +301,5 @@ button:focus {
         font-size: 14px;
         padding: 12px;
     }
+
 }

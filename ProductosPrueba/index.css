@@ -1,0 +1,213 @@
+/* Estilo de la tarjeta */
+.card {
+    position: relative;
+    margin: 15px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: transparent;
+    height: auto;
+}
+
+/* Icono del corazón */
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: gray;
+    cursor: pointer;
+    font-size: 1.2rem;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+/* Imagen de la tarjeta */
+.card-img-top {
+    background-color: rgb(236, 229, 229);
+    object-fit: cover;
+    width: 100%;
+    height: 180px;
+    border-radius: 4px;
+}
+
+/* Contenido de la tarjeta */
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* Categoría */
+.categoria {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Nombre de la tarjeta con negrita */
+.card-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Precio destacado */
+.precio {
+    font-size: 18px;
+    color: #e80e5b;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Descripción con tamaño de texto pequeño */
+.descripcion {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Estilo de la clasificación */
+.clasificacion {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.clasificacion i {
+    font-size: 14px;
+    color: gold;
+}
+
+/* Estilo del botón con icono de carrito */
+.btn-cart {
+    background-color: #e80e5b !important;
+    color: white !important;
+    width: 100% !important;
+    border: none;
+    padding: 6px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+
+/* Fondo animado desde abajo hacia arriba */
+.btn-cart.clicked {
+    color: white;
+    background: linear-gradient(180deg, rgba(124, 34, 234, 1) 0%, rgba(124, 34, 234, 1) 100%);
+    background-size: 100% 200%;
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Definir el movimiento del fondo */
+@keyframes slideUp {
+    0% {
+        background-position: 0% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+
+
+/* Icono dentro del botón */
+.btn-cart i {
+    margin-right: 8px;
+
+    font-size: 1.2rem;
+}
+
+
+/* Texto en el botón */
+.btn-cart span {
+    font-size: 0.9rem;
+
+}
+
+
+
+
+
+
+/* modal */
+
+/* Modal alineado a la izquierda */
+#cartModal .modal-dialog {
+    width: 60%;
+    /* Ajusta el ancho según lo desees */
+    margin-left: auto;
+    /* Coloca el modal a la izquierda */
+    margin-right: 0;
+}
+
+#cartModal .modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo de los elementos dentro del carrito */
+#cartItemsContainer {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-item-img {
+    width: 80px;
+    /* Ajusta el tamaño de la imagen temporal */
+    height: 80px;
+    /* Mantenemos la relación cuadrada */
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.cart-item button {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+/* Estilo para el botón "Ir al carrito" */
+#checkoutButton {
+    width: 100%;
+}
+
+/* Ajustes para el modal */
+.modal-header {
+    background-color: #f1f1f1;
+    padding: 15px;
+}
+
+.modal-footer {
+    padding: 10px;
+}
