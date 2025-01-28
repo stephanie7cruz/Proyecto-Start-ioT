@@ -95,9 +95,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Función para agregar al carrito
     function agregarAlCarrito(e) {
+        e.preventDefault();
+
         const boton = e.currentTarget;
         const idBoton = e.currentTarget.id;
         const productoAgregado = productos.find(producto => producto.id === idBoton);
+
+        boton.classList.add("clicked");
+        setTimeout(() => {
+            boton.classList.remove("clicked");
+        }, 2000); // 1 segundo
+
 
         if (productosEnCarrito.some(producto => producto.id === idBoton)) {
             const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
