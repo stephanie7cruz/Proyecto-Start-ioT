@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
                 cartItemsContainer.appendChild(div);
 
-                // Calcular el total
+
                 total += producto.precio * producto.cantidad;
             });
             totalContainer.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
@@ -50,3 +50,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     mostrarCarrito();
 });
+
