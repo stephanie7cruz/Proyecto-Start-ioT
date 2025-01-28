@@ -1,7 +1,7 @@
 /* Cambiar color de fondo de la navbar */
 .navbar {
     background: linear-gradient(135deg, #284170, #943c7a);
-   
+
 }
 
 /* Cambiar el color del texto de la navbar */
@@ -68,7 +68,8 @@
 /* Estilo del carrito */
 
 .cart-icon-container {
-    display: flex; /* Usamos flexbox para facilitar la alineación */
+    display: flex;
+    /* Usamos flexbox para facilitar la alineación */
     align-items: center;
     justify-content: center;
     position: relative;
@@ -77,52 +78,76 @@
 /* Ícono del carrito */
 .cart-icon {
     margin: 8px;
-    font-size: 1.4rem; /* Tamaño base del ícono */
-    color: white; /* Color del ícono */
-    position: relative; /* Necesario para posicionar el contador */
-    cursor: pointer; /* Cambia el cursor a mano */
+    font-size: 1.4rem;
+    /* Tamaño base del ícono */
+    color: white;
+    /* Color del ícono */
+    position: relative;
+    /* Necesario para posicionar el contador */
+    cursor: pointer;
+    /* Cambia el cursor a mano */
 }
 
 /* Contador del carrito */
 .cart-icon .cart-count {
     position: absolute;
-    top: -5px; /* Posición del contador */
+    top: -5px;
+    /* Posición del contador */
     right: -10px;
-    background-color: black; /* Fondo del contador */
-    color: white; /* Texto del contador */
-    border-radius: 50%; /* Forma circular */
-    font-size: 0.6rem; /* Tamaño del texto */
-    padding: 2px 6px; /* Espaciado interno */
+    background-color: black;
+    /* Fondo del contador */
+    color: white;
+    /* Texto del contador */
+    border-radius: 50%;
+    /* Forma circular */
+    font-size: 0.6rem;
+    /* Tamaño del texto */
+    padding: 2px 6px;
+    /* Espaciado interno */
     font-weight: bold;
-    min-width: 18px; /* Ancho mínimo */
+    min-width: 18px;
+    /* Ancho mínimo */
     text-align: center;
-    display: flex; /* Asegura que el número esté centrado */
+    display: flex;
+    /* Asegura que el número esté centrado */
     align-items: center;
     justify-content: center;
 }
 
+
+
 /* Responsividad para pantallas pequeñas */
 @media (max-width: 768px) {
     .cart-icon {
-        font-size: 1.5rem; /* Tamaño del ícono en pantallas medianas */
+        font-size: 1.5rem;
+        /* Tamaño del ícono en pantallas medianas */
     }
+
     .cart-icon .cart-count {
-        font-size: 0.7rem; /* Ajustar tamaño del contador */
-        top: -3px; /* Reposiciona el contador */
+        font-size: 0.7rem;
+        /* Ajustar tamaño del contador */
+        top: -3px;
+        /* Reposiciona el contador */
         right: -8px;
-        padding: 1px 4px; /* Espaciado reducido */
+        padding: 1px 4px;
+        /* Espaciado reducido */
     }
 }
 
 /* Responsividad para pantallas muy pequeñas (teléfonos) */
 @media (max-width: 480px) {
     .cart-icon {
-        font-size: 1.2rem; /* Tamaño menor para el ícono */
+        font-size: 1.2rem;
+        /* Tamaño menor para el ícono */
     }
+
     .cart-icon .cart-count {
-        font-size: 0.6rem; /* Reducir tamaño del texto */
-        top: -2px; /* Reposicionar el contador */
+        font-size: 0.6rem;
+        /* Reducir tamaño del texto */
+        top: -2px;
+        /* Reposicionar el contador */
         right: -5px;
-        padding: 1px 3px; /* Reducir el padding */
+        padding: 1px 3px;
+        /* Reducir el padding */
     }
 }

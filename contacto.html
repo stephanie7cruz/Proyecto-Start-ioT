@@ -15,124 +15,125 @@
 </head>
 
 <body>
+  <div class="container2">
+    <header id="navbar"></header>
 
-  <header id="navbar"></header>
+    <main>
+      <div class="form-container">
+        <div class="form-section">
+          <h1>Ayúdanos a entender tus necesidades para ofrecerte la mejor solución.</h1>
+          <h2>Datos Básicos</h2>
+          <form action="https://formspree.io/f/xkgganzj" id="miFormulario" method="POST">
+            <div class="form-row">
+              <!-- Campo para el nombre -->
+              <div class="form-group">
+                <label for="name">Nombre completo:</label>
+                <input type="text" id="name" name="name" placeholder="Ingresa tu Nombre" required autocomplete="name">
+                <span id="error-name" class="error-message"></span>
+              </div>
+
+              <!-- Campo para el correo -->
+              <div class="form-group">
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" placeholder="Ingresa tu Correo" required
+                  autocomplete="email">
+                <span id="error-email" class="error-message"></span>
+              </div>
+
+              <!-- Campo para teléfono -->
+              <div class="form-group">
+                <label for="telefono">Número de telefono:</label>
+                <input type="telefono" id="telefono" name="telefono" placeholder="Ingresa tu Número" required>
+                <span id="error-telefono" class="error-message"></span>
+              </div>
+
+              <!-- Tipo cliente -->
+              <div class="form-group">
+                <label for="options">Tipo Cliente:</label>
+                <select id="options" name="options" required>
+                  <option value="" disabled selected>Selecciona una Opción</option>
+                  <option value="natural">Persona Natural</option>
+                  <option value="juridica">Persona Juridica</option>
+                </select>
+                <span id="error-options" class="error-message"></span>
+              </div>
+            </div>
+
+            <h2>Información Sobre Vehiculos</h2>
+            <div class="form-row">
+              <!-- Tipo vehículo -->
+              <div class="form-group">
+                <label for="vehiculo">Tipo Vehiculo:</label>
+                <select id="vehiculo" name="vehiculo" required>
+                  <option value="" disabled selected>Selecciona una opción</option>
+                  <option value="moto">Moto</option>
+                  <option value="carro">Automovil</option>
+                  <option value="camion">Camion</option>
+                  <option value="furgon">Furgon</option>
+                </select>
+              </div>
+
+              <!-- Número de vehículos -->
+              <div class="form-group">
+                <label for="numvehiculos">Número de vehículos:</label>
+                <input type="text" id="numvehiculos" name="numvehiculos" placeholder="Número de Vehículos" required
+                  pattern="\d+">
+              </div>
+            </div>
+
+            <!-- 111111 -->
+            <!-- esta sesion comentada es para agregar funcionalidades de interes que el usuario puede marcar -->
+
+            <!-- Funcionalidades de interés -->
+            <div class="form-group">
+              <h3>Funcionalidades de interés:</h3>
+              <div class="checkbox-grid">
+                <label class="checkbox-card">
+                  <input type="checkbox" name="interes" value="rastreo"> Rastreo
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="interes" value="temperatura"> Detector de Temperatura
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="interes" value="alarma"> Alarma
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="interes" value="bocina"> Bocinas
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="interes" value="cerradura"> Cerradura Inalámbrica
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="interes" value="sensor"> Sensores de Movimiento
+                </label>
+              </div>
+              <span id="error-interes" class="error-message"></span>
+            </div>
+            <!-- 11111 -->
+
+            <!-- 22222 -->
+            <!-- el codigo comentado habilita una casilla que al marcarse muestra un cuadro para escribir anotaciones -->
+
+            <div class="form-group">
+              <label for="agregarDescripcion">¿Agregar Descripción?</label>
+              <input type="checkbox" id="agregarDescripcion" onclick="toggleDescription()">
+            </div>
+
+            <div id="descriptionBox" style="display: none;">
+              <textarea id="descripcion" name="description" placeholder="Escribe aquí tus anotaciones importantes..."
+                rows="4" cols="50"></textarea>
+            </div>
+            <!-- 22222 -->
 
 
-  <div class="form-container">
-    <div class="form-section">
-      <h1>Ayúdanos a entender tus necesidades para ofrecerte la mejor solución.</h1>
-      <h2>Datos Básicos</h2>
-      <form action="https://formspree.io/f/xkgganzj" id="miFormulario" method="POST">
-        <div class="form-row">
-          <!-- Campo para el nombre -->
-          <div class="form-group">
-            <label for="name">Nombre completo:</label>
-            <input type="text" id="name" name="name" placeholder="Ingresa tu Nombre" required autocomplete="name">
-            <span id="error-name" class="error-message"></span>
-          </div>
-
-          <!-- Campo para el correo -->
-          <div class="form-group">
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" placeholder="Ingresa tu Correo" required autocomplete="email">
-            <span id="error-email" class="error-message"></span>
-          </div>
-
-          <!-- Campo para teléfono -->
-          <div class="form-group">
-            <label for="telefono">Número de telefono:</label>
-            <input type="telefono" id="telefono" name="telefono" placeholder="Ingresa tu Número" required>
-            <span id="error-telefono" class="error-message"></span>
-          </div>
-
-          <!-- Tipo cliente -->
-          <div class="form-group">
-            <label for="options">Tipo Cliente:</label>
-            <select id="options" name="options" required>
-              <option value="" disabled selected>Selecciona una Opción</option>
-              <option value="natural">Persona Natural</option>
-              <option value="juridica">Persona Juridica</option>
-            </select>
-            <span id="error-options" class="error-message"></span>
-          </div>
+            <!-- Botón de envío -->
+            <button type="submit">Enviar</button>
+          </form>
         </div>
-
-        <h2>Información Sobre Vehiculos</h2>
-        <div class="form-row">
-          <!-- Tipo vehículo -->
-          <div class="form-group">
-            <label for="vehiculo">Tipo Vehiculo:</label>
-            <select id="vehiculo" name="vehiculo" required>
-              <option value="" disabled selected>Selecciona una opción</option>
-              <option value="moto">Moto</option>
-              <option value="carro">Automovil</option>
-              <option value="camion">Camion</option>
-              <option value="furgon">Furgon</option>
-            </select>
-          </div>
-
-          <!-- Número de vehículos -->
-          <div class="form-group">
-            <label for="numvehiculos">Número de vehículos:</label>
-            <input type="text" id="numvehiculos" name="numvehiculos" placeholder="Número de Vehículos" required
-              pattern="\d+">
-          </div>
-        </div>
-
-        <!-- 111111 -->
-        <!-- esta sesion comentada es para agregar funcionalidades de interes que el usuario puede marcar -->
-
-        <!-- Funcionalidades de interés -->
-        <div class="form-group">
-          <h3>Funcionalidades de interés:</h3>
-          <div class="checkbox-grid">
-            <label class="checkbox-card">
-              <input type="checkbox" name="interes" value="rastreo"> Rastreo
-            </label>
-            <label class="checkbox-card">
-              <input type="checkbox" name="interes" value="temperatura"> Detector de Temperatura
-            </label>
-            <label class="checkbox-card">
-              <input type="checkbox" name="interes" value="alarma"> Alarma
-            </label>
-            <label class="checkbox-card">
-              <input type="checkbox" name="interes" value="bocina"> Bocinas
-            </label>
-            <label class="checkbox-card">
-              <input type="checkbox" name="interes" value="cerradura"> Cerradura Inalámbrica
-            </label>
-            <label class="checkbox-card">
-              <input type="checkbox" name="interes" value="sensor"> Sensores de Movimiento
-            </label>
-          </div>
-          <span id="error-interes" class="error-message"></span>
-        </div>
-        <!-- 11111 -->
-
-        <!-- 22222 -->
-        <!-- el codigo comentado habilita una casilla que al marcarse muestra un cuadro para escribir anotaciones -->
-
-        <div class="form-group">
-          <label for="agregarDescripcion">¿Agregar Descripción?</label>
-          <input type="checkbox" id="agregarDescripcion" onclick="toggleDescription()">
-        </div>
-
-        <div id="descriptionBox" style="display: none;">
-          <textarea id="descripcion" name="description" placeholder="Escribe aquí tus anotaciones importantes..."
-            rows="4" cols="50"></textarea>
-        </div>
-        <!-- 22222 -->
-
-
-        <!-- Botón de envío -->
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+      </div>
+    </main>
+    <footer id="footer"></footer>
   </div>
-
-  <header id="footer"></header>
-
   <!-- cargar nav -->
 
   <script>
