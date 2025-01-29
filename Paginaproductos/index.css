@@ -113,6 +113,8 @@
     background: linear-gradient(180deg, rgba(124, 34, 234, 1) 0%, rgba(124, 34, 234, 1) 100%);
     background-size: 100% 200%;
     animation: slideUp 0.5s ease-out forwards;
+    transition: all 0.3s ease-in-out;
+    /* Transición suave */
 }
 
 /* Definir el movimiento del fondo */
@@ -125,6 +127,18 @@
         background-position: 0% 0%;
     }
 }
+
+/* Ajuste para el ícono en estado clickeado */
+.btn-cart.clicked i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+/* Ajuste para el texto en estado clickeado */
+.btn-cart.clicked span {
+    font-size: 0.9rem;
+}
+
 
 
 
