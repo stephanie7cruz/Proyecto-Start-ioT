@@ -12,11 +12,13 @@ body {
   margin: 20px auto;
 }
 
+
 /* Estilo para cada fila de contenido */
 .content-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin-bottom: 20px;
 }
 
@@ -225,4 +227,10 @@ body {
   .text-right {
     text-align: center;
   }
+}
+
+.container1 {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
