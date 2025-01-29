@@ -101,9 +101,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const idBoton = e.currentTarget.id;
         const productoAgregado = productos.find(producto => producto.id === idBoton);
 
+        const textoOriginal = boton.innerHTML;
+
         boton.classList.add("clicked");
+        boton.innerHTML = `<i class="fas fa-check"></i> AGREGADO AL CARRITO`;
+
+
         setTimeout(() => {
             boton.classList.remove("clicked");
+            boton.innerHTML = textoOriginal;
         }, 2000); // 1 segundo
 
 
