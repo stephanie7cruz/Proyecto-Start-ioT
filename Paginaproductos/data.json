@@ -1,81 +1,165 @@
 {
     "page": 1,
-    "per_page": 10,
-    "total": 10,
+    "per_page": 11,
+    "total": 11,
     "total_pages": 1,
     "item": [
         {
             "id": "STRT1",
-            "name": "MEITRACK P88L + 1 AÑO PLATAFORMA",
+            "name": "MEITRACK P88L",
             "description": "Dimensiones: 67 x 44 x 16 mm, Peso: 60 g, Mini rastreador personal",
             "categoria": "GPS",
+            "activo": "Personas",
             "precio": 721067.01,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1737127382/kmvfed4sbedphs5gi68w.svg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307015/STRT1.IMAGEN.061611_xekhkg.png"
         },
         {
             "id": "STRT2",
             "name": "PIONNER X101 PN.01",
             "description": "Alertas de encendido/apagado-Alertas de desconex",
             "categoria": "GPS",
+            "activo": "Camión",
             "precio": 332800.4,
-            "img": "https://example.com/images/pionner_x101.jpg"
+            "img": "https://res-console.cloudinary.com/dsr4y9xyl/thumbnails/v1/image/upload/v1737607673/U1RSVDE1LklNQUdFTi4wNTU4MTJfZ2NzeDNi/preview"
         },
         {
             "id": "STRT3",
-            "name": "VT08F + RELAY + PROTRACK 365",
+            "name": "GPS VT08F",
             "description": "GSM: 850/900/1800/1900 MHz, GPS: SIRF Star II, Rastreador para motocicletas",
             "categoria": "GPS",
+            "activo": "Carro, Moto",
             "precio": 153051.14,
-            "img": "https://example.com/images/vt08f.jpg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307011/STRT3.IMAGEN.055928_aprt3t.png"
         },
         {
             "id": "STRT4",
-            "name": "VT03EF +PROTRACK 365 3000 MILIAMP",
+            "name": "VT03EF",
             "description": "Dimensiones: 97 x 65 x 35.4 mm, Peso: 266 g, Rastreador GPS compacto",
             "categoria": "GPS",
+            "activo": "Carga",
             "precio": 262400.14,
-            "img": "https://example.com/images/vt03ef.jpg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307202/STRT4.IMAGEN.060722_pk2jxx.png"
         },
         {
             "id": "STRT5",
-            "name": "VT03SF +PROTRACK 365 10.000 MILIAMP",
+            "name": "VT03SF",
             "description": "Dimensiones: 97 x 65 x 35.4 mm, Peso: 266 g, Rastreador GPS compacto",
             "categoria": "GPS",
+            "activo": "Carga",
             "precio": 318932.82,
-            "img": "https://example.com/images/vt03sf.jpg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307203/STRT5.IMAGEN.060659_t7jl18.png"
         },
         {
             "id": "STRT6",
             "name": "OBD 6F PROTRACK +PROTRACK 365",
             "description": "Voltaje de entrada: 9-90 V, Adecuado para vehículos eléctricos",
             "categoria": "GPS",
+            "activo": "Carro, Moto",
             "precio": 217599.78,
-            "img": "https://example.com/images/obd6f.jpg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT6.IMAGEN.060120_stsw7m.png"
         },
         {
             "id": "STRT7",
             "name": "GPS CIGARRETE VTC6 PROTRACK +PROTRACK 365",
             "description": "Voltaje de entrada: 9-90 V, Rastreador GPS plug and play",
             "categoria": "GPS",
+            "activo": "Carro",
             "precio": 224000.27,
-            "img": "https://example.com/images/vtc6.jpg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307204/STRT7.IMAGEN.055902_pkmcle.png"
         },
         {
             "id": "STRT9",
             "name": "MIC - MICROFONO DE ALTA SENSIBILIDAD",
             "description": "Micrófono de alta sensibilidad para grabación de audio",
-            "categoria": "ACCESORIO",
+            "categoria": "Carro, Camion",
+            "activo": "PERSONAS",
             "precio": 15359.95,
-            "img": "https://example.com/images/mic.jpg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT9.IMAGEN.192908_aoeqak.png"
         },
         {
             "id": "STRT10",
             "name": "RAMAL DE CONEXION",
             "description": "Accesorio para conexión de dispositivos adicionales",
             "categoria": "ACCESORIO",
+            "activo": "Carro, Camion, Moto",
             "precio": 19199.94,
-            "img": "https://example.com/images/ramal_conexion.jpg"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307253/STRT10.IMAGEN.151952_gm7jle.png"
+        },
+        {
+            "id": "STRT17",
+            "name": "KNIGHT X 100",
+            "description": "Rastreador avanzado GNSS, LTE, WiFi y BLE.",
+            "categoria": "GPS",
+            "activo": "Carga",
+            "precio": 544000,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307210/STRT17.IMAGEN.061142_jsxcr4.png"
+        },
+        {
+            "id": "STRT18",
+            "name": "SOLARGUARD X200",
+            "description": "Candado electrónico GPS con energía solar.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 1919999,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307540/STRT18.IMAGEN.060901_xqvi8g.png"
+        },
+        {
+            "id": "STRT19",
+            "name": "SOLAR X 120",
+            "description": "Cerradura electrónica GPS con energía solar.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 959999,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307518/STRT19.IMAGEN.060919_xr3ixd.png"
+        },
+
+        {
+            "id": "STRT20",
+            "name": "SOLAR X 110",
+            "description": "Rastreador GNSS y LTE para flotas.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 831.999,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307211/STRT20.IMAGEN.060817_lv2f7g.png"
+        },
+        {
+            "id": "STRT21",
+            "name": "HeroX 100 PN:01",
+            "description": "Rastreador GPS con BLE y alertas.",
+            "categoria": "GPS",
+            "activo": "VEHÍCULOS",
+            "precio": 627.200,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307570/STRT21.IMAGEN.055533_bpuihm.png"
+        },
+        {
+            "id": "STRT22",
+            "name": "TorchX 110 PN:01.01",
+            "description": "Rastreador GPS 4G con interfaz OBDII.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 627.200,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1737607677/STRT22.IMAGEN.045100_vpwuye.png"
+        },
+
+        {
+            "id": "STRT24",
+            "name": "WarriorX 100 BN:02",
+            "description": "Rastreador GPS robusto con conectividad 4G.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 524.800,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307215/STRT24.IMAGEN.060744_qlqdop.png"
+        },
+        {
+            "id": "STRT25",
+            "name": "TA22 INTERNAL TPS SET BLE",
+            "description": "Sensor de presión y temperatura para neumáticos.",
+            "categoria": "ACCESORIO",
+            "activo": "Flotas",
+            "precio": 454.399,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307217/STRT25.IMAGEN.153249_dj6aoo.png"
         }
+        
     ],
     "ad": {
         "company": "Start ioT",
