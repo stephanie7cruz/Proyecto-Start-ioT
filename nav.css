@@ -9,6 +9,12 @@
     color: #ffffff !important;
     /* Cambia el valor hex para el color del texto */
 }
+.logo{
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
 
 
 /* Cambiar el color del texto activo */
