@@ -46,20 +46,33 @@ document.addEventListener("DOMContentLoaded", function () {
     function eliminarDelCarrito(idProducto) {
         productosEnCarrito = productosEnCarrito.filter(producto => producto.id !== idProducto);
         localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-        mostrarCarrito();
+         mostrarCarrito();
     }
 
     // Evento para finalizar compra (solo muestra alerta por ahora)
     document.getElementById("checkoutBtn").addEventListener("click", () => {
         if (productosEnCarrito.length > 0) {
-            alert("Compra realizada con éxito.");
+            Swal.fire({
+                title: "¡Compra Realizada!",
+                text: "Tu pedido llegará pronto 🏃‍♀️‍➡️",
+                icon: "success",
+                background: "#f8f9fa", // Fondo de la alerta
+                color: "#333", // Color del texto
+                timer: 4000,
+                showConfirmButton: true,
+            });
             localStorage.removeItem("productos-en-carrito"); // Limpiar el carrito
             mostrarCarrito();
         } else {
-            alert("El carrito está vacío.");
+            Swal.fire({
+                title: "Carrito Vacío",
+                text: "No tienes productos en el carrito.",
+                icon: "warning",
+                confirmButtonText: "Agregar productos",
+            });
         }
     });
-
+eliminarDelCarrito();
     mostrarCarrito();
 });
 

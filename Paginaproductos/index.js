@@ -1,13 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     let productosEnCarrito = [];
-
-//     // Cargar productos desde el localStorage, pero resetear el contador
-//     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-
-//     actualizarNumerito();
-
-//     // El resto de tu código aquí...
-// });
 
 
 

@@ -86,25 +86,28 @@
 
             <!-- Funcionalidades de interés -->
             <div class="form-group">
-              <h3>Funcionalidades de interés:</h3>
+              <h3 id="h3">Funcionalidades de interés:</h3>
               <div class="checkbox-grid">
                 <label class="checkbox-card">
                   <input type="checkbox" name="interes" value="rastreo"> Rastreo
                 </label>
                 <label class="checkbox-card">
-                  <input type="checkbox" name="interes" value="temperatura"> Detector de Temperatura
+                  <input type="checkbox" name="interes" value="temperatura"> GPS 
                 </label>
                 <label class="checkbox-card">
                   <input type="checkbox" name="interes" value="alarma"> Alarma
                 </label>
                 <label class="checkbox-card">
-                  <input type="checkbox" name="interes" value="bocina"> Bocinas
+                  <input type="checkbox" name="interes" value="bocina"> Bocinas  
                 </label>
                 <label class="checkbox-card">
                   <input type="checkbox" name="interes" value="cerradura"> Cerradura Inalámbrica
                 </label>
                 <label class="checkbox-card">
                   <input type="checkbox" name="interes" value="sensor"> Sensores de Movimiento
+                </label>
+                <label class="checkbox-card">
+                  <input type="checkbox" name="interes" value="sensor"> Detector de Temperatura
                 </label>
               </div>
               <span id="error-interes" class="error-message"></span>
@@ -127,7 +130,10 @@
 
 
             <!-- Botón de envío -->
-            <button type="submit">Enviar</button>
+            <div id="enviar">
+              <button  type="submit">Enviar</button>
+            </div>
+           
           </form>
         </div>
       </div>
