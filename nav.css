@@ -1,12 +1,12 @@
 /* Cambiar color de fondo de la navbar */
 .navbar {
-    background: linear-gradient(135deg, #284170, #943c7a);
+    background: linear-gradient(135deg, #feffff, #ffffff);
 
 }
 
 /* Cambiar el color del texto de la navbar */
 .navbar-nav .nav-link {
-    color: #ffffff !important;
+    color: #2e2b3b !important;
     /* Cambia el valor hex para el color del texto */
 }
 .logo{
@@ -19,13 +19,13 @@
 
 /* Cambiar el color del texto activo */
 .navbar-nav .nav-link.active {
-    color: #ffc107 !important;
+    color: #7b7980 !important;
     /* Cambia el valor hex para el color del texto activo */
 }
 
 /* Cambiar el color del texto cuando se pasa el cursor sobre un enlace */
 .navbar-nav .nav-link:hover {
-    color: #f8f9fa !important;
+    color: #656668 !important;
     /* Cambia el valor hex para el color al pasar el cursor */
 }
 
@@ -53,7 +53,7 @@
 
 /* Cambiar el color de los enlaces del menú desplegable */
 .navbar-nav .nav-item.dropdown .nav-link {
-    color: #ffffff !important;
+    color: #696464 !important;
     /* Cambia el color de los enlaces desplegables */
 }
 
@@ -67,7 +67,7 @@
 .navbar-nav .nav-item.dropdown .dropdown-menu .dropdown-item:hover {
     background-color: #284170 !important;
     /* Cambia el color de fondo al pasar el cursor */
-    color: #ffffff !important;
+    color: #252222 !important;
     /* Cambia el color del texto al pasar el cursor */
 }
 
