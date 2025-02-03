@@ -1,0 +1,159 @@
+/* Cambiar color de fondo de la navbar */
+.navbar {
+    background: linear-gradient(135deg, #feffff, #ffffff);
+
+}
+
+/* Cambiar el color del texto de la navbar */
+.navbar-nav .nav-link {
+    color: #2e2b3b !important;
+    /* Cambia el valor hex para el color del texto */
+}
+.logo{
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* Cambiar el color del texto activo */
+.navbar-nav .nav-link.active {
+    color: #7b7980 !important;
+    /* Cambia el valor hex para el color del texto activo */
+}
+
+/* Cambiar el color del texto cuando se pasa el cursor sobre un enlace */
+.navbar-nav .nav-link:hover {
+    color: #656668 !important;
+    /* Cambia el valor hex para el color al pasar el cursor */
+}
+
+/* Cambiar el color del fondo del botón de búsqueda */
+.navbar .btn-outline-success {
+    border-color: #ffc107 !important;
+    /* Cambia el color del borde */
+    color: #ffc107 !important;
+    /* Cambia el color del texto */
+}
+
+/* Cambiar el color del texto del botón de búsqueda cuando se pasa el cursor */
+.navbar .btn-outline-success:hover {
+    background-color: #ffc107 !important;
+    /* Cambia el color de fondo al pasar el cursor */
+    color: #000000 !important;
+    /* Cambia el color del texto al pasar el cursor */
+}
+
+/* Cambiar el color del texto del enlace deshabilitado */
+.nav-link.disabled {
+    color: #ffc107 !important;
+    /* Cambia el color del texto deshabilitado */
+}
+
+/* Cambiar el color de los enlaces del menú desplegable */
+.navbar-nav .nav-item.dropdown .nav-link {
+    color: #696464 !important;
+    /* Cambia el color de los enlaces desplegables */
+}
+
+/* Cambiar el color de los elementos del menú desplegable */
+.navbar-nav .nav-item.dropdown .dropdown-menu .dropdown-item {
+    color: #212529 !important;
+    /* Cambia el color de los elementos del menú desplegable */
+}
+
+/* Cambiar el color del texto de los elementos del menú desplegable al pasar el cursor */
+.navbar-nav .nav-item.dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: #284170 !important;
+    /* Cambia el color de fondo al pasar el cursor */
+    color: #252222 !important;
+    /* Cambia el color del texto al pasar el cursor */
+}
+
+/* Estilo del carrito */
+
+.cart-icon-container {
+    display: flex;
+    /* Usamos flexbox para facilitar la alineación */
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Ícono del carrito */
+.cart-icon {
+    margin: 8px;
+    font-size: 1.4rem;
+    /* Tamaño base del ícono */
+    color: white;
+    /* Color del ícono */
+    position: relative;
+    /* Necesario para posicionar el contador */
+    cursor: pointer;
+    /* Cambia el cursor a mano */
+}
+
+/* Contador del carrito */
+.cart-icon .cart-count {
+    position: absolute;
+    top: -5px;
+    /* Posición del contador */
+    right: -10px;
+    background-color: black;
+    /* Fondo del contador */
+    color: white;
+    /* Texto del contador */
+    border-radius: 50%;
+    /* Forma circular */
+    font-size: 0.6rem;
+    /* Tamaño del texto */
+    padding: 2px 6px;
+    /* Espaciado interno */
+    font-weight: bold;
+    min-width: 18px;
+    /* Ancho mínimo */
+    text-align: center;
+    display: flex;
+    /* Asegura que el número esté centrado */
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .cart-icon {
+        font-size: 1.5rem;
+        /* Tamaño del ícono en pantallas medianas */
+    }
+
+    .cart-icon .cart-count {
+        font-size: 0.7rem;
+        /* Ajustar tamaño del contador */
+        top: -3px;
+        /* Reposiciona el contador */
+        right: -8px;
+        padding: 1px 4px;
+        /* Espaciado reducido */
+    }
+}
+
+/* Responsividad para pantallas muy pequeñas (teléfonos) */
+@media (max-width: 480px) {
+    .cart-icon {
+        font-size: 1.2rem;
+        /* Tamaño menor para el ícono */
+    }
+
+    .cart-icon .cart-count {
+        font-size: 0.6rem;
+        /* Reducir tamaño del texto */
+        top: -2px;
+        /* Reposicionar el contador */
+        right: -5px;
+        padding: 1px 3px;
+        /* Reducir el padding */
+    }
+}

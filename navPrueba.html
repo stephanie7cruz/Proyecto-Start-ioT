@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="nav.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <title>prueba carrito</title>
+</head>
+<nav class="navbar navbar-expand-lg bg-bg-success fixed-top "> <!-- ATENCION agregue fixed-top para que el nav se fije siempre -->
+  <div class="container-fluid d-flex justify-content-between">
+    <a class="navbar-brand" href="home.html">
+      <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1737127382/zohorhxjlf9mhgopjzfe.png" alt="START" class="img-fluid" style="max-width: 120px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav  ms-auto my-lg-10 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="home.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contacto.html">Contacto</a>
+        </li>
+        <li class="nav-item dropdown">
+        <li class="nav-item">
+          <a class="nav-link" href="nosotros.html">Nosotros</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Perfil
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Tienda</a></li>
+            <li><a class="dropdown-item" href="#">Deseos</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Cuenta</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" id="search-field"
+          name="search" autocomplete="on">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+      <li  class="cart-icon-container">
+        <a href="#cart" class="cart-icon">
+            <i class="fas fa-shopping-cart"></i> <!-- Ícono del carrito -->
+            <span class="cart-count" id="cart-count">0</span> <!-- Cantidad de ítems -->
+        </a>
+    </li>
+    </div>
+  </div>
+</nav>
+
+<body>
+        <div class="container"> 
+            <div class="row"> 
+                <div class="col">
+                    <div id="list-items" class="row">
+                           <!-- Las tarjetas se agregarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+
+   
+
+    <!-- <script>
+
+        fetch('../nav.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+          })
+          .catch(error => console.error('Error al cargar el navbar:', error));
+      </script> -->
+    
+      <!-- cargar footer -->
+      <script>
+    
+        fetch('footer.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('footer').innerHTML = data;
+          })
+          .catch(error => console.error('Error al cargar el footer:', error));
+      </script>
+</body>
+
+</html>
