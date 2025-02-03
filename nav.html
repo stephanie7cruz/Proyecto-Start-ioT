@@ -1,15 +1,34 @@
-<nav class="navbar navbar-expand-lg bg-bg-success ">
-  <div class="container-fluid d-flex justify-content-between">
+<div class="top-bar">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <!-- Textos separados por "|" -->
+    <div class="top-texts">
+      <span>Rastreo satelital en tiempo real | Dispositivos GPS avanzados | Tecnología IoT para monitoreo y control</span>
+    </div>  
+    <!-- Iconos de redes sociales -->
+    <div class="social-icons">
+      <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-bg-success fixed-top">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <!-- Logo -->
     <a class="navbar-brand" href="home.html">
-      <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1737127382/zohorhxjlf9mhgopjzfe.png" alt="START" class="img-fluid" style="max-width: 120px;">
+      <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg" alt="START" class="img-fluid ms-5" style="max-width: 120px;">
     </a>
+
+    <!-- Botón para dispositivos móviles -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
       aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="nav-link disabled" aria-disabled="true">Seguridad, Tecnología e innovación</a>
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav  ms-auto my-lg-10 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
+    <!-- Menú principal -->
+    <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarScroll">
+      <ul class="navbar-nav d-flex justify-content-center align-items-center">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="home.html">Inicio</a>
         </li>
@@ -17,39 +36,40 @@
           <a class="nav-link" href="contacto.html">Contacto</a>
         </li>
         <li class="nav-item dropdown">
-        <li class="nav-item">
           <a class="nav-link" href="nosotros.html">Nosotros</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Cuenta
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="login.html">Perfil </a></li>
-            <li><a class="dropdown-item" href="#">Favoritos</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="../Proyecto-Start-ioT/Paginaproductos/index.html">Tienda</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-        </li>
+
+        <!-- Formulario de búsqueda (oculto) -->
+        <form class="d-none" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" id="search-field"
+                 name="search" autocomplete="on">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+
+        <!-- Sección derecha: Cuenta y Carrito -->
+        <div class="d-flex align-items-center ms-auto border-start ps-3"> 
+          <!-- Dropdown Cuenta -->
+          <li class="nav-item dropdown me-3">
+            <a class="nav-link dropdown-toggle perfil-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Cuenta
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../Proyecto-Start-ioT/Paginaproductos/index.html">Tienda</a></li>
+              <li><a class="dropdown-item" href="#">Deseos</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Perfil</a></li>
+            </ul>
+          </li>
+
+          <!-- Ícono del carrito -->
+          <li class="cart-icon-container">
+            <a href="#" class="cart-icon d-flex align-items-center">
+              <i class="fas fa-shopping-cart"></i> <!-- Ícono del carrito -->
+              <span class="cart-count ms-1" id="cart-count">0</span> <!-- Cantidad de ítems -->
+            </a>
+          </li>
+        </div>
       </ul>
-     <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" id="search-field"
-          name="search" autocomplete="on">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
-      <li class="cart-icon-container">
-        <a href="#" class="cart-icon">
-          <i class="fas fa-shopping-cart"></i> <!-- Ícono del carrito -->
-          <span class="cart-count" id="cart-count">0</span> <!-- Cantidad de ítems -->
-        </a>
-      </li>
-
-
     </div>
-  </div>
   </div>
 </nav>
