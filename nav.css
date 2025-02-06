@@ -1,6 +1,7 @@
 /* Barra superior */
 .top-bar {
     background: linear-gradient(135deg, #284170, #943c7a);
+
     color: white;
     padding: 5px 15px;
     font-size: 14px;
@@ -9,6 +10,7 @@
     top: 0;
     z-index: 1050; /* Asegura que esté sobre el navbar */
 }
+
 
 /* Iconos de redes sociales */
 .social-icons {
