@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const contenedorProductos = document.querySelector("#list-items");
 
     // Cargar productos desde el archivo data.json
-    fetch('./data.json')
+    fetch('../Template/data.json')
         .then(response => response.json())
         .then(data => {
             productos = data.item;
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error al cargar los productos:", error));
 
     // Cargar navbar desde nav.html
-    fetch('../nav.html')
+    fetch('nav.html')
         .then(response => response.text())
         .then(data => {
             document.getElementById('navbar').innerHTML = data;
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementById("checkoutButton").addEventListener("click", () => {
-        window.location.href = "../carrito/carrito.html";
+        window.location.href = "carrito.html";
     });
 
 
