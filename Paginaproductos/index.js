@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error('Error al cargar el navbar:', error));
 
-    // Función para cargar y renderizar los productos
+    // Función para cargar y renderizar los productos                     <img src="${producto.img}" class="card-img-top" alt="image">
+
     function cargarProductos(productosElegidos) {
         contenedorProductos.innerHTML = "";
         productosElegidos.forEach((producto, index) => {
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
             div.innerHTML = `
                 <div class="card w-100 h-100" style="width: 18rem;">
                     <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>
-                    <img src="${producto.img}" class="card-img-top" alt="image">
+                    <img src="${producto.img}" class="card-img-top object-fit-cover" alt="image" style="height: 200px; width: 100%; object-fit: cover;">
                     <div class="info">
                         <p class="categoria">${producto.categoria}</p>
                         <h5 class="card-title">${producto.name}</h5>
