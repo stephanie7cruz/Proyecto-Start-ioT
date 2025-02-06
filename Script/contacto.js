@@ -72,7 +72,7 @@ document.getElementById("miFormulario").addEventListener("submit", function (eve
   
     // Si todos los campos son válidos, envía el formulario
     if (validar) {
-      this.submit(); // Envía el formulario
+      this.submit(); // Envía el formulario...
     }
   });
   

@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
     const cartItemsContainer = document.getElementById('cartItemsContainer');
