@@ -29,7 +29,7 @@ body
   
 } 
 #carouselPaquetes .carousel-inner {
-  padding: 50px;  /* Espacio interno para que las cards no estén tan ajustadas */
+  padding: 25px;  /* Espacio interno para que las cards no estén tan ajustadas */
 }
 
 
@@ -120,7 +120,7 @@ body
 
 .carousel-item img {
     object-fit: cover;
-    height: 600px;
+    height: 450px;
   }
   
   .carousel-caption {
@@ -159,6 +159,7 @@ body
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
 .package-card:hover {
@@ -207,9 +208,14 @@ body
 
 
 .carousel-item .card {
-    height: 450px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+  height: 480px;
+  width: 290px; /* Ajusta el ancho según lo que necesites */
+  background-color: #f1f0f0; /* Un color gris claro, puedes cambiarlo a otro tono claro */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px; /* Opcional, para esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional, para darle un efecto de sombra más suave */
+}
+
   
   .carousel-item .card:hover {
     transform: scale(1.05);
@@ -235,4 +241,5 @@ body
   .carousel-indicators button {
     background-color: #007bff;
   }
+  
   
