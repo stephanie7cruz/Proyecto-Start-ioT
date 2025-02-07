@@ -10,6 +10,11 @@
     top: 0;
     z-index: 1050; /* Asegura que esté sobre el navbar */
 }
+.navbar-toggler:focus, .navbar-toggler.collapsed {
+    box-shadow: none !important; /* Elimina cualquier sombra o borde de foco */
+    outline: none !important; /* Elimina cualquier contorno que se agregue al hacer clic */
+    border: none !important; /* Elimina el borde predeterminado */
+  }
 
 
 /* Iconos de redes sociales */
@@ -30,6 +35,9 @@
 }
 
 /* Textos informativos */
+.top-texts::after {
+    content: "Rastreo satelital en tiempo real | Dispositivos GPS avanzados | Tecnología IoT para monitoreo y control";
+}
 .top-texts {
     text-align: center;
     flex-grow: 1;
@@ -161,4 +169,35 @@
    .cart-icon .cart-count {
        font-size: 0.6rem; 
    }
+}
+/* Ajuste del texto en la barra superior */
+@media (max-width: 768px) {
+    .top-texts {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .social-icons {
+        display: none;
+    }
+    
+    .top-texts::after {
+        content: "Rastreo satelital en tiempo real."; /* Solo muestra esta parte del texto */
+        display: block;
+    }
+}
+
+/* Ajuste del navbar */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    .cart-icon-container {
+        margin-left: auto;
+    }
 }

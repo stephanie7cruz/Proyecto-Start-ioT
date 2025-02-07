@@ -21,8 +21,8 @@
 <body>
 
 
-  <div class="container">
-    <div class="row">
+  <div  class="container">
+    <div  id="contenedorTodosProductos"  class="row">
       <div class="col">
         <div id="list-items" class="row">
           <!-- Las tarjetas se agregarán aquí dinámicamente -->
@@ -47,11 +47,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -83,6 +78,17 @@
         document.getElementById('footer').innerHTML = data;
       })
       .catch(error => console.error('Error al cargar el footer:', error));
+
+
+      document.addEventListener("DOMContentLoaded", () => {
+    const productos = JSON.parse(localStorage.getItem("productos"));
+    if (productos) {
+        cargarProductos(productos, "#contenedorTodosProductos");
+    } else {
+        console.error("No hay productos en localStorage.");
+    }
+});
+      
   </script>
 </body>
 

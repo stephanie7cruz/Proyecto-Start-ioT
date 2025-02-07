@@ -1,4 +1,7 @@
 /* Estilo de la tarjeta */
+.container{
+    margin-top: 140px;
+}
 
 .card {
     position: relative;
@@ -25,16 +28,17 @@
 }
 
 .heart-icon.active {
-    color: greenyellow;
+    color: rgb(242, 88, 11);
 }
 
 /* Imagen de la tarjeta */
 .card-img-top {
-    background-color: rgb(236, 229, 229);
+    background-color: rgba(230, 224, 224, 0.982);
     object-fit: cover;
     width: 100%;
     height: 180px;
     border-radius: 4px;
+    
 }
 
 /* Contenido de la tarjeta */
@@ -62,7 +66,7 @@
 /* Precio destacado */
 .precio {
     font-size: 18px;
-    color: #e80e5b;
+    color: #2e20f2;
     margin-bottom: 10px;
     font-weight: bold;
 }
@@ -90,7 +94,7 @@
 
 /* Estilo del botón con icono de carrito */
 .btn-cart {
-    background-color: #e80e5b !important;
+    background-color: #157f3f !important;
     color: white !important;
     width: 100% !important;
     border: none;
@@ -234,4 +238,25 @@
     height: 150px;
     width: 100%;
     object-fit: cover;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    #cartModal .modal-dialog {
+        width: 90%; /* Reducción del ancho del modal en pantallas pequeñas */
+    }
+
+    .cart-item {
+        flex-direction: column; /* Cambia la disposición de los productos en columna */
+        align-items: flex-start;
+    }
+
+    .cart-item-img {
+        width: 100px; /* Aumenta el tamaño de la imagen */
+        height: 100px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+  
 }
