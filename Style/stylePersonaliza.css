@@ -4,6 +4,10 @@
 body {
     background: #f8f8f8;
     font-family: Arial, sans-serif;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 .product-img {
@@ -37,3 +41,5 @@ body {
 .category-btn { border: 1px solid #ddd; padding: 8px 12px; border-radius: 8px; margin: 5px; }
 .order-summary { text-align: center; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
 .place-order-btn { background-color: #1e2d58; color: white; }
+
+

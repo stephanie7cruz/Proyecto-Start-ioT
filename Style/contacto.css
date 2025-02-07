@@ -1,3 +1,13 @@
+.container2 {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+body {
+    padding-top: 150px; /* Ajustar según la altura combinada del navbar y la top-bar */
+  
+}
+
 /* Estilo general del cuerpo */
 .form-container body {
     font-family: Arial, sans-serif;
@@ -9,6 +19,7 @@
     align-items: flex-start;
     min-height: 100vh;
     padding-top: 40px;
+    margin-bottom: 30px;
 }
 
 .error-message {
@@ -319,8 +330,3 @@ button:focus {
 
 }
 
-.container2 {
-    min-height: 100dvh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-}

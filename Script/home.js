@@ -2,22 +2,18 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    let productos = [];
+    let productosMasVendidos = [];
     const contenedorProductos = document.querySelector("#list-items");
 
     // Cargar productos desde el archivo data.json
     fetch('../Template/data.json')
-        .then(response => response.json())
-        .then(data => {
-            productos = data.item;
-            
-           // Mostrar todos los productos en la sección de "Productos"
-        cargarProductos(productos, "#contenedorTodosProductos");
-
-
-        })
-        .catch(error => console.error("Error al cargar los productos:", error));
-
+    .then(response => response.json())
+    .then(data => {
+    
+         productosMasVendidos = data.item.slice(0, 4);
+        cargarProductos(productosMasVendidos, "#contenedorTopProductos");
+    })
+    .catch(error => console.error("Error al cargar los productos:", error));
     
 
     // Cargar navbar desde nav.html
@@ -93,11 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Función para agregar al carrito
     function agregarAlCarrito(e) {
         e.preventDefault();
-
         const boton = e.currentTarget;
         const idBoton = e.currentTarget.id;
-        const productoAgregado = productos.find(producto => producto.id === idBoton);
-
+        const productoAgregado = productosMasVendidos.find(producto => producto.id === idBoton);
+ 
         const textoOriginal = boton.innerHTML;
 
         boton.classList.add("clicked");
