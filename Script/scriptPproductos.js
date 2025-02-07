@@ -10,15 +10,73 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             productos = data.item;
-            
-           // Mostrar todos los productos en la sección de "Productos"
-        cargarProductos(productos, "#contenedorTodosProductos");
+
+            // Mostrar todos los productos en la sección de "Productos"
+            cargarProductos(productos, "#contenedorTodosProductos");
 
 
         })
         .catch(error => console.error("Error al cargar los productos:", error));
 
-    
+    // filtros
+    // Evento para aplicar filtros
+    document.querySelector("#applyFilters").addEventListener("click", function () {
+        aplicarFiltros();
+    });
+
+    // Evento para limpiar filtros
+    document.querySelector("#clearFilters").addEventListener("click", function () {
+        document.querySelectorAll("#filter-section input").forEach(input => input.checked = false);
+        cargarProductos(productos);
+    });
+
+    // ordenar
+    document.querySelector("#sortBy").addEventListener("change", function () {
+        ordenarProductos(this.value);
+    });
+    // ordenar
+
+    // Función para filtrar productos
+    function aplicarFiltros() {
+        const categoriasSeleccionadas = [...document.querySelectorAll("#categoryFilter input:checked")].map(el => el.value);
+        const activosSeleccionados = [...document.querySelectorAll("#activoFilter input:checked")].map(el => el.value);
+        const rangoPrecio = document.querySelector("#priceFilter input:checked")?.value;
+
+        let productosFiltrados = productos;
+
+        // Filtrar por categoría
+        if (categoriasSeleccionadas.length > 0) {
+            productosFiltrados = productosFiltrados.filter(producto => categoriasSeleccionadas.includes(producto.categoria));
+        }
+
+        // Filtrar por tipo de activo
+        if (activosSeleccionados.length > 0) {
+            productosFiltrados = productosFiltrados.filter(producto => activosSeleccionados.includes(producto.activo));
+        }
+
+        // Filtrar por precio
+        if (rangoPrecio) {
+            const [min, max] = rangoPrecio.split("-").map(Number);
+            productosFiltrados = productosFiltrados.filter(producto => producto.precio >= min && producto.precio <= max);
+        }
+
+        cargarProductos(productosFiltrados);
+    }
+    // cerrar filtros
+    // ordenar
+    function ordenarProductos(criterio) {
+        let productosOrdenados = [...productos]; // Clonar el array para no modificar el original
+
+        if (criterio === "lowToHigh") {
+            productosOrdenados.sort((a, b) => a.precio - b.precio);
+        } else if (criterio === "highToLow") {
+            productosOrdenados.sort((a, b) => b.precio - a.precio);
+        }
+
+        cargarProductos(productosOrdenados);
+    }
+
+    // ordenar
 
     // Cargar navbar desde nav.html
     fetch('nav.html')
@@ -51,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
             div.innerHTML = `
                 <div class="card w-100 h-100" style="width: 18rem;">
                     <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>
-                    <img src="${producto.img}" class="card-img-top object-fit-cover" alt="image" style="height: 200px; width: 100%; object-fit: cover;">
+                    <img src="${producto.img}" class="card-img-top object-fit-conten" alt="image" style="height: 300px; width: 300px; object-fit: cover;">
                     <div class="info">
                         <p class="categoria">${producto.categoria}</p>
                         <h5 class="card-title">${producto.name}</h5>
@@ -180,3 +238,38 @@ function toggleHeart(heartIcon) {
     // console.log("Toggle Heart Function Triggered");
     heartIcon.classList.toggle('active');
 }
+// filtro
+// Funcionalidad para minimizar categorías
+const toggleButton = document.getElementById("toggleCategories");
+const categoryFilter = document.getElementById("categoryFilter");
+
+let isCategoryVisible = true;
+toggleButton.addEventListener("click", () => {
+    isCategoryVisible = !isCategoryVisible;
+    categoryFilter.style.display = isCategoryVisible ? "block" : "none";
+    toggleButton.textContent = isCategoryVisible ? "[-]" : "[+]";
+});
+
+// Permitir deselección de rango de precios
+const priceRadios = document.querySelectorAll("input[name='price']");
+let selectedPrice = null;
+
+priceRadios.forEach(radio => {
+    radio.addEventListener("click", function () {
+        if (this === selectedPrice) {
+            this.checked = false;
+            selectedPrice = null;
+        } else {
+            selectedPrice = this;
+        }
+    });
+});
+
+// Botón (ahora ícono) para quitar todos los filtros
+document.getElementById("clearFilters").addEventListener("click", () => {
+    document.querySelectorAll("input[type='checkbox'], input[type='radio']").forEach(input => input.checked = false);
+    selectedPrice = null;
+});
+
+
+// filtro
