@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             div.innerHTML = `
                 <div class="card w-100 h-100" style="width: 18rem;">
                     <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>
-                    <img src="${producto.img}" class="card-img-top object-fit-cover" alt="image" style="height: 200px; width: 100%; object-fit: cover;">
+                    <img src="${producto.img}" class="card-img-top object-fit-conten" alt="image" style="height: 300px; width: 300px; object-fit: cover;">
                     <div class="info">
                         <p class="categoria">${producto.categoria}</p>
                         <h5 class="card-title">${producto.name}</h5>
