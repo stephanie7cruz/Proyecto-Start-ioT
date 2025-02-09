@@ -1,0 +1,35 @@
+.modal {
+    display: none;
+}
+.btn-gradient {
+    background: linear-gradient(135deg, #1f345a, #7b325f); /* Degradado verde a azul */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(135deg,  #7b325f,#1f345a); /* Cambia el degradado al hacer hover */
+    transform: scale(1.05); /* Efecto de agrandar un poco */
+    color: white;
+}
+.custom-alert {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(23, 196, 7, 0.8);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1151; /* Mayor que el modal de Bootstrap */
+    font-size: 16px;
+    text-align: center;
+    min-width: 250px;
+}
+
