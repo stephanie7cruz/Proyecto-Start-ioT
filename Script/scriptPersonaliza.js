@@ -1,20 +1,26 @@
-
 document.addEventListener("DOMContentLoaded", function () {
-    let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
-    let botones = document.querySelectorAll("#vehiculoSelector button"); 
-    let imagenVehiculo = document.getElementById("imagenVehiculo");
-    let productosIzquierda = document.getElementById("productosIzquierda");
-    let colDerecha = document.getElementById("colDerecha");
-    let productosDerecha = document.getElementById("productosDerecha");
+    // Botones y lógica de selección
+    const nombrePaquete = document.getElementById('nombrePaquete');
+    const contadorElement = document.getElementById('contador');
+    const incrementar = document.getElementById('incrementar');
+    const decrementar = document.getElementById('decrementar');
+    const addButton = document.getElementById('addButton');
+    const botones = document.querySelectorAll("#vehiculoSelector button");
+    const mensaje = document.getElementById("mensaje");
+    let productos = [];
+    let productosSeleccionados = [];
+    let contador = 2;
+
     const imagenesVehiculo = {
-        "Carro": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314240/carro_goxcpe.jpg",
-        "Moto": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314231/moto_icizme.jpg",
-        "Camion": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314237/camion_lzu2p4.avif",
-        "Carga": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314241/container_wghjn3.jpg",
-        "Flotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314242/flota_fgo88j.jpg",
-        "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314232/personas_f7eq9s.jpg",
-        "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314244/mascotas_zm13mf.jpg"
+        "Carro": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/4_vdsf8b.png",
+        "Moto": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058633/5_njn7g8.png",
+        "Camion": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058631/6_krdneg.png",
+        "Carga": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/7_adr5tm.png",
+        "Flotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058633/8_nqdl03.png",
+        "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/9_fugogy.png",
+        "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/10_ihmhgy.png"
     };
+
     function actualizarImagenVehiculo(tipoVehiculo) {
         const imagenVehiculo = document.querySelector('.main-image');
 
@@ -24,235 +30,200 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             console.warn("No hay imagen asignada para este tipo de vehículo:", tipoVehiculo);
         }
+
+        // Marcar el botón seleccionado
+        const botones = document.querySelectorAll('#vehiculoSelector .btn');
+        botones.forEach(boton => {
+            boton.classList.remove('active', 'btn-dark');
+            boton.classList.add('btn-outline-dark');
+        });
+
+        const botonSeleccionado = document.querySelector(`#vehiculoSelector .btn[data-vehiculo="${tipoVehiculo}"]`);
+        if (botonSeleccionado) {
+            botonSeleccionado.classList.remove('btn-outline-dark');
+            botonSeleccionado.classList.add('active', 'btn-dark');
+        }
     }
 
-    botones.forEach(boton => {
-        boton.addEventListener('click', function () {
-            // Remueve clases de todos los botones
-            botones.forEach(btn => {
-                btn.classList.remove('active', 'btn-dark');
-                btn.classList.add('btn-outline-dark');
-            });
+    // Cargar productos desde el JSON
+    fetch('../Template/data.json')
+        .then(response => response.json())
+        .then(data => {
+            productos = data.item;
+        })
+        .catch(error => console.error("Error al cargar los productos:", error));
 
-            // Agrega clases al botón clickeado
-            this.classList.add('active', 'btn-dark');
-            this.classList.remove('btn-outline-dark');
+    // Función para filtrar productos por activo
+    function filtrarProductosPorActivo(activo) {
+        return productos.filter(producto => producto.activo.includes(activo));
+    }
 
-            // Obtiene el tipo de vehículo desde el atributo data-vehiculo
-            let tipoVehiculo = this.getAttribute("data-vehiculo");
+// Función para pintar productos en el banner
+function pintarProductos(productosFiltrados, coordenadas) {
+    const productosContainer = document.getElementById('productosContainer');
+    productosContainer.innerHTML = ''; // Limpiar contenedor
 
-            actualizarImagenVehiculo(tipoVehiculo);
+    productosFiltrados.forEach((producto, index) => {
+        const productoElement = document.createElement('div');
+        productoElement.className = 'position-absolute border p-2 bg-white shadow-sm rounded'; 
+        productoElement.style.top = coordenadas[index].top;
+        productoElement.style.left = coordenadas[index].left;
+        productoElement.style.cursor = 'pointer';
+        productoElement.style.opacity = '0.8'; 
+        productoElement.style.zIndex = '10'; // Asegura que las tarjetas estén por encima del banner
 
-             // Filtra productos según el atributo "activo"
-             let productosFiltrados = productosEnCarrito.filter(producto => producto.activo === tipoVehiculo);
-             // Limpia la interfaz antes de agregar nuevos productos
-             productosIzquierda.innerHTML = "";
-             productosDerecha.innerHTML = "";
+        productoElement.innerHTML = `
+            <div class="text-center">
+                <img src="${producto.img}" alt="${producto.name}" style="width: 80px; height: 80px; object-fit: cover;">
+                <p class="mt-2 mb-1">${producto.name}</p>
+                <i class="fas fa-chevron-down desplegar-icono" style="cursor: pointer;"></i>
+                <button class="btn btn-primary mt-2 btn-alert">Click Me</button>
+            </div>
+            <div class="collapse mt-2" id="descripcion-${producto.id}">
+                <p class="text-center">${producto.description}</p>
+            </div>
+        `;
 
-            
+        // Evento para el botón de alerta
+        productoElement.querySelector('.btn-alert').addEventListener('click', (e) => {
+            e.stopPropagation(); // Evitar que el clic en el botón seleccione la tarjeta
+            alert(`Producto seleccionado: ${producto.name}`);
+        });
 
-
-            // Switch para manejar acciones según el vehículo seleccionado
-            switch (tipoVehiculo) {
-                case "Carro":
-                    mensaje.textContent = "Has seleccionado un Carro. 🚗";
-                                  
-                        if (productosEnCarrito.length === 0) {
-                            cartItemsContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
-                        } else {
-                            productosEnCarrito.forEach(producto => {
-                                const div = document.createElement('div');
-                                div.classList.add('cart-item');
-                                div.innerHTML = `
-                                <img src="${producto.img}" alt="${producto.name}" class="cart-item-img">
-                                <div class="cart-item-details">
-                                    <p>${producto.name} - ${producto.cantidad} x $${producto.precio}</p>
-                                </div>
-                                <button class="btn btn-danger btn-sm" id="eliminar-${producto.id}">Eliminar</button>
-                            `;
-                                cartItemsContainer.append(div);
-                
-                                // Añadir el evento de eliminar a cada botón después de que se haya añadido al DOM
-                                const botonEliminar = document.getElementById(`eliminar-${producto.id}`);
-                                botonEliminar.addEventListener('click', function () {
-                                    eliminarDelCarrito(producto.id);
-                                });
-                            });
-                        }
-                    break;
-                case "Moto":
-                    mensaje.textContent = "Has seleccionado una Moto. 🏍️";
-                    break;
-                case "Camion":
-                    mensaje.textContent = "Has seleccionado un Camión. 🚚";
-                    break;
-                case "Personas":
-                    mensaje.textContent = "Has seleccionado Personas. 👨‍👩‍👦";
-                    break;
-                case "Carga":
-                    mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    break;
-                 case "Flotas":
-                    mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    break;
-                 case "Mascotas":
-                    mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    break;
-
-                default:
-                    mensaje.textContent = "Selecciona una opción.";
+        // Evento de clic para seleccionar/deseleccionar productos
+        productoElement.addEventListener('click', (event) => {
+            if (!event.target.classList.contains('desplegar-icono')) {
+                if (productoElement.classList.contains('seleccionado')) {
+                    productoElement.classList.remove('seleccionado');
+                    productoElement.style.opacity = '0.8';
+                    productosSeleccionados = productosSeleccionados.filter(p => p.id !== producto.id);
+                } else {
+                    productoElement.classList.add('seleccionado');
+                    productoElement.style.opacity = '1';
+                    productosSeleccionados.push(producto);
+                }
             }
         });
+
+        // Evento para el ícono de despliegue
+        productoElement.querySelector('.desplegar-icono').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const descripcion = document.getElementById(`descripcion-${producto.id}`);
+            descripcion.classList.toggle('show');
+            e.target.classList.toggle('fa-chevron-down');
+            e.target.classList.toggle('fa-chevron-up');
+        });
+
+        productosContainer.appendChild(productoElement);
     });
-});
+}
 
-
-/*
-document.addEventListener("DOMContentLoaded", function () {
-    let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
-    let botones = document.querySelectorAll("#vehiculoSelector button"); 
-    let mensaje = document.getElementById("mensaje");
-    let cartItemsContainer = document.getElementById("cartItemsContainer");
 
     botones.forEach(boton => {
         boton.addEventListener('click', function () {
             let tipoVehiculo = this.getAttribute("data-vehiculo");
 
-            // Actualiza el mensaje según el tipo de vehículo
+            // Actualiza el kit según el tipo de vehículo
             switch (tipoVehiculo) {
                 case "Carro":
                     mensaje.textContent = "Has seleccionado un Carro. 🚗";
-
-                    // Mostrar productos según el tipo de vehículo
-                    if (productosEnCarrito.length === 0) {
-                        cartItemsContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
-                    } else {
-                        productosEnCarrito.forEach(producto => {
-                            const div = document.createElement('div');
-                            div.classList.add('cart-item');
-                            div.innerHTML = `
-                                <img src="${producto.img}" alt="${producto.name}" class="cart-item-img">
-                                <div class="cart-item-details">
-                                    <p>${producto.name} - ${producto.cantidad} x $${producto.precio}</p>
-                                </div>
-                                <button class="btn btn-danger btn-sm" id="eliminar-${producto.id}">Eliminar</button>
-                            `;
-                            cartItemsContainer.append(div);
-
-                            // Añadir el evento de eliminar a cada botón
-                            const botonEliminar = document.getElementById(`eliminar-${producto.id}`);
-                            botonEliminar.addEventListener('click', function () {
-                                eliminarDelCarrito(producto.id);
-                            });
-                        });
-                    }
+                    actualizarImagenVehiculo(tipoVehiculo);
+                    const productosCarro = filtrarProductosPorActivo("Carro");
+                    pintarProductos(productosCarro, [
+                        { top: '10%', left: '10%' },
+                        { top: '30%', left: '50%' }
+                    ]);
+                    nombrePaquete.textContent = "PAQUETE GPS (CARRO)";
                     break;
 
                 case "Moto":
                     mensaje.textContent = "Has seleccionado una Moto. 🏍️";
-                    // Aquí podrías agregar la lógica para mostrar los productos de motos
+                    actualizarImagenVehiculo(tipoVehiculo);
+                    const productosMoto = filtrarProductosPorActivo("Moto");
+                    pintarProductos(productosMoto, [
+                        { top: '10%', left: '20%' },
+                        { top: '40%', left: '70%' }
+                    ]);
+                    nombrePaquete.textContent = "PAQUETE GPS (MOTO)";
                     break;
 
                 case "Camion":
                     mensaje.textContent = "Has seleccionado un Camión. 🚚";
-                    // Aquí podrías agregar la lógica para mostrar los productos de camiones
+                    actualizarImagenVehiculo(tipoVehiculo);
+                    const productosCamion = filtrarProductosPorActivo("Camion");
+                    pintarProductos(productosCamion, [
+                        { top: '15%', left: '30%' },
+                        { top: '50%', left: '60%' }
+                    ]);
+                    nombrePaquete.textContent = "PAQUETE GPS (CAMION)";
                     break;
 
                 case "Personas":
                     mensaje.textContent = "Has seleccionado Personas. 👨‍👩‍👦";
-                    // Aquí podrías agregar la lógica para mostrar productos relacionados con personas
+                    actualizarImagenVehiculo(tipoVehiculo);
+                    const productosPersonas = filtrarProductosPorActivo("Personas");
+                    pintarProductos(productosPersonas, [
+                        { top: '20%', left: '60%' },
+                        { top: '50%', left: '10%' }
+                    ]);
+                    nombrePaquete.textContent = "PAQUETE GPS (PERSONAS)";
                     break;
 
                 case "Carga":
                     mensaje.textContent = "Has seleccionado Carga. 📦";
-                    // Aquí podrías agregar la lógica para mostrar productos relacionados con carga
+                    actualizarImagenVehiculo(tipoVehiculo);
+                    const productosCarga = filtrarProductosPorActivo("Carga");
+                    pintarProductos(productosCarga, [
+                        { top: '25%', left: '40%' },
+                        { top: '60%', left: '20%' }
+                    ]);
+                    nombrePaquete.textContent = "PAQUETE GPS (CARGA)";
                     break;
 
                 case "Flotas":
                     mensaje.textContent = "Has seleccionado Flotas. 🚚";
-                    // Aquí podrías agregar la lógica para mostrar productos de flotas
+                    actualizarImagenVehiculo(tipoVehiculo);
+                    const productosFlotas = filtrarProductosPorActivo("Flotas");
+                    pintarProductos(productosFlotas, [
+                        { top: '10%', left: '50%' },
+                        { top: '70%', left: '30%' }
+                    ]);
+                    nombrePaquete.textContent = "PAQUETE GPS (FLOTAS)";
                     break;
 
                 case "Mascotas":
                     mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    // Aquí podrías agregar la lógica para mostrar productos de mascotas
+                    actualizarImagenVehiculo(tipoVehiculo);
+                    const productosMascotas = filtrarProductosPorActivo("Mascotas");
+                    pintarProductos(productosMascotas, [
+                        { top: '30%', left: '70%' },
+                        { top: '60%', left: '40%' }
+                    ]);
+                    nombrePaquete.textContent = "PAQUETE GPS (MASCOTAS)";
                     break;
 
                 default:
                     mensaje.textContent = "Selecciona una opción.";
             }
-
-            // Mostrar los productos según el tipo de vehículo
-            const renderizarProductos = (productos) => {
-                const rowContainer = document.createElement('div');
-                rowContainer.classList.add('row', 'justify-content-center', 'align-items-center', 'mt-4');
-
-                // Generar la columna de imágenes de productos
-                const colIzquierda = document.createElement('div');
-                colIzquierda.classList.add('col-2', 'd-flex', 'flex-column', 'align-items-center');
-                productos.forEach(producto => {
-                    const imgProducto = document.createElement('img');
-                    imgProducto.src = producto.img;
-                    imgProducto.alt = producto.name;
-                    imgProducto.classList.add('product-img', 'mb-3');
-                    colIzquierda.appendChild(imgProducto);
-                });
-
-                // Crear la columna para la imagen principal
-                const colDerecha = document.createElement('div');
-                colDerecha.classList.add('col-4', 'd-flex', 'justify-content-center');
-                const imageContainer = document.createElement('div');
-                imageContainer.classList.add('image-container');
-                const imgPrincipal = document.createElement('img');
-                imgPrincipal.src = "camion.png"; // Cambiar según el tipo de vehículo
-                imgPrincipal.style = "max-width: 300px; width: 200%; height: auto; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;";
-                imgPrincipal.classList.add('main-image');
-                imgPrincipal.alt = tipoVehiculo;
-                imageContainer.appendChild(imgPrincipal);
-                colDerecha.appendChild(imageContainer);
-
-                // Generar la columna de más imágenes de productos
-                const colDerechaExtra = document.createElement('div');
-                colDerechaExtra.classList.add('col-2', 'd-flex', 'flex-column', 'align-items-center');
-                productos.forEach(producto => {
-                    const imgProducto = document.createElement('img');
-                    imgProducto.src = producto.img;
-                    imgProducto.alt = producto.name;
-                    imgProducto.classList.add('product-img', 'mb-3');
-                    colDerechaExtra.appendChild(imgProducto);
-                });
-
-                // Añadir las columnas al contenedor de fila
-                rowContainer.appendChild(colIzquierda);
-                rowContainer.appendChild(colDerecha);
-                rowContainer.appendChild(colDerechaExtra);
-
-                // Agregar el contenedor al DOM
-                document.getElementById('productos-container').appendChild(rowContainer);
-            };
-
-            // Aquí se seleccionan los productos de acuerdo al tipo de vehículo (simulado)
-            let productosParaMostrar = [];
-            if (tipoVehiculo === "Carro") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Carro");
-            } else if (tipoVehiculo === "Moto") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Moto");
-            } else if (tipoVehiculo === "Camion") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Camion");
-            } else if (tipoVehiculo === "Personas") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Personas");
-            } else if (tipoVehiculo === "Carga") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Carga");
-            } else if (tipoVehiculo === "Flotas") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Flotas");
-            } else if (tipoVehiculo === "Mascotas") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Mascotas");
-            }
-
-            renderizarProductos(productosParaMostrar);
         });
     });
+
+    // Lógica para incrementar y decrementar el contador
+    incrementar.addEventListener('click', () => {
+        contador++;
+        contadorElement.textContent = contador;
+    });
+
+    decrementar.addEventListener('click', () => {
+        if (contador > 1) {
+            contador--;
+            contadorElement.textContent = contador;
+        }
+    });
+
+    // Lógica para agregar productos al localStorage
+    addButton.addEventListener('click', () => {
+        localStorage.setItem('productosSeleccionados', JSON.stringify(productosSeleccionados));
+        alert('Productos agregados al carrito');
+    });
 });
-
-*/
-
