@@ -111,7 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>
                     <img src="${producto.img}" class="card-img-top object-fit-conten" alt="image" style="height: 300px; width: 300px; object-fit: cover;">
                     <div class="info">
-                        <p class="categoria">${producto.categoria}</p>
+                        <p class="categoria">${producto.categoria}<
+                        
+                        /p>
                         <h5 class="card-title">${producto.name}</h5>
                         <p class="precio">${producto.precio}</p>
                         <p class="descripcion">${producto.description}</p>
