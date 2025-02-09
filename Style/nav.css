@@ -182,7 +182,7 @@
     }
     
     .top-texts::after {
-        content: "Rastreo satelital en tiempo real."; /* Solo muestra esta parte del texto */
+        content: "Rastreo satelital en tiempo real🌏"; /* Solo muestra esta parte del texto */
         display: block;
     }
 }

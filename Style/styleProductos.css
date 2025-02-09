@@ -226,7 +226,7 @@ body {
 /* Precio destacado */
 .precio {
     font-size: 18px;
-    color: #2e20f2;
+    color: #11834a;
     margin-bottom: 10px;
     font-weight: bold;
 }
@@ -254,7 +254,7 @@ body {
 
 /* Estilo del botón con icono de carrito */
 .btn-cart {
-    background-color: #157f3f !important;
+    background-color: #284170!important;
     color: white !important;
     width: 100% !important;
     border: none;
