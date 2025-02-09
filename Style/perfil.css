@@ -1,0 +1,68 @@
+body {
+    margin: 0; /* Reset default margins */
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #666;
+    background: #f2f2f2;
+    font-size: 1em;
+    line-height: 1.5em;
+    padding-top: 150px; /* Top padding for content below the header */
+    margin-bottom: 50px; /* Bottom margin */
+    margin-left: 20px; /* Left margin */
+}
+
+  /* Style the main content area */
+main.col-md-9 {
+    padding: 2rem;
+    margin-left: 2rem; /* Add left margin */
+    margin-bottom: 2rem; /* Add bottom margin */
+    background-color: #fff; /* White background for content area */
+    border-radius: 0.5rem; /* Slightly rounded corners */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+/* Minimalist heading style */
+h2 {
+    color: #007bff; /* A primary color for headings */
+    font-weight: 600; /* Semi-bold headings */
+    margin-bottom: 1rem;
+}
+
+/* Improve readability of paragraphs */
+p {
+    color: #6c757d; /* A softer color for paragraphs */
+}
+
+/* Sidebar adjustments for a cleaner look */
+#sidebarMenu {
+    background-color: #fff;
+    border-right: 1px solid #dee2e6; /* Light border to separate sidebar */
+}
+
+#sidebarMenu .nav-link {
+    color: #343a40;
+}
+
+#sidebarMenu .nav-link:hover {
+    color: #007bff;
+    background-color: #f8f9fa; /* Light background on hover */
+}
+
+/* Remove bullets and adjust spacing for the sidebar list */
+.nav.flex-column {
+    padding-left: 0;
+    list-style: none;
+}
+
+/* Style for sub-links in the sidebar */
+.nav-link.sub-link {
+    padding-left: 2rem;
+    font-size: 0.9rem;
+}
+
+/* Remove unnecessary borders and background from the navigation */
+#nav-bar nav {
+    background: none;
+    border: none;
+}
+

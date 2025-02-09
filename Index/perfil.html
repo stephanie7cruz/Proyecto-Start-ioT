@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="../Style/stylePerfil.css">
+    <link rel="stylesheet" href="../Style/perfil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
@@ -19,16 +18,78 @@
         </nav>
       </section>
 
+       <!-- Contenedor principal -->
+    <div class="container-fluid">
+      <div class="row">
+          <!-- Barra lateral -->
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+              <div class="position-sticky pt-3">
+                  <ul class="nav flex-column">
+                      <!-- Cuenta -->
+                      <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="collapse" href="#cuentaMenu" role="button" aria-expanded="false" aria-controls="cuentaMenu">
+                              <i class="fa fa-user"></i> Cuenta
+                          </a>
+                          <div class="collapse" id="cuentaMenu">
+                              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                  <li><a href="#" class="nav-link sub-link" data-section="usuario">Usuario</a></li>
+                                  <li><a href="#" class="nav-link sub-link" data-section="datosGenerales">Datos Generales</a></li>
+                              </ul>
+                          </div>
+                      </li>
+
+                      <!-- Compras -->
+                      <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="collapse" href="#comprasMenu" role="button" aria-expanded="false" aria-controls="comprasMenu">
+                              <i class="fa fa-shopping-cart"></i> Compras
+                          </a>
+                          <div class="collapse" id="comprasMenu">
+                              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                  <li><a href="#" class="nav-link sub-link" data-section="carrito">Carrito</a></li>
+                                  <li><a href="#" class="nav-link sub-link" data-section="favoritos">Favoritos</a></li>
+                                  <li><a href="#" class="nav-link sub-link" data-section="kits">Kits</a></li>
+                                  <li><a href="#" class="nav-link sub-link" data-section="suscripciones">Tus Suscripciones</a></li>
+                                  <li><a href="#" class="nav-link sub-link" data-section="pedidos">Tus Pedidos</a></li>
+                              </ul>
+                          </div>
+                      </li>
+
+                      <!-- Pagos -->
+                      <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="collapse" href="#pagosMenu" role="button" aria-expanded="false" aria-controls="pagosMenu">
+                              <i class="fa fa-credit-card"></i> Pagos
+                          </a>
+                          <div class="collapse" id="pagosMenu">
+                              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                  <li><a href="#" class="nav-link sub-link" data-section="pagosRastreo">Pagos Plataforma de Rastreo</a></li>
+                                  <li><a href="#" class="nav-link sub-link" data-section="pagosCarrito">Pago de Carrito</a></li>
+                              </ul>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </nav>
+
+          <!-- Contenido principal -->
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+              <div id="contentArea" class="pt-3">
+                  <h2>Bienvenido a tu perfil</h2>
+                  <p>Selecciona una opción en el menú para ver la información.</p>
+              </div>
+          </main>
+      </div>
+  </div>
+
 
 
       <footer>
         <header id="footer"></header>
       </footer>
     
-      <script src="../Script/home.js"></script> <!--  //NOSE SI VA O NO -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script>
-    
+      <script src="../Script/perfil.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      
+    <script>
           fetch('nav.html')
             .then(response => response.text())
             .then(data => {
