@@ -6,6 +6,20 @@ body {
     margin: 0;
 }
 
+.container {
+    width: 100%;
+    max-width: none;
+    padding: 20px;
+
+}
+
+.row {
+    margin: 0;
+    width: 100%;
+
+    /* Asegura que ocupe todo el ancho disponible */
+}
+
 /* Filtro */
 /* Estilos para la sección de filtros */
 #filter-section {
@@ -32,6 +46,9 @@ body {
     gap: 15px;
 }
 
+.col-md-9 {
+    align-items: center;
+}
 
 /* Separación entre categorías, precios y activos */
 #filter-section h5 {
@@ -155,9 +172,7 @@ body {
 /* Filtro */
 
 /* Estilo de la tarjeta */
-.container2 {
-    margin-top: 140px;
-}
+
 
 .card {
     position: relative;
@@ -252,7 +267,7 @@ body {
 
 /* Estilo del botón con icono de carrito */
 .btn-cart {
-    background-color: #284170!important;
+    background-color: #284170 !important;
     color: white !important;
     width: 100% !important;
     border: none;
@@ -418,6 +433,46 @@ body {
         height: 100px;
         margin-right: 0;
         margin-bottom: 10px;
+    }
+
+    @media (max-width: 767px) {
+        #filter-container {
+            display: none !important;
+        }
+
+        .modal-content {
+            border-radius: 10px;
+            /* Esquinas redondeadas */
+        }
+
+        .modal-header,
+        .modal-footer {
+            background-color: #f8f9fa;
+            /* Color claro para destacar */
+        }
+
+        .modal-body {
+            max-height: 60vh;
+            /* Limita la altura del modal */
+            overflow-y: auto;
+            /* Agrega scroll si hay muchos filtros */
+        }
+
+        #modal-filters div {
+            padding: 5px 0;
+            /* Reduce el espacio entre filtros */
+        }
+
+        #modal-filters h5 {
+            font-size: 14px;
+            /* Texto más compacto */
+            margin-bottom: 5px;
+        }
+
+        #modal-filters input {
+            transform: scale(0.9);
+            /* Hace checkboxes y radios más pequeños */
+        }
     }
 
 

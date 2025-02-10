@@ -5,6 +5,30 @@ document.addEventListener("DOMContentLoaded", function () {
     let productos = [];
     const contenedorProductos = document.querySelector("#list-items");
 
+
+    // filtros dispositivos pequeños
+    let filterButton = document.getElementById("toggleFilter");
+    let filterContainer = document.getElementById("filter-container");
+    let modalFilters = document.getElementById("modal-filters");
+
+    // Inicializar modal de Bootstrap
+    let filterModal = new bootstrap.Modal(document.getElementById("filterModal"));
+
+    filterButton.addEventListener("click", function () {
+        // Si estamos en una pantalla pequeña, mover los filtros al modal
+        if (window.innerWidth < 768) {
+            modalFilters.innerHTML = filterContainer.innerHTML; // Clonar filtros
+            filterModal.show(); // Mostrar el modal
+        }
+    });
+    console.log("Filtros aplicados desde el modal");
+    filterModal.hide(); // Cerrar el modal
+
+
+
+
+
+
     // Cargar productos desde el archivo data.json
     fetch('../Template/data.json')
         .then(response => response.json())
@@ -99,21 +123,24 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error('Error al cargar el navbar:', error));
 
+
     // Función para cargar y renderizar los productos                   
 
     function cargarProductos(productosElegidos) {
         contenedorProductos.innerHTML = "";
         productosElegidos.forEach((producto, index) => {
             const div = document.createElement("div");
-            div.classList.add("col-10", "col-md-6", "col-lg-3", "mb-4");
+            div.classList.add("col-12", "col-md-6", "col-lg-3", "mb-4");
             div.innerHTML = `
-                <div class="card w-100 h-100" style="width: 18rem;">
+                <div class="card w-100 h-100"">
                     <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>
-                    <img src="${producto.img}" class="card-img-top object-fit-conten" alt="image" style="height: 300px; width: 300px; object-fit: cover;">
+
+                    <img src="${producto.img}" class="card-img-top object-fit-contain" alt="${producto.name}"
+                    style="height: 225px; width: 230px; object-fit: cover; cursor: pointer;"
+                    onclick="showProductDetails(this)">
+
                     <div class="info">
-                        <p class="categoria">${producto.categoria}<
-                        
-                        /p>
+                        <p class="categoria">${producto.categoria}</p>
                         <h5 class="card-title">${producto.name}</h5>
                         <p class="precio">${producto.precio}</p>
                         <p class="descripcion">${producto.description}</p>
@@ -132,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
             botonAgregar.addEventListener('click', agregarAlCarrito);
         });
     }
-
 
 
     // Función para agregar estrellas de calificación
@@ -275,3 +301,53 @@ document.getElementById("clearFilters").addEventListener("click", () => {
 
 
 // filtro
+
+function showProductDetails(imgElement) {
+    console.log("Imagen clickeada:", imgElement); // ✅ Verifica si la función se está ejecutando
+
+    // Obtener la tarjeta del producto
+    let card = imgElement.closest(".card");
+    console.log("Tarjeta encontrada:", card); // ✅ Verifica si está obteniendo la tarjeta correctamente
+
+    if (!card) {
+        console.error("⚠️ No se encontró la tarjeta del producto.");
+        return;
+    }
+
+    // Extraer información de la tarjeta
+    let img = imgElement.src;
+    let name = card.querySelector(".card-title")?.textContent || "Sin nombre";
+    let category = card.querySelector(".categoria")?.textContent || "Sin categoría";
+    let price = card.querySelector(".precio")?.textContent || "Sin precio";
+    let description = card.querySelector(".descripcion")?.textContent || "Sin descripción";
+
+    console.log("Imagen:", img);
+    console.log("Nombre:", name);
+    console.log("Categoría:", category);
+    console.log("Precio:", price);
+    console.log("Descripción:", description);
+
+    // Verifica si los elementos del modal existen antes de asignar valores
+    let modalImg = document.getElementById("modalProductImg");
+    let modalName = document.getElementById("modalProductName");
+    let modalCategory = document.getElementById("modalProductCategory");
+    let modalPrice = document.getElementById("modalProductPrice");
+    let modalDescription = document.getElementById("modalProductDescription");
+
+    if (!modalImg || !modalName || !modalCategory || !modalPrice || !modalDescription) {
+        console.error("⚠️ No se encontraron los elementos del modal.");
+        return;
+    }
+
+    // Asignar los valores al modal
+    modalImg.src = img;
+    modalName.textContent = name;
+    modalCategory.textContent = "Categoría: " + category;
+    modalPrice.textContent = "Precio: " + price;
+    modalDescription.textContent = description;
+
+    // Mostrar el modal
+    let productModal = new bootstrap.Modal(document.getElementById("productModal"));
+    console.log("🟢 Mostrando modal...");
+    productModal.show();
+}
