@@ -34,19 +34,22 @@
             <div id="productosContainer" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-around align-items-center">
                 <!-- Aquí se cargarán los productos dinámicamente desde JS -->
             </div>
+            
          
         </div>
+        
       
            
         <div class="d-flex justify-content-center align-items-center mt-4">
             <button class="btn btn-danger px-4 me-3" id="paqueteNombre">PAQUETE GPS (VEHÍCULO)</button>
             <div class="d-flex align-items-center">
-                <button class="btn btn-outline-secondary" id="decrementar">-</button>
-                <span class="mx-3" id="contador">2</span>
-                <button class="btn btn-outline-secondary" id="incrementar">+</button>
+              <button class="btn btn-outline-secondary" id="decrementar">-</button>
+              <span class="mx-3" id="contador">2</span>
+              <button class="btn btn-outline-secondary" id="incrementar">+</button>
             </div>
-            <button class="btn btn-primary px-4 ms-3" id="addButton">ADD</button>
-        </div>
+            <button class="btn btn-primary px-4 ms-3" id="addProductos">ADD</button>
+          </div>
+          
 
     </div>
     <div class="container my-4">
@@ -228,7 +231,27 @@
                         </div>
                         <!-- Acciones -->
                         <div class="d-flex justify-content-between mt-4">
-                            <button class="btn btn-outline-dark">Preview</button>
+                            <div class="modal fade" id="facturaModal" tabindex="-1" aria-labelledby="facturaModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="facturaModalLabel">Factura - Lista de Kits</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="factura">
+                                      <!-- Se inyectará el contenido de la factura -->
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <!-- Botón para mostrar la factura (Preview) -->
+                              <button id="PREVIEW" class="btn btn-info mt-3" data-bs-toggle="modal" data-bs-target="#facturaModal">Preview Factura</button>
+  
+
                             <button class="btn btn-primary">Place Order</button>
                         </div>
                     </div>
