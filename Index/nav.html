@@ -17,88 +17,49 @@
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <!-- Logo -->
     <a class="navbar-brand" href="home.html">
-      <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg" alt="START" class="img-fluid ms-5" style="max-width: 120px;">
+      <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg" alt="START" class="img-fluid ms-3" style="max-width: 120px;">
     </a>
 
-    <!-- Botón para dispositivos móviles -->
-
-     <!-- Iconos del carrito y usuario -->
-     <div class="d-flex align-items-center ms-3">
-     
-      <!-- Ícono del carrito -->
-      <a href="#" class="cart-icon d-flex align-items-center">
+    <!-- Iconos del carrito y usuario -->
+    <div class="d-flex align-items-center">
+      <a href="#" class="login-icon d-flex align-items-center me-3" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1">
+        <i class="fas fa-user"></i>
+      </a>
+      <a href="#" class="cart-icon d-flex align-items-center me-3">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-count ms-1" id="cart-count">0</span>
       </a>
-
-      <!-- Ícono de usuario -->
-      <a href="#" class="login-icon d-flex align-items-center ms-3" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1">
-        <i class="fas fa-user"></i>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-      aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    
+      <!-- Botón del menú hamburguesa -->
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
   </div>
 
-    <!-- Menú principal -->
-    <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
-      <ul class="navbar-nav d-flex justify-content-center align-items-center">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.html">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contacto.html">Contacto</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="nosotros.html">Nosotros</a>
-        </li>
-        <li class="nav-item dropdown me-3">
-          <a class="nav-link dropdown-toggle perfil-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Soluciones
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="indexPersonaliza.html">Personalizacion</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Plataforma de rastreo</a></li>
-           </ul>
-        </li>
-        <li class="nav-item dropdown me-3">
-          <a class="nav-link dropdown-toggle perfil-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Cuenta
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="indexPproductos.html">Tienda</a></li>
-            <li><a class="dropdown-item" href="#">Deseos</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="perfil.html">Perfil</a></li>
-          </ul>
-        </li>
-
-
-      
-
-      <!-- <li class="login-icon-container">
-          <a href="#" class="login-icon" onclick="iniciarSesion()">
-              <i class="fas fa-user"></i>
-          </a>
-      </li>   -->
-
-
-
-
-
-        <!-- Formulario de búsqueda (oculto) -->
-        <!-- <form class="d-none" role="search">
-          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" id="search-field"
-                 name="search" autocomplete="on">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form> -->
-
-        <!-- Sección derecha: Cuenta y Carrito -->
-        
-      </ul>
-    </div>
+  <!-- Menú principal -->
+  <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+    <ul class="navbar-nav d-flex justify-content-center align-items-center">
+      <li class="nav-item"><a class="nav-link active" href="home.html">Inicio</a></li>
+      <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+      <li class="nav-item dropdown"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+      <li class="nav-item dropdown me-3">
+        <a class="nav-link dropdown-toggle perfil-btn" href="#" data-bs-toggle="dropdown">Soluciones</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="indexPersonaliza.html">Personalización</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Plataforma de rastreo</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown me-3">
+        <a class="nav-link dropdown-toggle perfil-btn" href="#" data-bs-toggle="dropdown">Cuenta</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="indexPproductos.html">Tienda</a></li>
+          <li><a class="dropdown-item" href="#">Deseos</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="perfil.html">Perfil</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
