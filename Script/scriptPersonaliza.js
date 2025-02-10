@@ -20,6 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/9_fugogy.png",
         "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/10_ihmhgy.png"
     };
+// Función para mostrar mensajes emergentes
+function showMessage(msg) {
+    let alertBox = document.getElementById("custom-alertaMensaje");
+    alertBox.textContent = msg;
+    alertBox.style.display = "block";
+    setTimeout(() => { alertBox.style.display = "none"; }, 3000);
+}
 
     function actualizarImagenVehiculo(tipoVehiculo) {
         const imagenVehiculo = document.querySelector('.main-image');
@@ -87,7 +94,8 @@ function pintarProductos(productosFiltrados, coordenadas) {
         // Evento para el botón de alerta
         productoElement.querySelector('.btn-alert').addEventListener('click', (e) => {
             e.stopPropagation(); // Evitar que el clic en el botón seleccione la tarjeta
-            alert(`Producto seleccionado: ${producto.name}`);
+         
+            showMessage(`Producto seleccionado: ${producto.name}`);
         });
 
         // Evento de clic para seleccionar/deseleccionar productos
@@ -224,6 +232,7 @@ function pintarProductos(productosFiltrados, coordenadas) {
     // Lógica para agregar productos al localStorage
     addButton.addEventListener('click', () => {
         localStorage.setItem('productosSeleccionados', JSON.stringify(productosSeleccionados));
-        alert('Productos agregados al carrito');
+        
+        showMessage('Productos agregados al carrito');
     });
 });
