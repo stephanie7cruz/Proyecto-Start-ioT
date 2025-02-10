@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/9_fugogy.png",
         "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/10_ihmhgy.png"
     };
+// Función para mostrar mensajes emergentes
+function showMessage(msg) {
+    let alertBox = document.getElementById("custom-alertaMensaje");
+    alertBox.textContent = msg;
+    alertBox.style.display = "block";
+    setTimeout(() => { alertBox.style.display = "none"; }, 3000);
+}
 
     function actualizarImagenVehiculo(tipoVehiculo) {
         const imagenVehiculo = document.querySelector('.main-image');
@@ -66,6 +73,38 @@ document.addEventListener("DOMContentLoaded", function () {
  * @param {Array} coordenadas - Arreglo de objetos con propiedades top y left para posicionar cada card.
  */
 function pintarProductos(productosFiltrados, coordenadas) {
+
+    const productosContainer = document.getElementById('productosContainer');
+    productosContainer.innerHTML = ''; // Limpiar contenedor
+
+    productosFiltrados.forEach((producto, index) => {
+        const productoElement = document.createElement('div');
+        productoElement.className = 'position-absolute border p-2 bg-white shadow-sm rounded'; 
+        productoElement.style.top = coordenadas[index].top;
+        productoElement.style.left = coordenadas[index].left;
+        productoElement.style.cursor = 'pointer';
+        productoElement.style.opacity = '0.8'; 
+        productoElement.style.zIndex = '10'; // Asegura que las tarjetas estén por encima del banner
+
+        productoElement.innerHTML = `
+            <div class="text-center">
+                <img src="${producto.img}" alt="${producto.name}" style="width: 80px; height: 80px; object-fit: cover;">
+                <p class="mt-2 mb-1">${producto.name}</p>
+                <i class="fas fa-chevron-down desplegar-icono" style="cursor: pointer;"></i>
+                <button class="btn btn-primary mt-2 btn-alert">Click Me</button>
+            </div>
+            <div class="collapse mt-2" id="descripcion-${producto.id}">
+                <p class="text-center">${producto.description}</p>
+            </div>
+        `;
+
+        // Evento para el botón de alerta
+        productoElement.querySelector('.btn-alert').addEventListener('click', (e) => {
+            e.stopPropagation(); // Evitar que el clic en el botón seleccione la tarjeta
+         
+            showMessage(`Producto seleccionado: ${producto.name}`);
+        });
+
   // Cerrar todos los collapse cards existentes al cambiar de activo.
   document.querySelectorAll('.collapse-card').forEach(card => card.remove());
 
@@ -493,6 +532,15 @@ function generateFacturaHTML(lista) {
         }
     });
 
+
+    // Lógica para agregar productos al localStorage
+    addButton.addEventListener('click', () => {
+        localStorage.setItem('productosSeleccionados', JSON.stringify(productosSeleccionados));
+        
+        showMessage('Productos agregados al carrito');
+    });
+});
+
     // Actualiza el contenido del modal (factura) al hacer clic en el botón Preview
   document.getElementById('PREVIEW').addEventListener('click', () => {
   const facturaElement = document.getElementById('factura');
@@ -504,3 +552,4 @@ function generateFacturaHTML(lista) {
     
 
  });
+
