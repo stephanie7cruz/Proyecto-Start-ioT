@@ -21,10 +21,26 @@
     </a>
 
     <!-- Botón para dispositivos móviles -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+
+     <!-- Iconos del carrito y usuario -->
+     <div class="d-flex align-items-center ms-3">
+     
+      <!-- Ícono del carrito -->
+      <a href="#" class="cart-icon d-flex align-items-center">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count ms-1" id="cart-count">0</span>
+      </a>
+
+      <!-- Ícono de usuario -->
+      <a href="#" class="login-icon d-flex align-items-center ms-3" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1">
+        <i class="fas fa-user"></i>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
       aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    </div>
+  </div>
 
     <!-- Menú principal -->
     <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
@@ -61,19 +77,6 @@
         </li>
 
 
-        <!-- Ícono del carrito -->
-        <li class="cart-icon-container">
-          <a href="#" class="cart-icon d-flex align-items-center">
-            <i class="fas fa-shopping-cart"></i> <!-- Ícono del carrito -->
-            <span class="cart-count ms-1" id="cart-count">0</span> <!-- Cantidad de ítems -->
-          </a>
-        </li>
-         <!-- Ícono de usuario -->
-       <li class="login-icon-container m-4">
-          <a href="#" class="login-icon d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1">
-            <i class="fas fa-user"></i>
-          </a>
-        </li>   
       
 
       <!-- <li class="login-icon-container">
