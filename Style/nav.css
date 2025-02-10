@@ -16,6 +16,28 @@
     border: none !important; /* Elimina el borde predeterminado */
   }
 
+/* //icono login  */
+.login-icon-container {
+    display: inline-block;
+    margin: 16px;
+  
+}
+
+.login-icon {
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+    margin-left: 10px;
+}
+
+.login-icon:hover {
+    color: #007bff;
+}
+
+
+
+
 
 /* Iconos de redes sociales */
 .social-icons {
@@ -99,7 +121,17 @@
     position: relative;
     margin: auto;
     max-width: 200px;
+}
 
+.login-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: auto;
+    max-width: 200px;
+    
+}
 .cart-icon {
     margin-left: 10px; /* Espaciado entre icono y texto */
     font-size: 1.6rem;
@@ -127,7 +159,7 @@
 }
 
 
-}
+
 
 /* Mostrar menú desplegable al pasar el mouse------------------------------- */
 

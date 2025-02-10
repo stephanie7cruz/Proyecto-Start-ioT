@@ -386,12 +386,12 @@ body {
 }
 
 /* Ajustes para el modal */
-.modal-header {
+.modal1-header {
     background-color: #f1f1f1;
     padding: 15px;
 }
 
-.modal-footer {
+.modal1-footer {
     padding: 10px;
 }
 
