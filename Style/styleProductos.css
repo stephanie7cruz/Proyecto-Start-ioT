@@ -501,6 +501,7 @@ body {
     height: 150px;
     width: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 /* Ajustes generales del modal */
