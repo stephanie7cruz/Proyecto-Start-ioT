@@ -82,6 +82,26 @@
     </div>
   </div>
 
+  <!-- Modal Carrito -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal1-header">
+          <h5 class="modal-title" id="cartModalLabel">Carrito de Compras</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="cartItemsContainer">
+          <!-- Los productos del carrito se cargarán aquí dinámicamente -->
+        </div>
+        <div class="modal1-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="checkoutButton">Ir al carrito</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
   <!-- Modal para filtros en móviles -->
   <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered"> <!-- Agregamos modal-sm para hacerlo más compacto -->
@@ -149,6 +169,8 @@
         document.getElementById('navbar').innerHTML = data;
       })
       .catch(error => console.error('Error al cargar el navbar:', error));
+
+
   </script>
 
 
@@ -163,14 +185,6 @@
       .catch(error => console.error('Error al cargar el footer:', error));
 
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const productos = JSON.parse(localStorage.getItem("productos"));
-      if (productos) {
-        cargarProductos(productos, "#contenedorTodosProductos");
-      } else {
-        console.error("No hay productos en localStorage.");
-      }
-    });
 
   </script>
 

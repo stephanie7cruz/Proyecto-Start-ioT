@@ -2,10 +2,33 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
     let productos = [];
     const contenedorProductos = document.querySelector("#list-items");
 
+    // Función para actualizar el numerito del carrito
+    function actualizarNumerito() {
+        let cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+            let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+            cartCountElement.innerText = nuevoNumerito;
+        }
+    }
 
+    // Cargar productos desde el archivo data.json
+    fetch('../Template/data.json')
+        .then(response => response.json())
+        .then(data => {
+            productos = data.item;
+
+            // Mostrar todos los productos en la sección de "Productos"
+            cargarProductos(productos, "#contenedorTodosProductos");
+
+
+        })
+        .catch(error => console.error("Error al cargar los productos:", error));
+
+    // filtros
     // filtros dispositivos pequeños
     let filterButton = document.getElementById("toggleFilter");
     let filterContainer = document.getElementById("filter-container");
@@ -25,24 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
     filterModal.hide(); // Cerrar el modal
 
 
-
-
-
-
-    // Cargar productos desde el archivo data.json
-    fetch('../Template/data.json')
-        .then(response => response.json())
-        .then(data => {
-            productos = data.item;
-
-            // Mostrar todos los productos en la sección de "Productos"
-            cargarProductos(productos, "#contenedorTodosProductos");
-
-
-        })
-        .catch(error => console.error("Error al cargar los productos:", error));
-
-    // filtros
     // Evento para aplicar filtros
     document.querySelector("#applyFilters").addEventListener("click", function () {
         aplicarFiltros();
@@ -108,10 +113,16 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             document.getElementById('navbar').innerHTML = data;
 
+            actualizarNumerito();
             // Aquí ya podemos acceder al contenedor del carrito y agregar el evento de click
             const cartIconContainer = document.querySelector(".cart-icon");
             if (cartIconContainer) {
                 cartIconContainer.addEventListener("click", function () {
+
+                    let productModalInstance = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+                    if (productModalInstance) {
+                        productModalInstance.hide();
+                    }
 
                     const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
                     cartModal.show();
@@ -124,19 +135,19 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error('Error al cargar el navbar:', error));
 
 
+
     // Función para cargar y renderizar los productos                   
 
     function cargarProductos(productosElegidos) {
         contenedorProductos.innerHTML = "";
         productosElegidos.forEach((producto, index) => {
             const div = document.createElement("div");
-            div.classList.add("col-12", "col-md-6", "col-lg-3", "mb-4");
+            div.classList.add("col-12", "col-sm-6", "col-md-6", "col-lg-3", "mb-4");
             div.innerHTML = `
-                <div class="card w-100 h-100"">
+                <div class="card w-100 h-100">
                     <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>
 
-                    <img src="${producto.img}" class="card-img-top object-fit-contain" alt="${producto.name}"
-                    style="height: 225px; width: 230px; object-fit: cover; cursor: pointer;"
+                    <img src="${producto.img}" class="card-img-top object-fit-contain" alt="${producto.name}" object-fit: cover; cursor: pointer;"
                     onclick="showProductDetails(this)">
 
                     <div class="info">
@@ -174,7 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
+
+
 
     // Función para agregar al carrito
     function agregarAlCarrito(e) {
@@ -220,8 +232,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Función para mostrar el contenido del carrito en el modal
     function mostrarCarrito() {
+        event.preventDefault();
         const cartItemsContainer = document.getElementById('cartItemsContainer');
         cartItemsContainer.innerHTML = '';
+
+        let totalCompra = 0; // Inicializa el total en 0
 
         if (productosEnCarrito.length === 0) {
             cartItemsContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
@@ -232,18 +247,77 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.innerHTML = `
                 <img src="${producto.img}" alt="${producto.name}" class="cart-item-img">
                 <div class="cart-item-details">
-                    <p>${producto.name} - ${producto.cantidad} x $${producto.precio}</p>
+                    <p>${producto.name}</p>
+                    <p><strong>Precio: $${producto.precio.toFixed(2)}</strong></p>
                 </div>
-                <button class="btn btn-danger btn-sm" id="eliminar-${producto.id}">Eliminar</button>
+                <div class="quantity-container">
+                    <button class="btn btn-sm btn-outline-primary decrease-qty" data-id="${producto.id}">➖</button>
+                    <span class="product-quantity">${producto.cantidad}</span>
+                    <button class="btn btn-sm btn-outline-primary increase-qty" data-id="${producto.id}">➕</button>
+                    <button class="btn btn-sm btn-danger delete-product" data-id="${producto.id}">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
             `;
                 cartItemsContainer.append(div);
 
-                // Añadir el evento de eliminar a cada botón después de que se haya añadido al DOM
-                const botonEliminar = document.getElementById(`eliminar-${producto.id}`);
-                botonEliminar.addEventListener('click', function () {
-                    eliminarDelCarrito(producto.id);
-                });
+                // Sumar al total
+                totalCompra += producto.precio * producto.cantidad;
             });
+
+            // Agregar total debajo de los productos
+            const totalDiv = document.createElement('div');
+            totalDiv.classList.add('cart-total');
+            totalDiv.innerHTML = `<p><strong>Total: $${totalCompra.toFixed(2)}</strong></p>`;
+            cartItemsContainer.append(totalDiv);
+        }
+
+        // Asignar eventos después de generar el HTML
+        document.querySelectorAll('.increase-qty').forEach(btn => {
+            btn.removeEventListener('click', aumentarCantidad);
+            btn.addEventListener('click', aumentarCantidad);
+        });
+
+        document.querySelectorAll('.decrease-qty').forEach(btn => {
+            btn.removeEventListener('click', reducirCantidad);
+            btn.addEventListener('click', reducirCantidad);
+        });
+
+        document.querySelectorAll('.delete-product').forEach(btn => {
+            btn.removeEventListener('click', eliminarProducto);
+            btn.addEventListener('click', eliminarProducto);
+        });
+    }
+
+    function aumentarCantidad() {
+        const productId = this.getAttribute('data-id');
+        modificarCantidad(productId, 1);
+    }
+
+    // Función para reducir cantidad sin permitir bajar de 1
+    function reducirCantidad() {
+        const productId = this.getAttribute('data-id');
+        const producto = productosEnCarrito.find(prod => prod.id == productId);
+        if (producto && producto.cantidad > 1) {
+            modificarCantidad(productId, -1);
+        }
+    }
+
+    function eliminarProducto() {
+        const productId = this.getAttribute('data-id');
+        eliminarDelCarrito(productId);
+    }
+
+    // Función para modificar la cantidad de un producto en el carrito
+    function modificarCantidad(productId, cantidad) {
+        const producto = productosEnCarrito.find(prod => prod.id == productId);
+        if (producto) {
+            if (producto.cantidad + cantidad >= 1) {  // No permite bajar de 1
+                producto.cantidad += cantidad;
+                localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+                actualizarNumerito();
+                mostrarCarrito();
+            }
         }
     }
 
