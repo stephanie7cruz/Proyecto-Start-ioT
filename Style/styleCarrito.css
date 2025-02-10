@@ -1,3 +1,7 @@
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
@@ -8,9 +12,6 @@ h1 {
     display: inline-block;
     padding-bottom: 5px;
 }
-
-
-/* cambios arriba */
 
 
 /* Estilos básicos para el carrito */
@@ -236,26 +237,15 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
+
 #checkoutBtn:hover {
     background-color: #388e3c;
 }
 
 .container1 {
     min-height: 100dvh;
-    display: grid;
     grid-template-rows: auto 1fr auto;
-    margin-top: 130px;
-}
-
-@media (max-width: 768px) {
-    .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .cart-item-img {
-        margin-bottom: 10px;
-    }
+    margin-top: 20px;
 }
 
 .cart-header,
@@ -303,7 +293,23 @@ h1 {
     font-size: 0.9rem;
 }
 
+
+
+
+
 /* Media Queries para pantallas menores a 580px */
+
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item-img {
+        margin-bottom: 10px;
+    }
+}
+
 @media (max-width: 580px) {
     h1 {
         font-size: 2rem; /* Ajustar tamaño de fuente */

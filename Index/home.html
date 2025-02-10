@@ -5,19 +5,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Style/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
     <link rel="stylesheet" href="../Style/nav.css">
     <link rel="stylesheet" href="../Style/styleProductos.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../Style/login.css">
+    <!-- <link rel="stylesheet" href="../Style/login.css">  se daña el banner si coloco esta url -->
+   
+    <title>Home</title>
+  
 </head>
 <body>
+
       <!-- Encabezado con navegación -->
-    <section id="nav-bar">
+      <section id="nav-bar">
         <nav>
           <header id="navbar"></header>
         </nav>
       </section>
+
+        <!-- modals inicion de sesion - registro-->
+<section id="homemodales">
+  <div id="custom-alertaMensaje" class="custom-alert"></div>
+<!-- Modal de Iniciar Sesión -->
+<div class="modal fade" id="modalInicioSesion1" tabindex="-1">
+
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header border-0 ">
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-center" >
+            <!-- Logo centrado -->
+            <a class="navbar-brand " href="home.html">
+                <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg" 
+                    alt="START" 
+                    class="img-fluid" 
+                    style="max-width: 120px;">
+            </a>
+            <h2 class="modal-title mt-2 ">Iniciar Sesión</h2>
+          </div>
+          
+          <div class="modal-body">
+              <input type="email" id="correoInicio" class="form-control mb-2" placeholder="Correo electrónico">
+              <span id="errorInicioCorreo" class="text-danger"></span>
+              <div class="input-group mb-2">
+                <input type="password" id="claveInicio" class="form-control" placeholder="Contraseña">
+                
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('claveInicio', 'iconoClaveRegistro')">
+                    <i id="iconoClaveRegistro" class="bi bi-eye"></i>
+                </button>
+                <span id="errorInicioClave" class="text-danger"></span>
+            </div>
+              <span id="errorInicio" class="text-danger"></span>
+              <div class="modal-footer">
+                <button class="btn btn-gradient" onclick="iniciarSesion()">Ingresar</button>
+    
+              </div>
+              <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+                  <p>
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#modalRecuperarClave" data-bs-dismiss="modal">
+                          ¿Olvidaste tu contraseña?
+                      </a>
+                  </p>
+                  <p>
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#modalRegistro" data-bs-dismiss="modal">
+                          ¿No tienes una cuenta? Regístrate aquí
+                      </a>
+                  </p>
+              </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+
+<!-- Modal de Registro -->
+<div class="modal fade" id="modalRegistro" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Mensaje de alerta -->
+       
+            <div class="modal-header  border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center">
+              <a class="navbar-brand " href="home.html">
+                <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg" 
+                    alt="START" 
+                    class="img-fluid" 
+                    style="max-width: 120px;">
+            </a>
+                <h2 class="modal-title">Registro</h2>
+            </div>
+          
+            <div class="modal-body">
+                <input type="text" id="nombreCompleto" class="form-control mb-2" placeholder="Nombre completo">
+                <span id="errorRegistro" class="text-danger"></span>
+
+                <input type="tel" id="telefono" class="form-control mb-2" placeholder="Teléfono">
+                <span id="errorRegistroTelefono" class="text-danger"></span>
+
+                <input type="email" id="correoRegistro" class="form-control mb-2" placeholder="Correo electrónico">
+                <span id="errorRegistroCorreo" class="text-danger"></span>
+
+                <input type="password" id="claveRegistro2" class="form-control mb-2" placeholder="Contraseña">
+                <span id="errorRegistroContra" class="text-danger"></span>
+                <div class="modal-footer">
+                  <button class="btn btn-gradient" onclick="registrarUsuario()">Registrarse</button>
+              </div>
+                <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+                  <p>
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1" data-bs-dismiss="modal">
+                           <span>¿Ya tienes una cuenta? </span> inicia sesion aqui
+                      </a>
+                  </p>
+                  
+              </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Recuperar Contraseña -->
+<div class="modal fade" id="modalRecuperarClave" tabindex="-1">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Mensaje de alerta -->
+
+            <div class="modal-header">
+              <a class="navbar-brand m-3" href="home.html">
+                <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg" 
+                    alt="START" 
+                    class="img-fluid" 
+                    style="max-width: 120px;">
+            </a>
+                <h3 class="modal-title">Recuperar Contraseña</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="email" id="correoRecuperacion" class="form-control mb-2" placeholder="Correo electrónico">
+                <span id="errorRecuperar" class="text-danger"></span>
+                <div class="modal-footer">
+                  <button class="btn btn-gradient" onclick="recuperarClave()">Recuperar</button>
+                 
+              </div>
+                <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+                  <p>
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1" data-bs-dismiss="modal">
+                           Volver a inicio de sesión
+                      </a>
+                  </p>
+                  
+              </div>
+            </div>
+          
+        </div>
+    </div>
+</div>
+
+
+
+</section>
+
 
   <!-- Banner principal Cristian-->
   <section id="Banner">
@@ -33,7 +188,7 @@
       <div class="carousel-inner">
         <!-- Imagen 1 -->
         <div class="carousel-item active">
-          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738918873/2_cvk5xj.png" class="d-block w-100" alt="Imagen 1">
+          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738962529/2_ft0vmk.png" class="d-block w-100" alt="Imagen 1">
           <div class="carousel-caption d-none d-md-block">
             <h5>Rastreo en Tiempo Real</h5>
             <p>Monitorea tus dispositivos con precisión y seguridad.</p>
@@ -43,7 +198,7 @@
     
         <!-- Imagen 2 -->
         <div class="carousel-item">
-          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738918871/3_nt7uek.png" class="d-block w-100" alt="Imagen 2">
+          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738962532/1_izfzwg.png" class="d-block w-100" alt="Imagen 2">
           <div class="carousel-caption d-none d-md-block">
             <h5>GPS Avanzados</h5>
             <p>Dispositivos GPS para todas tus necesidades de rastreo.</p>
@@ -53,7 +208,7 @@
     
         <!-- Imagen 3 -->
         <div class="carousel-item">
-          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738918873/1_qd9oto.png" class="d-block w-100" alt="Imagen 3">
+          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738962529/3_cgrviy.png" class="d-block w-100" alt="Imagen 3">
           <div class="carousel-caption d-none d-md-block">
             <h5>Monitoreo IoT</h5>
             <p>Conectividad inteligente para un mejor control.</p>
@@ -81,17 +236,220 @@
       
     </section>
     
-    <!-- Sección de categorías Stephanie-->
-    <section>
+
+
+<!-- Sección de categorías Stephanie-->
+
+   
+      <section id="categorias" class="my-5">
+        <div class="container">
+          <h2 class="text-center mb-4">Busca por categoría</h2>
+          <div id="carouselCategoriasNegro" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicadores del Carrusel -->
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+    
+            <!-- Cards en el Carrusel -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/car--v1.png" alt="Carro">
+                      <div class="title">Carro</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/motorcycle--v1.png" alt="Moto">
+                      <div class="title">Moto</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/truck--v1.png" alt="Camión">
+                      <div class="title">Camión</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="carousel-item">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/open-box.png" alt="Carga">
+                      <div class="title">Carga</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/walking--v1.png" alt="Personas">
+                      <div class="title">Personas</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/?size=100&id=121448&format=png" alt="Mascotas">
+                      <div class="title">Mascotas</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Controles del Carrusel -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    
+    
+    <style>
+      #carouselCategoriasNegro .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #f9f9f9;
+        width: 120px;
+        height: 150px;
+        margin: 10px auto;
+        border: 1px solid #000;
+        border-radius: 4px;
+        transition: transform 0.3s ease;
+      }
+    
+      #carouselCategoriasNegro .card:hover {
+        transform: scale(1.05);
+        background-color: #e0e0e0;
+      }
+    
+      #carouselCategoriasNegro img {
+        width: 50px;
+        height: 50px;
+        margin: 15px 0;
+      }
+    
+      #carouselCategoriasNegro .title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        margin-top: 10px;
+        text-align: center;
+      }
+    
+      .carousel-indicators button {
+        background-color: #000;
+      }
+    
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: #000;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+      }
+    
+      .carousel-control-prev-icon::before,
+      .carousel-control-next-icon::before {
+        color: #fff;
+        font-size: 16px;
+        line-height: 30px;
+      }
+    </style>
+
       
       <!-- Seguridad electronica--> 
       <!-- Rastreo Satelital--> 
       <!-- Control de Accesos--> 
-      <!-- Dispositivos GPS--> 
-  </section>
+      <!-- Dispositivos GPS-->
 
 
-
+    <section>
+      <section id="categorias" class="my-5">
+        <div class="container">
+          <h2 class="text-center mb-4">Busca por categoría</h2>
+          <div id="carouselCategoriasNegro" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicadores del Carrusel -->
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+    
+            <!-- Cards en el Carrusel -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/car--v1.png" alt="Carro">
+                      <div class="title">Carro</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/motorcycle--v1.png" alt="Moto">
+                      <div class="title">Moto</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/truck--v1.png" alt="Camión">
+                      <div class="title">Camión</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="carousel-item">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/open-box.png" alt="Carga">
+                      <div class="title">Carga</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/ios/50/000000/walking--v1.png" alt="Personas">
+                      <div class="title">Personas</div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <div class="card text-center border">
+                      <img src="https://img.icons8.com/?size=100&id=121448&format=png" alt="Mascotas">
+                      <div class="title">Mascotas</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Controles del Carrusel -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </section>
+    
+  
 
   <!-- Sección de paquetes Cristian -->
   <section >
@@ -108,6 +466,7 @@
     
           <!-- Cards en el Carrusel -->
           <div class="carousel-inner">
+            
             <!-- Card 1 -->
             <div class="carousel-item active">
               <div class="row justify-content-center">
@@ -295,8 +654,10 @@
     <header id="footer"></header>
   </footer>
 
-  <script src="../Script/home.js"></script> <!--  //NOSE SI VA O NO -->
+  <script src="../Script/home.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+ 
+  <!-- cargar nav -->
     <script>
 
       fetch('nav.html')
@@ -306,10 +667,10 @@
         })
         .catch(error => console.error('Error al cargar el navbar:', error));
     </script>
-  
+
+
     <!-- cargar footer -->
     <script>
-  
       fetch('footer.html')
         .then(response => response.text())
         .then(data => {
@@ -318,7 +679,7 @@
         .catch(error => console.error('Error al cargar el footer:', error));
     </script>
 
-
+<script src="../Script/login.js"></script>
 
   </body>
 </html>

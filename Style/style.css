@@ -6,7 +6,7 @@
 body
 {
     font-family: sans-serif;
-    min-height: 100dvh;
+    min-height: 90dvh;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -25,7 +25,6 @@ body
 #Banner{
     background-image: linear-gradient(to right, #a517ba ,#5f1782);
     color: #fff;
-    padding-top: 120px;
   
 } 
 #carouselPaquetes .carousel-inner {
@@ -97,7 +96,7 @@ body
     align-items: center;
     justify-content: center;
     font-size: 30px;
-    background-color: #284170 ;
+    background-color: #1e3359 ;
     color: white;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
@@ -120,7 +119,7 @@ body
 
 .carousel-item img {
     object-fit: cover;
-    height: 450px;
+    height: 600px;
   }
   
   .carousel-caption {
@@ -240,6 +239,58 @@ body
   
   .carousel-indicators button {
     background-color: #007bff;
+  }
+  
+  #carouselCategoriasNegro .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    width: 120px;
+    height: 150px;
+    margin: 10px auto;
+    border: 1px solid #000;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  #carouselCategoriasNegro .card:hover {
+    transform: scale(1.05);
+    background-color: #e0e0e0;
+  }
+
+  #carouselCategoriasNegro img {
+    width: 50px;
+    height: 50px;
+    margin: 15px 0;
+  }
+
+  #carouselCategoriasNegro .title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .carousel-indicators button {
+    background-color: #000;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: #000;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .carousel-control-prev-icon::before,
+  .carousel-control-next-icon::before {
+    color: #fff;
+    font-size: 16px;
+    line-height: 30px;
   }
   
   

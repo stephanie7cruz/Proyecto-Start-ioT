@@ -1,7 +1,7 @@
 {
     "page": 1,
-    "per_page": 11,
-    "total": 11,
+    "per_page": 17,
+    "total": 17,
     "total_pages": 1,
     "item": [
         {
@@ -11,7 +11,9 @@
             "categoria": "GPS",
             "activo": "Personas",
             "precio": 721067.01,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307015/STRT1.IMAGEN.061611_xekhkg.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307015/STRT1.IMAGEN.061611_xekhkg.png",
+            "especificaciones": "0 A 30 V IP68",
+            "Compatible": "No compatible"
         },
         {
             "id": "STRT2",
@@ -20,7 +22,9 @@
             "categoria": "GPS",
             "activo": "Camión",
             "precio": 332800.4,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307011/STRT3.IMAGEN.055928_aprt3t.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307011/STRT3.IMAGEN.055928_aprt3t.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT3",
@@ -29,7 +33,9 @@
             "categoria": "GPS",
             "activo": "Carro, Moto",
             "precio": 153051.14,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307011/STRT3.IMAGEN.055928_aprt3t.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307011/STRT3.IMAGEN.055928_aprt3t.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT4",
@@ -38,7 +44,9 @@
             "categoria": "GPS",
             "activo": "Carga",
             "precio": 262400.14,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307202/STRT4.IMAGEN.060722_pk2jxx.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307202/STRT4.IMAGEN.060722_pk2jxx.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT5",
@@ -47,7 +55,9 @@
             "categoria": "GPS",
             "activo": "Carga",
             "precio": 318932.82,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307203/STRT5.IMAGEN.060659_t7jl18.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307203/STRT5.IMAGEN.060659_t7jl18.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT6",
@@ -56,7 +66,9 @@
             "categoria": "GPS",
             "activo": "Carro, Moto",
             "precio": 217599.78,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT6.IMAGEN.060120_stsw7m.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT6.IMAGEN.060120_stsw7m.png",
+            "especificaciones": "9-90 V",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT7",
@@ -65,25 +77,31 @@
             "categoria": "GPS",
             "activo": "Carro",
             "precio": 224000.27,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307204/STRT7.IMAGEN.055902_pkmcle.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307204/STRT7.IMAGEN.055902_pkmcle.png",
+            "especificaciones": "9-90 V",
+            "Compatible": " "
         },
         {
             "id": "STRT9",
             "name": "MIC - MICROFONO DE ALTA SENSIBILIDAD",
             "description": "Micrófono de alta sensibilidad para grabación de audio",
-            "categoria": "Carro, Camion",
-            "activo": "PERSONAS",
+            "categoria": "ACCESORIO",
+            "activo": "Carro, Camion, Flotas",
             "precio": 15359.95,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT9.IMAGEN.192908_aoeqak.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT9.IMAGEN.192908_aoeqak.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT2, STRT3, STRT4, STRT5,  STRT7, STRT17, STRT18, STRT19, STRT20, STRT21, STRT22, STRT24"
         },
         {
             "id": "STRT10",
             "name": "RAMAL DE CONEXION",
             "description": "Accesorio para conexión de dispositivos adicionales",
             "categoria": "ACCESORIO",
-            "activo": "Carro, Camion, Moto",
+            "activo": "Carro, Camion, Flotas",
             "precio": 19199.94,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307253/STRT10.IMAGEN.151952_gm7jle.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307253/STRT10.IMAGEN.151952_gm7jle.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT2, STRT3, STRT4, STRT5, STRT7, STRT17, STRT18, STRT19, STRT20, STRT21, STRT22, STRT24"
         },
         {
             "id": "STRT17",
@@ -92,7 +110,9 @@
             "categoria": "GPS",
             "activo": "Carga",
             "precio": 544000,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307210/STRT17.IMAGEN.061142_jsxcr4.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307210/STRT17.IMAGEN.061142_jsxcr4.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT18",
@@ -101,7 +121,9 @@
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 1919999,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307540/STRT18.IMAGEN.060901_xqvi8g.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307540/STRT18.IMAGEN.060901_xqvi8g.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT19",
@@ -110,9 +132,10 @@
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 959999,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307518/STRT19.IMAGEN.060919_xr3ixd.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307518/STRT19.IMAGEN.060919_xr3ixd.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
-
         {
             "id": "STRT20",
             "name": "SOLAR X 110",
@@ -120,7 +143,9 @@
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 831.999,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307211/STRT20.IMAGEN.060817_lv2f7g.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307211/STRT20.IMAGEN.060817_lv2f7g.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT21",
@@ -129,7 +154,9 @@
             "categoria": "GPS",
             "activo": "VEHÍCULOS",
             "precio": 627.200,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307570/STRT21.IMAGEN.055533_bpuihm.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307570/STRT21.IMAGEN.055533_bpuihm.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT22",
@@ -138,9 +165,10 @@
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 627.200,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1737607677/STRT22.IMAGEN.045100_vpwuye.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1737607677/STRT22.IMAGEN.045100_vpwuye.png",
+            "especificaciones": "N/A",
+            "Compatible": ""
         },
-
         {
             "id": "STRT24",
             "name": "WarriorX 100 BN:02",
@@ -148,7 +176,9 @@
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 524.800,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307215/STRT24.IMAGEN.060744_qlqdop.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307215/STRT24.IMAGEN.060744_qlqdop.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT9, STRT10"
         },
         {
             "id": "STRT25",
@@ -157,9 +187,10 @@
             "categoria": "ACCESORIO",
             "activo": "Flotas",
             "precio": 454.399,
-            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307217/STRT25.IMAGEN.153249_dj6aoo.png"
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307217/STRT25.IMAGEN.153249_dj6aoo.png",
+            "especificaciones": "N/A",
+            "Compatible": "STRT18, STRT19, STRT20, STRT21, STRT22, STRT24"
         }
-        
     ],
     "ad": {
         "company": "Start ioT",
