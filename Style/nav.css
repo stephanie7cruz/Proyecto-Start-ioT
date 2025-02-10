@@ -8,19 +8,25 @@
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1050; /* Asegura que esté sobre el navbar */
+    z-index: 1050;
+    /* Asegura que esté sobre el navbar */
 }
-.navbar-toggler:focus, .navbar-toggler.collapsed {
-    box-shadow: none !important; /* Elimina cualquier sombra o borde de foco */
-    outline: none !important; /* Elimina cualquier contorno que se agregue al hacer clic */
-    border: none !important; /* Elimina el borde predeterminado */
-  }
+
+.navbar-toggler:focus,
+.navbar-toggler.collapsed {
+    box-shadow: none !important;
+    /* Elimina cualquier sombra o borde de foco */
+    outline: none !important;
+    /* Elimina cualquier contorno que se agregue al hacer clic */
+    border: none !important;
+    /* Elimina el borde predeterminado */
+}
 
 /* //icono login  */
 .login-icon-container {
     display: inline-block;
     margin: 16px;
-  
+
 }
 
 .login-icon {
@@ -60,6 +66,7 @@
 .top-texts::after {
     content: "Rastreo satelital en tiempo real | Dispositivos GPS avanzados | Tecnología IoT para monitoreo y control";
 }
+
 .top-texts {
     text-align: center;
     flex-grow: 1;
@@ -68,24 +75,30 @@
 
 /* Ajuste para el navbar al usar fixed-top */
 .navbar {
-    margin-top: 30px; /* Espacio para la barra superior */
+    margin-top: 30px;
+    /* Espacio para la barra superior */
 }
 
 /* Estilos generales de la navbar */
 .navbar {
-    background-color: #ffffff; /* Fondo blanco */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    margin-bottom: 20px; /* Margen debajo del navbar para que se vea la sombra */
+    background-color: #ffffff;
+    /* Fondo blanco */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera */
+    margin-bottom: 20px;
+    /* Margen debajo del navbar para que se vea la sombra */
 }
 
 /* Estilo de los enlaces de la navbar */
 .navbar-nav .nav-link {
-    color: #15193e !important; /* Color oscuro */
+    color: #15193e !important;
+    /* Color oscuro */
 }
 
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link:hover {
-    color: #2d3262 !important; /* Color principal */
+    color: #2d3262 !important;
+    /* Color principal */
 }
 
 /* Botón de búsqueda */
@@ -101,7 +114,8 @@
 
 /* Menú desplegable */
 .navbar-nav .dropdown-menu {
-    border: 1px solid #15193e; /* Bordes oscuros */
+    border: 1px solid #15193e;
+    /* Bordes oscuros */
 }
 
 .navbar-nav .dropdown-item {
@@ -130,10 +144,12 @@
     position: relative;
     margin: auto;
     max-width: 200px;
-    
+
 }
+
 .cart-icon {
-    margin-left: 10px; /* Espaciado entre icono y texto */
+    margin-left: 10px;
+    /* Espaciado entre icono y texto */
     font-size: 1.6rem;
     position: relative;
 
@@ -174,34 +190,37 @@
 
 /* Mostrar menú desplegable al pasar el mouse */
 .nav-item.dropdown:hover .dropdown-menu {
-   display: block; 
-   margin-top: 0; 
+    display: block;
+    margin-top: 0;
 }
 
 /* Responsividad */
 @media (max-width: 768px) {
-   .navbar-toggler-icon {
-       border-color: transparent; /* Eliminar borde gris al hacer clic */
-   }
+    .navbar-toggler-icon {
+        border-color: transparent;
+        /* Eliminar borde gris al hacer clic */
+    }
 
-   .cart-icon {
-       font-size: 1.5rem; 
-   }
+    .cart-icon {
+        font-size: 1.5rem;
+    }
 
-   .cart-icon .cart-count {
-       font-size: 0.7rem; 
-   }
+    .cart-icon .cart-count {
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-width: 480px) {
-   .cart-icon {
-       font-size: 1.2rem; 
-   }
+    .cart-icon {
+        font-size: 1.2rem;
+    }
 
-   .cart-icon .cart-count {
-       font-size: 0.6rem; 
-   }
+    .cart-icon .cart-count {
+        font-size: 0.6rem;
+    }
+
 }
+
 /* Ajuste del texto en la barra superior */
 @media (max-width: 768px) {
     .top-texts {
@@ -209,12 +228,14 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     .social-icons {
         display: none;
     }
-    
+
     .top-texts::after {
-        content: "Rastreo satelital en tiempo real🌏"; /* Solo muestra esta parte del texto */
+        content: "Rastreo satelital en tiempo real🌏";
+        /* Solo muestra esta parte del texto */
         display: block;
     }
 }
