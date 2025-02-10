@@ -86,9 +86,7 @@ body {
 
 .form-select {
     width: initial !important;
-    /* Restablece el ancho predeterminado */
     max-width: 150px !important;
-    /* Limita el tamaño */
 }
 
 
