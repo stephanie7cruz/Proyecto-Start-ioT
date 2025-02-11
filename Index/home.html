@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../Style/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+  <link rel="stylesheet" href="../Style/nav.css">
+  <link rel="stylesheet" href="../Style/styleProductos.css">
+  <link rel="stylesheet" href="../Style/login.css">
+  <!-- <link rel="stylesheet" href="../Style/login.css">  se daña el banner si coloco esta url -->
+
+  <title>Home</title>
+
+</head>
+
+<body>
+
+  <!-- Encabezado con navegación -->
+  <section id="nav-bar">
+    <nav>
+      <header id="navbar"></header>
+    </nav>
+  </section>
+
+  <!-- modals inicion de sesion - registro-->
+  <section id="homemodales">
+    <div id="custom-alertaMensaje" class="custom-alert"></div>
+    <!-- Modal de Iniciar Sesión -->
+    <div class="modal fade" id="modalInicioSesion1" tabindex="-1">
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header border-0 ">
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <!-- Logo centrado -->
+            <a class="navbar-brand " href="home.html">
+              <img
+                src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg"
+                alt="START" class="img-fluid" style="max-width: 120px;">
+            </a>
+            <h2 class="modal-title mt-2 ">Iniciar Sesión</h2>
+          </div>
+
+          <div class="modal-body">
+            <input type="email" id="correoInicio" class="form-control mb-2" placeholder="Correo electrónico">
+            <span id="errorInicioCorreo" class="text-danger"></span>
+            <div class="input-group mb-2">
+              <input type="password" id="claveInicio" class="form-control" placeholder="Contraseña">
+
+              <button class="btn btn-outline-secondary" type="button"
+                onclick="togglePassword('claveInicio', 'iconoClaveRegistro')">
+                <i id="iconoClaveRegistro" class="bi bi-eye"></i>
+              </button>
+              <span id="errorInicioClave" class="text-danger"></span>
+            </div>
+            <span id="errorInicio" class="text-danger"></span>
+            <div class="modal-footer">
+              <button class="btn btn-gradient" onclick="iniciarSesion()">Ingresar</button>
+
+            </div>
+            <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+              <p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modalRecuperarClave" data-bs-dismiss="modal">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </p>
+              <p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modalRegistro" data-bs-dismiss="modal">
+                  ¿No tienes una cuenta? Regístrate aquí
+                </a>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="modalRegistro" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Mensaje de alerta -->
+
+          <div class="modal-header  border-0">
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <a class="navbar-brand " href="home.html">
+              <img
+                src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg"
+                alt="START" class="img-fluid" style="max-width: 120px;">
+            </a>
+            <h2 class="modal-title">Registro</h2>
+          </div>
+
+          <div class="modal-body">
+            <input type="text" id="nombreCompleto" class="form-control mb-2" placeholder="Nombre completo">
+            <span id="errorRegistro" class="text-danger"></span>
+
+            <input type="tel" id="telefono" class="form-control mb-2" placeholder="Teléfono">
+            <span id="errorRegistroTelefono" class="text-danger"></span>
+
+            <input type="email" id="correoRegistro" class="form-control mb-2" placeholder="Correo electrónico">
+            <span id="errorRegistroCorreo" class="text-danger"></span>
+
+            <input type="password" id="claveRegistro2" class="form-control mb-2" placeholder="Contraseña">
+            <span id="errorRegistroContra" class="text-danger"></span>
+            <div class="modal-footer">
+              <button class="btn btn-gradient" onclick="registrarUsuario()">Registrarse</button>
+            </div>
+            <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+              <p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1" data-bs-dismiss="modal">
+                  <span>¿Ya tienes una cuenta? </span> inicia sesion aqui
+                </a>
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Recuperar Contraseña -->
+    <div class="modal fade" id="modalRecuperarClave" tabindex="-1">
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Mensaje de alerta -->
+
+          <div class="modal-header">
+            <a class="navbar-brand m-3" href="home.html">
+              <img
+                src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg"
+                alt="START" class="img-fluid" style="max-width: 120px;">
+            </a>
+            <h3 class="modal-title">Recuperar Contraseña</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="email" id="correoRecuperacion" class="form-control mb-2" placeholder="Correo electrónico">
+            <span id="errorRecuperar" class="text-danger"></span>
+            <div class="modal-footer">
+              <button class="btn btn-gradient" onclick="recuperarClave()">Recuperar</button>
+
+            </div>
+            <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+              <p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1" data-bs-dismiss="modal">
+                  Volver a inicio de sesión
+                </a>
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </section>
+
+
+  <!-- Banner principal Cristian-->
+  <section id="Banner">
+    <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
+      <!-- Indicadores para navegar entre las imágenes -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <!-- Carousel de imágenes -->
+      <div class="carousel-inner">
+        <!-- Imagen 1 -->
+        <div class="carousel-item active">
+          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738962529/2_ft0vmk.png" class="d-block w-100"
+            alt="Imagen 1">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Rastreo en Tiempo Real</h5>
+            <p>Monitorea tus dispositivos con precisión y seguridad.</p>
+            <a href="#paquetes" class="btn btn-lg btn-primary">Descubre Más</a>
+          </div>
+        </div>
+
+        <!-- Imagen 2 -->
+        <div class="carousel-item">
+          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738962532/1_izfzwg.png" class="d-block w-100"
+            alt="Imagen 2">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>GPS Avanzados</h5>
+            <p>Dispositivos GPS para todas tus necesidades de rastreo.</p>
+            <a href="indexPproductos.html#filter-section" class="btn btn-lg btn-success">Explora Productos</a>
+          </div>
+        </div>
+
+        <!-- Imagen 3 -->
+        <div class="carousel-item">
+          <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738962529/3_cgrviy.png" class="d-block w-100"
+            alt="Imagen 3">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Monitoreo IoT</h5>
+            <p>Conectividad inteligente para un mejor control.</p>
+            <a href="indexPproductos.html#filter-section" class="btn btn-lg btn-warning">Más Información</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles del Carousel -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+  </section>
+
+  <!-- Sección de 4 productos James -->
+  <section>
+    <!--accesos rapidos -->
+
+  </section>
+
+
+
+  <!-- Sección de paquetes Cristian -->
+  <section>
+    <section id="paquetes" class="my-2">
+      <div class="container">
+        <h2 class="text-center mb-1">Paquetes Destacados</h2>
+        <div id="carouselPaquetes" class="carousel slide" data-bs-ride="carousel">
+          <!-- Indicadores del Carrusel -->
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselPaquetes" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselPaquetes" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+          </div>
+
+          <!-- Cards en el Carrusel -->
+          <div class="carousel-inner">
+
+            <!-- Card 1 -->
+            <div class="carousel-item active">
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917841/1_enzthk.png"
+                      class="card-img-top" alt="Paquete de Seguridad en Carretera">
+                    <div class="card-body">
+                      <h5 class="card-title">Seguridad en Carreteras</h5>
+                      <p class="card-text">Monitorea en tiempo real el estado de tus vehículos y su ubicación en rutas
+                        críticas. ¡La seguridad es nuestra prioridad!</p>
+                      <a href="#ctaSeguridad" class="btn btn-primary">Ver Paquete</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img
+                      src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917836/Blue_Vibrant_Futuristic_5G_Technology_Instagram_Post_gwbvzn.png"
+                      class="card-img-top" alt="Paquete de Rastreo Satelital">
+                    <div class="card-body">
+                      <h5 class="card-title">Rastreo Satelital</h5>
+                      <p class="card-text">Obtén control total de la ubicación de tus activos y vehículos, con nuestra
+                        tecnología de rastreo satelital avanzada.</p>
+                      <a href="#ctaRastreo" class="btn btn-primary">Descubre Más</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917832/7_p8dcxo.png"
+                      class="card-img-top" alt="Paquete de Plataforma de Rastreo">
+                    <div class="card-body">
+                      <h5 class="card-title">Funcionalidades Top Plataforma</h5>
+                      <p class="card-text">La mejor plataforma para gestionar flotas y monitorear el estado de tus
+                        dispositivos en tiempo real.</p>
+                      <a href="#ctaPlataforma" class="btn btn-primary">Ver Paquete</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917838/6_jp0jrd.png"
+                      class="card-img-top" alt="Paquete IoT">
+                    <div class="card-body">
+                      <h5 class="card-title">Soluciones IoT</h5>
+                      <p class="card-text">Conecta tus dispositivos y realiza seguimiento en tiempo real. La tecnología
+                        IoT para un mejor control de tus recursos.</p>
+                      <a href="#ctaIoT" class="btn btn-primary">Más Información</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="carousel-item">
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917839/5_baukfu.png"
+                      class="card-img-top" alt="Paquete Vehículo Empresarial">
+                    <div class="card-body">
+                      <h5 class="card-title">Vehículo Empresarial</h5>
+                      <p class="card-text">Asegura la seguridad y eficiencia de tus vehículos en ruta. Monitorea todo en
+                        tiempo real desde tu dispositivo.</p>
+                      <a href="#ctaVehiculo" class="btn btn-primary">Conoce Más</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917833/2_a3ailu.png"
+                      class="card-img-top" alt="Paquete de Seguridad Industrial">
+                    <div class="card-body">
+                      <h5 class="card-title">Seguridad Industrial</h5>
+                      <p class="card-text">Monitoreo inteligente para garantizar la seguridad de tus instalaciones
+                        industriales en todo momento.</p>
+                      <a href="#ctaIndustrial" class="btn btn-primary">Ver Paquete</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917835/3_e3vww7.png"
+                      class="card-img-top" alt="Paquete Personalizado">
+                    <div class="card-body">
+                      <h5 class="card-title">Paquete Personalizado</h5>
+                      <p class="card-text">Este paquete ha sido diseñado para ofrecerte la máxima flexibilidad.
+                        Personalízalo según
+                        tus necesidades específicas. </p>
+                      <a href="#ctaPersonalizado" class="btn btn-primary">Construir Paquete</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="col-12 col-md-3">
+                  <div class="card text-center border-0">
+                    <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738917832/7_p8dcxo.png"
+                      class="card-img-top" alt="Paquete de Conectividad">
+                    <div class="card-body">
+                      <h5 class="card-title">Conectividad Total</h5>
+                      <p class="card-text">Garantiza que tu infraestructura esté siempre conectada con nuestras
+                        soluciones avanzadas en conectividad.</p>
+                      <a href="#ctaConectividad" class="btn btn-primary">Descubre Paquete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controles del Carrusel fuera de las Cards -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselPaquetes" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselPaquetes" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </section>
+
+  <!-- Sección de los Top 5 productos DIANAAAAAAAAA-->
+  <section>
+
+    <div class="container">
+      <div id="contenedorTopProductos" class="row">
+        <h2 id="topVendidos">🏆Top productos vendidos!</h2>
+        <div class="col">
+          <div id="list-items" class="row">
+            <!-- Las tarjetas se agregarán aquí dinámicamente -->
+          </div>
+        </div>
+      </div>
+      <!-- Modal Carrito -->
+      <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cartModalLabel">Carrito de Compras</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="cartItemsContainer">
+              <!-- Los productos del carrito se cargarán aquí dinámicamente -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" id="checkoutButton">Ir al carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+  <!-- Sección de todos los productos Replicar lo que hizo James-->
+  <section class="seccion-mascotas text-center py-5">
+    <div class="container">
+      <h2 class="titulo-seccion">
+        Conoce su <span class="ubicacion">ubicación</span> en todo momento
+        con nuestro collar para mascotas
+      </h2>
+    </div>
+  </section>
+
+  <!-- Sección de categorías Stephanie-->
+
+  <section id="categorias" class="my-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Busca por categoría</h2>
+      <div id="carouselCategoriasNegro" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicadores del Carrusel -->
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselCategoriasNegro" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+        </div>
+
+        <!-- Cards en el Carrusel -->
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-2">
+                <div class="card text-center border">
+                  <img src="https://img.icons8.com/ios/50/000000/car--v1.png" alt="Carro">
+                  <div class="title">Carro</div>
+                </div>
+              </div>
+              <div class="col-12 col-md-2">
+                <div class="card text-center border">
+                  <img src="https://img.icons8.com/ios/50/000000/motorcycle--v1.png" alt="Moto">
+                  <div class="title">Moto</div>
+                </div>
+              </div>
+              <div class="col-12 col-md-2">
+                <div class="card text-center border">
+                  <img src="https://img.icons8.com/ios/50/000000/truck--v1.png" alt="Camión">
+                  <div class="title">Camión</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-2">
+                <div class="card text-center border">
+                  <img src="https://img.icons8.com/ios/50/000000/open-box.png" alt="Carga">
+                  <div class="title">Carga</div>
+                </div>
+              </div>
+              <div class="col-12 col-md-2">
+                <div class="card text-center border">
+                  <img src="https://img.icons8.com/ios/50/000000/walking--v1.png" alt="Personas">
+                  <div class="title">Personas</div>
+                </div>
+              </div>
+              <div class="col-12 col-md-2">
+                <div class="card text-center border">
+                  <img src="https://img.icons8.com/?size=100&id=121448&format=png" alt="Mascotas">
+                  <div class="title">Mascotas</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controles del Carrusel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCategoriasNegro"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselCategoriasNegro"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Sección de 3 elementos en circulo Diana -->
+  <section>
+    <div class="containerIconos">
+      <div class="cardIconos">
+        <div class="icon"><i class="fa-solid fa-truck"></i>
+        </div>
+        <div class="titleIconos">Entrega rápida y gratuita</div>
+        <div class="subtitleIconos">Envío gratis en todos los pedidos superiores a $120.000</div>
+      </div>
+      <div class="cardIconos">
+        <div class="icon"><i class="fa-solid fa-headphones"></i></div>
+        <div class="titleIconos"> Atención al cliente 24/7</div>
+        <div class="subtitleIconos">Soporte amable y disponible en todo momento. </div>
+      </div>
+      <div class="cardIconos">
+        <div class="icon"><i class="fa-solid fa-location-pin-lock"></i></div>
+        <div class="titleIconos">Garantía de devolución de dinero</div>
+        <div class="subtitleIconos">Te reembolsamos tu dinero en un plazo de 30 días.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Modal Carrito -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal02-header">
+          <h5 class="modal-title" id="cartModalLabel">Carrito de Compras</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="cartItemsContainer">
+          <!-- Los productos del carrito se cargarán aquí dinámicamente -->
+        </div>
+        <div class="modal02-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="checkoutButton">Ir al carrito</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para detalles del producto -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal02">
+        <div class="modal02-header">
+          <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal02-body">
+          <!-- Imagen a la izquierda -->
+          <div class="image-container">
+            <img id="modalProductImg" src="" class="img-fluid">
+          </div>
+
+          <!-- Información del producto a la derecha -->
+          <div class="info-container">
+            <h5 id="modalProductName"></h5>
+            <p id="modalProductCategory" class="text-muted"></p>
+            <p id="modalProductPrice" class="fw-bold"></p>
+            <p id="modalProductDescription"></p>
+            <button type="button" class="btn btn-primary" id="modalAddToCart">
+              <i class="fas fa-shopping-cart"></i> Agregar al carrito
+            </button>
+          </div>
+        </div>
+
+        <!-- Productos recomendados debajo -->
+        <div class="recommended-products">
+          <h6>También te puede interesar</h6>
+          <div class="recommended-list">
+            <div class="recommended-item">
+              <img src="img1.jpg" alt="Producto 1">
+              <p>Producto 1</p>
+            </div>
+            <div class="recommended-item">
+              <img src="img2.jpg" alt="Producto 2">
+              <p>Producto 2</p>
+            </div>
+            <div class="recommended-item">
+              <img src="img3.jpg" alt="Producto 3">
+              <p>Producto 3</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Pie de página -->
+  <footer>
+    <header id="footer"></header>
+  </footer>
+
+  <script src="../Script/home.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+  <!-- cargar nav -->
+  <script>
+
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => console.error('Error al cargar el navbar:', error));
+  </script>
+
+
+  <!-- cargar footer -->
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error al cargar el footer:', error));
+  </script>
+
+  <script src="../Script/login.js"></script>
+
+</body>
+
+</html>

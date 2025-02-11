@@ -1,0 +1,276 @@
+{
+    "page": 1,
+    "per_page": 27,
+    "total": 27,
+    "total_pages": 1,
+    "item": [
+        {
+            "id": "STRT1",
+            "name": "MEITRACK P88L",
+            "description": "Mini rastreador personal, ideal para personas.",
+            "categoria": "GPS",
+            "activo": "Personas",
+            "precio": 721067.01,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307015/STRT1.IMAGEN.061611_xekhkg.png",
+            "especificaciones": "0 A 30 V, IP68, Compacto, Ligero, Resistente",
+            "Compatible": "No compatible"
+        },
+        {
+            "id": "STRT2",
+            "name": "PIONNER X101",
+            "description": "Alertas encendido/apagado y desconexión.",
+            "categoria": "GPS",
+            "activo": "Camion",
+            "precio": 332800.4,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739267693/5_rdykay.png",
+            "especificaciones": "Alertas, Compacto, GPS, Desconexión, Fácil",
+            "Compatible": ""
+        },
+        {
+            "id": "STRT3",
+            "name": "GPS VT08F",
+            "description": "Rastreador para motocicletas, GSM y GPS.",
+            "categoria": "GPS",
+            "activo": "Carro, Moto, Camion",
+            "precio": 153051.14,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307011/STRT3.IMAGEN.055928_aprt3t.png",
+            "especificaciones": "GSM, GPS, Motocicletas, Compacto, Rastreo",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT4",
+            "name": "VT03EF",
+            "description": "Rastreador GPS compacto para la carga.",
+            "categoria": "GPS",
+            "activo": "Carga, Carro",
+            "precio": 262400.14,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739267696/15_x3hyfa.png",
+            "especificaciones": "GPS, Compacto, Carga, Dimensiones, Resistente",
+            "Compatible": ""
+        },
+        {
+            "id": "STRT5",
+            "name": "VT03SF",
+            "description": "Rastreador GPS compacto para la carga.",
+            "categoria": "GPS",
+            "activo": "Carga",
+            "precio": 318932.82,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307203/STRT5.IMAGEN.060659_t7jl18.png",
+            "especificaciones": "GPS, Compacto, Carga, Dimensiones, Resistente",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT6",
+            "name": "OBD 6F PROTRACK",
+            "description": "Vehículos eléctricos y fácil conexión.",
+            "categoria": "GPS",
+            "activo": "Carro, Moto",
+            "precio": 217599.78,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT6.IMAGEN.060120_stsw7m.png",
+            "especificaciones": "9-90 V, Eléctricos, OBD, Compacto, Fácil",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT7",
+            "name": "GPS CIGARRETE",
+            "description": "Rastreador GPS plug and play fácil.",
+            "categoria": "GPS",
+            "activo": "Carro",
+            "precio": 224000.27,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307204/STRT7.IMAGEN.055902_pkmcle.png",
+            "especificaciones": "9-90 V, Plug and play, Fácil, Compacto, GPS",
+            "Compatible": ""
+        },
+        {
+            "id": "STRT9",
+            "name": "MIC SENSIBILIDAD",
+            "description": "Micrófono alta sensibilidad para audio.",
+            "categoria": "ACCESORIO",
+            "activo": "Carro, Camion, Flotas",
+            "precio": 15359.95,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT9.IMAGEN.192908_aoeqak.png",
+            "especificaciones": "Alta sensibilidad, Audio, Grabación, Compacto, Mic",
+            "Compatible": "STRT2, STRT3,  STRT18, STRT19, STRT20, STRT21, STRT22, STRT24"
+        },
+        {
+            "id": "STRT10",
+            "name": "RAMAL CONEXION",
+            "description": "Accesorio para conexión de dispositivos.",
+            "categoria": "ACCESORIO",
+            "activo": "Carro, Camion, Flotas, Moto, Carga",
+            "precio": 19199.94,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307253/STRT10.IMAGEN.151952_gm7jle.png",
+            "especificaciones": "Conexión, Dispositivos, Compacto, Flexible, Fácil",
+            "Compatible": "STRT2, STRT3, STRT18, STRT19, STRT20, STRT21 "        },
+        {
+            "id": "STRT17",
+            "name": "KNIGHT X 100",
+            "description": "Rastreador avanzado con GNSS, LTE, WiFi.",
+            "categoria": "GPS",
+            "activo": "Carga",
+            "precio": 544000,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307210/STRT17.IMAGEN.061142_jsxcr4.png",
+            "especificaciones": "GNSS, LTE, WiFi, BLE, Avanzado",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT18",
+            "name": "SOLARGUARD X200",
+            "description": "Candado GPS electrónico con energía solar.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 1919999,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307540/STRT18.IMAGEN.060901_xqvi8g.png",
+            "especificaciones": "GPS, Solar, Electrónico, Candado, Flotas",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT19",
+            "name": "SOLAR X 120",
+            "description": "Cerradura electrónica GPS con energía solar.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 959999,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307518/STRT19.IMAGEN.060919_xr3ixd.png",
+            "especificaciones": "GPS, Solar, Electrónica, Cerradura, Flotas",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT20",
+            "name": "SOLAR X 110",
+            "description": "Rastreador GNSS y LTE para gestionar flotas.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 831.999,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739267696/17_k4hbhs.png",
+            "especificaciones": "GNSS, LTE, Flotas, Rastreador, Gestión",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT21",
+            "name": "HeroX 100 PN:01",
+            "description": "Rastreador GPS con BLE y alertas precisas.",
+            "categoria": "GPS",
+            "activo": "Carga, Camion, Flotas",
+            "precio": 627.200,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307570/STRT21.IMAGEN.055533_bpuihm.png",
+            "especificaciones": "GPS, BLE, Alertas, Preciso, Vehículos",
+            "Compatible": "STRT9, STRT10"
+        },
+        {
+            "id": "STRT22",
+            "name": "TorchX 110",
+            "description": "Rastreador 4G con interfaz OBDII avanzada.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 627.200,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739266187/4_gaaamc.png",
+            "especificaciones": "4G, OBDII, Interfaz, Flotas, Avanzado",
+            "Compatible": ""
+        },
+        {
+            "id": "STRT24",
+            "name": "WarriorX 100",
+            "description": "Rastreador robusto con conectividad 4G LTE.",
+            "categoria": "GPS",
+            "activo": "Flotas",
+            "precio": 524.800,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739267696/16_b3gic1.png",
+            "especificaciones": "Robusto, 4G LTE, Conectividad, Flotas, GPS",
+            "Compatible": ""
+        },
+        {
+            "id": "STRT25",
+            "name": "TA22 TPS BLE",
+            "description": "Sensor de presión y temperatura en neumáticos.",
+            "categoria": "ACCESORIO",
+            "activo": "Flotas, Camion, Carga",
+            "precio": 454.399,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307217/STRT25.IMAGEN.153249_dj6aoo.png",
+            "especificaciones": "Presión, Temperatura, Neumáticos, Sensor, BLE",
+            "Compatible": "STRT18, STRT19, STRT20, STRT21, STRT22, STRT24, STRT2"
+        },
+        {
+            "id": "STRT8",
+            "name": "SOS BUTTON",
+            "description": "Botón de pánico para alertas instantáneas.",
+            "categoria": "ACCESORIO",
+            "activo": "Carro, Camion, Flotas, Carga",
+            "precio": 7996.80,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739268140/41_x9s0ix.png",
+            "especificaciones": "Alerta, Botón, Panico, Compacto, Resistente",
+            "Compatible": "STRT1, STRT2, STRT3,  STRT18, STRT19, STRT20, STRT21, STRT22, STRT24"
+        },
+        {
+            "id": "STRT50",
+            "name": "JC450 DASHCAM ADAS",
+            "description": "Dashcam con ADAS monitorea el comportamiento.",
+            "categoria": "ACCESORIO",
+            "activo": "Carga, Camion, Flotas",
+            "precio": 1211128,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739267695/13_l0jfyv.png",
+            "especificaciones": "4G, Wi-Fi, ADAS, Grabación, Monitorización",
+            "Compatible": "STRT2"
+        },
+        {
+           "id": "STRT67",
+            "name": "COBAN 102B",
+            "description": "Rastreo compacto en tiempo real. Ideal para personas y activos valiosos.",
+            "categoria": "GPS",
+            "activo": "Personas",
+            "precio": 76.799,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739269830/24_v7hcy7.png",
+            "especificaciones": "GSM, GPS, Compacto, Batería 1000mAh, Botón Pánico",
+            "Compatible": ""
+        },
+        {
+            "id": "STRT52",
+            "name": "JC261 DASH CAM",
+            "description": "Cámara frontal y periférica monitoreo del conductor.",
+            "categoria": "ACCESORIO",
+            "activo": "Carga, Camion",
+            "precio": 679.93,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739267695/11_q3arho.png",
+            "especificaciones": "4G, LTE, Cámara, Frontal, Periférica",
+            "Compatible": "STRT21"
+        },
+        {
+            "id": "STRT53",
+            "name": "JC170 DMC",
+            "description": "Cámara Jimi para monitoreo en tiempo real.",
+            "categoria": "ACCESORIO",
+            "activo": "Camion, Flotas",
+            "precio": 371.84,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739266142/68_nlxv3q.png",
+            "especificaciones": "Cámara, Tiempo real, Monitoreo, Compacta, Fácil",
+            "Compatible": "STRT21"
+        },
+        {
+            "id": "STRT54",
+            "name": "CI-01 CABIN CAM",
+            "description": "Cámara monitorea el interior del vehículo.",
+            "categoria": "ACCESORIO",
+            "activo": " Camion",
+            "precio": 148.74,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739266140/65_s7ksdb.png",
+            "especificaciones": "Cámara, Cabina, Interior, Monitorización, Vídeo",
+            "Compatible": "STRT21"
+        },
+         {
+            "id": "STRT66",
+            "name": "COLLAR EV 201M",
+            "description": "Seguridad mascotas seguimiento en tiempo real.",
+            "categoria": "GPS",
+            "activo": "Mascotas",
+            "precio": 409.600,
+            "img": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739268446/23_h1izw5.png",
+            "especificaciones": "GPS, Tiempo real, Compacto, Resistente, Collar",
+            "Compatible": ""
+        }
+    ],
+    "ad": {
+        "company": "Start ioT",
+        "url": "http://startiot.com/",
+        "text": "Proveedores de soluciones GPS, seguridad electrónica y rastreo satelital."
+    }
+}
