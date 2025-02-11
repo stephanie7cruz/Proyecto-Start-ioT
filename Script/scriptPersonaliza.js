@@ -1,258 +1,528 @@
-
 document.addEventListener("DOMContentLoaded", function () {
-    let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
-    let botones = document.querySelectorAll("#vehiculoSelector button"); 
-    let imagenVehiculo = document.getElementById("imagenVehiculo");
-    let productosIzquierda = document.getElementById("productosIzquierda");
-    let colDerecha = document.getElementById("colDerecha");
-    let productosDerecha = document.getElementById("productosDerecha");
-    const imagenesVehiculo = {
-        "Carro": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314240/carro_goxcpe.jpg",
-        "Moto": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314231/moto_icizme.jpg",
-        "Camion": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314237/camion_lzu2p4.avif",
-        "Carga": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314241/container_wghjn3.jpg",
-        "Flotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314242/flota_fgo88j.jpg",
-        "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314232/personas_f7eq9s.jpg",
-        "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738314244/mascotas_zm13mf.jpg"
-    };
-    function actualizarImagenVehiculo(tipoVehiculo) {
-        const imagenVehiculo = document.querySelector('.main-image');
+  // Botones y lógica de selección
+  const nombrePaquete = document.getElementById('nombrePaquete');
+  const contadorElement = document.getElementById('contador');
+  const incrementar = document.getElementById('incrementar');
+  const decrementar = document.getElementById('decrementar');
+  const addButton = document.getElementById('addButton');
+  const botones = document.querySelectorAll("#vehiculoSelector button");
+  const mensaje = document.getElementById("mensaje");
+  let productos = [];
+  let contador = 2;
 
-        if (imagenesVehiculo[tipoVehiculo]) {
-            imagenVehiculo.src = imagenesVehiculo[tipoVehiculo];
-            imagenVehiculo.alt = tipoVehiculo;
-        } else {
-            console.warn("No hay imagen asignada para este tipo de vehículo:", tipoVehiculo);
-        }
-    }
+  const imagenesVehiculo = {
+      "Carro": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/4_vdsf8b.png",
+      "Moto": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058633/5_njn7g8.png",
+      "Camion": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058631/6_krdneg.png",
+      "Carga": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/7_adr5tm.png",
+      "Flotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058633/8_nqdl03.png",
+      "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/9_fugogy.png",
+      "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/10_ihmhgy.png"
+  };
 
-    botones.forEach(boton => {
-        boton.addEventListener('click', function () {
-            // Remueve clases de todos los botones
-            botones.forEach(btn => {
-                btn.classList.remove('active', 'btn-dark');
-                btn.classList.add('btn-outline-dark');
-            });
+  function actualizarImagenVehiculo(tipoVehiculo) {
+      const imagenVehiculo = document.querySelector('.main-image');
 
-            // Agrega clases al botón clickeado
-            this.classList.add('active', 'btn-dark');
-            this.classList.remove('btn-outline-dark');
+      if (imagenesVehiculo[tipoVehiculo]) {
+          imagenVehiculo.src = imagenesVehiculo[tipoVehiculo];
+          imagenVehiculo.alt = tipoVehiculo;
+      } else {
+          console.warn("No hay imagen asignada para este tipo de vehículo:", tipoVehiculo);
+      }
 
-            // Obtiene el tipo de vehículo desde el atributo data-vehiculo
-            let tipoVehiculo = this.getAttribute("data-vehiculo");
+      // Marcar el botón seleccionado
+      const botones = document.querySelectorAll('#vehiculoSelector .btn');
+      botones.forEach(boton => {
+          boton.classList.remove('active', 'btn-dark');
+          boton.classList.add('btn-outline-dark');
+      });
 
-            actualizarImagenVehiculo(tipoVehiculo);
+      const botonSeleccionado = document.querySelector(`#vehiculoSelector .btn[data-vehiculo="${tipoVehiculo}"]`);
+      if (botonSeleccionado) {
+          botonSeleccionado.classList.remove('btn-outline-dark');
+          botonSeleccionado.classList.add('active', 'btn-dark');
+      }
+  }
 
-             // Filtra productos según el atributo "activo"
-             let productosFiltrados = productosEnCarrito.filter(producto => producto.activo === tipoVehiculo);
-             // Limpia la interfaz antes de agregar nuevos productos
-             productosIzquierda.innerHTML = "";
-             productosDerecha.innerHTML = "";
+  // Cargar productos desde el JSON
+  fetch('../Template/data.json')
+      .then(response => response.json())
+      .then(data => {
+          productos = data.item;
+      })
+      .catch(error => console.error("Error al cargar los productos:", error));
 
-            
-
-
-            // Switch para manejar acciones según el vehículo seleccionado
-            switch (tipoVehiculo) {
-                case "Carro":
-                    mensaje.textContent = "Has seleccionado un Carro. 🚗";
-                                  
-                        if (productosEnCarrito.length === 0) {
-                            cartItemsContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
-                        } else {
-                            productosEnCarrito.forEach(producto => {
-                                const div = document.createElement('div');
-                                div.classList.add('cart-item');
-                                div.innerHTML = `
-                                <img src="${producto.img}" alt="${producto.name}" class="cart-item-img">
-                                <div class="cart-item-details">
-                                    <p>${producto.name} - ${producto.cantidad} x $${producto.precio}</p>
-                                </div>
-                                <button class="btn btn-danger btn-sm" id="eliminar-${producto.id}">Eliminar</button>
-                            `;
-                                cartItemsContainer.append(div);
-                
-                                // Añadir el evento de eliminar a cada botón después de que se haya añadido al DOM
-                                const botonEliminar = document.getElementById(`eliminar-${producto.id}`);
-                                botonEliminar.addEventListener('click', function () {
-                                    eliminarDelCarrito(producto.id);
-                                });
-                            });
-                        }
-                    break;
-                case "Moto":
-                    mensaje.textContent = "Has seleccionado una Moto. 🏍️";
-                    break;
-                case "Camion":
-                    mensaje.textContent = "Has seleccionado un Camión. 🚚";
-                    break;
-                case "Personas":
-                    mensaje.textContent = "Has seleccionado Personas. 👨‍👩‍👦";
-                    break;
-                case "Carga":
-                    mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    break;
-                 case "Flotas":
-                    mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    break;
-                 case "Mascotas":
-                    mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    break;
-
-                default:
-                    mensaje.textContent = "Selecciona una opción.";
-            }
-        });
-    });
-});
+  // Función para filtrar productos por activo
+  function filtrarProductosPorActivo(activo) {
+      return productos.filter(producto => producto.activo.includes(activo));
+  }
 
 
-/*
-document.addEventListener("DOMContentLoaded", function () {
-    let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
-    let botones = document.querySelectorAll("#vehiculoSelector button"); 
-    let mensaje = document.getElementById("mensaje");
-    let cartItemsContainer = document.getElementById("cartItemsContainer");
-
-    botones.forEach(boton => {
-        boton.addEventListener('click', function () {
-            let tipoVehiculo = this.getAttribute("data-vehiculo");
-
-            // Actualiza el mensaje según el tipo de vehículo
-            switch (tipoVehiculo) {
-                case "Carro":
-                    mensaje.textContent = "Has seleccionado un Carro. 🚗";
-
-                    // Mostrar productos según el tipo de vehículo
-                    if (productosEnCarrito.length === 0) {
-                        cartItemsContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
-                    } else {
-                        productosEnCarrito.forEach(producto => {
-                            const div = document.createElement('div');
-                            div.classList.add('cart-item');
-                            div.innerHTML = `
-                                <img src="${producto.img}" alt="${producto.name}" class="cart-item-img">
-                                <div class="cart-item-details">
-                                    <p>${producto.name} - ${producto.cantidad} x $${producto.precio}</p>
-                                </div>
-                                <button class="btn btn-danger btn-sm" id="eliminar-${producto.id}">Eliminar</button>
-                            `;
-                            cartItemsContainer.append(div);
-
-                            // Añadir el evento de eliminar a cada botón
-                            const botonEliminar = document.getElementById(`eliminar-${producto.id}`);
-                            botonEliminar.addEventListener('click', function () {
-                                eliminarDelCarrito(producto.id);
-                            });
-                        });
-                    }
-                    break;
-
-                case "Moto":
-                    mensaje.textContent = "Has seleccionado una Moto. 🏍️";
-                    // Aquí podrías agregar la lógica para mostrar los productos de motos
-                    break;
-
-                case "Camion":
-                    mensaje.textContent = "Has seleccionado un Camión. 🚚";
-                    // Aquí podrías agregar la lógica para mostrar los productos de camiones
-                    break;
-
-                case "Personas":
-                    mensaje.textContent = "Has seleccionado Personas. 👨‍👩‍👦";
-                    // Aquí podrías agregar la lógica para mostrar productos relacionados con personas
-                    break;
-
-                case "Carga":
-                    mensaje.textContent = "Has seleccionado Carga. 📦";
-                    // Aquí podrías agregar la lógica para mostrar productos relacionados con carga
-                    break;
-
-                case "Flotas":
-                    mensaje.textContent = "Has seleccionado Flotas. 🚚";
-                    // Aquí podrías agregar la lógica para mostrar productos de flotas
-                    break;
-
-                case "Mascotas":
-                    mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                    // Aquí podrías agregar la lógica para mostrar productos de mascotas
-                    break;
-
-                default:
-                    mensaje.textContent = "Selecciona una opción.";
-            }
-
-            // Mostrar los productos según el tipo de vehículo
-            const renderizarProductos = (productos) => {
-                const rowContainer = document.createElement('div');
-                rowContainer.classList.add('row', 'justify-content-center', 'align-items-center', 'mt-4');
-
-                // Generar la columna de imágenes de productos
-                const colIzquierda = document.createElement('div');
-                colIzquierda.classList.add('col-2', 'd-flex', 'flex-column', 'align-items-center');
-                productos.forEach(producto => {
-                    const imgProducto = document.createElement('img');
-                    imgProducto.src = producto.img;
-                    imgProducto.alt = producto.name;
-                    imgProducto.classList.add('product-img', 'mb-3');
-                    colIzquierda.appendChild(imgProducto);
-                });
-
-                // Crear la columna para la imagen principal
-                const colDerecha = document.createElement('div');
-                colDerecha.classList.add('col-4', 'd-flex', 'justify-content-center');
-                const imageContainer = document.createElement('div');
-                imageContainer.classList.add('image-container');
-                const imgPrincipal = document.createElement('img');
-                imgPrincipal.src = "camion.png"; // Cambiar según el tipo de vehículo
-                imgPrincipal.style = "max-width: 300px; width: 200%; height: auto; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;";
-                imgPrincipal.classList.add('main-image');
-                imgPrincipal.alt = tipoVehiculo;
-                imageContainer.appendChild(imgPrincipal);
-                colDerecha.appendChild(imageContainer);
-
-                // Generar la columna de más imágenes de productos
-                const colDerechaExtra = document.createElement('div');
-                colDerechaExtra.classList.add('col-2', 'd-flex', 'flex-column', 'align-items-center');
-                productos.forEach(producto => {
-                    const imgProducto = document.createElement('img');
-                    imgProducto.src = producto.img;
-                    imgProducto.alt = producto.name;
-                    imgProducto.classList.add('product-img', 'mb-3');
-                    colDerechaExtra.appendChild(imgProducto);
-                });
-
-                // Añadir las columnas al contenedor de fila
-                rowContainer.appendChild(colIzquierda);
-                rowContainer.appendChild(colDerecha);
-                rowContainer.appendChild(colDerechaExtra);
-
-                // Agregar el contenedor al DOM
-                document.getElementById('productos-container').appendChild(rowContainer);
-            };
-
-            // Aquí se seleccionan los productos de acuerdo al tipo de vehículo (simulado)
-            let productosParaMostrar = [];
-            if (tipoVehiculo === "Carro") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Carro");
-            } else if (tipoVehiculo === "Moto") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Moto");
-            } else if (tipoVehiculo === "Camion") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Camion");
-            } else if (tipoVehiculo === "Personas") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Personas");
-            } else if (tipoVehiculo === "Carga") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Carga");
-            } else if (tipoVehiculo === "Flotas") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Flotas");
-            } else if (tipoVehiculo === "Mascotas") {
-                productosParaMostrar = productosEnCarrito.filter(producto => producto.tipo === "Mascotas");
-            }
-
-            renderizarProductos(productosParaMostrar);
-        });
-    });
-});
-
+//-----------------------------------------------------------------------------------------------------------------------------
+/**
+* Función principal para pintar productos (GPS y accesorios) en el banner.
+* Permite mantener la selección por activo, cerrar colapsos al cambiar y actualizar la factura.
+* @param {Array} productosFiltrados - Lista de productos filtrados según el activo.
+* @param {Array} coordenadas - Arreglo de objetos con propiedades top y left para posicionar cada card.
 */
+function pintarProductos(productosFiltrados, coordenadas) {
+// Cerrar todos los collapse cards existentes al cambiar de activo.
+document.querySelectorAll('.collapse-card').forEach(card => card.remove());
 
+const productosContainer = document.getElementById('productosContainer');
+productosContainer.innerHTML = ''; // Limpiar contenedor
+
+// Determinar el activo actual (usando window.currentActivo o extrayéndolo del primer producto)
+const activo = window.currentActivo || (productosFiltrados[0] && productosFiltrados[0].activo.split(',')[0].trim()) || 'Activo';
+
+// Inicializar objeto global para guardar selecciones por activo (si aún no existe)
+if (!window.seleccionesPorActivo) {
+  window.seleccionesPorActivo = {};
+}
+// Recuperar la selección previamente guardada para este activo (si existe)
+let seleccionGuardada = window.seleccionesPorActivo[activo] || [];
+
+// Reiniciar la selección actual (global) y cargar la selección guardada
+window.productosSeleccionados = seleccionGuardada.slice();
+
+// Filtrar productos por categoría
+const gpsProductos = productosFiltrados.filter(p => p.categoria === 'GPS');
+const accesorios = productosFiltrados.filter(p => p.categoria === 'ACCESORIO');
+
+// Si no hay productos GPS, mostrar un mensaje y salir
+if (!gpsProductos.length) {
+  productosContainer.innerHTML = '<p>No hay productos GPS disponibles.</p>';
+  return;
+}
+
+// Variable para llevar el índice del GPS mostrado (se muestra solo uno a la vez)
+let gpsIndex = 0;
+
+/**
+ * Función interna para mostrar el GPS actual y los accesorios compatibles.
+ * Se guarda la selección actual antes de re-renderizar.
+ */
+function mostrarGPS() {
+  // Guardar la selección actual para este activo
+  window.seleccionesPorActivo[activo] = window.productosSeleccionados.slice();
+
+  productosContainer.innerHTML = '';
+
+  // Mostrar el GPS actual en la primera posición (coordenada 0)
+  const gpsProducto = gpsProductos[gpsIndex];
+  const gpsElement = crearProductoElement(gpsProducto, coordenadas[0] || { top: '10%', left: '10%' }, true, activo);
+  productosContainer.appendChild(gpsElement);
+
+  // Filtrar accesorios compatibles: solo se muestran si el GPS actual está incluido en el campo "Compatible"
+  const accesoriosCompatibles = accesorios.filter(accesorio => {
+    if (!accesorio.Compatible || accesorio.Compatible.trim().toLowerCase() === 'no compatible') {
+      return false;
+    }
+    // Convertir la cadena en un arreglo y eliminar espacios
+    const compatibles = accesorio.Compatible.split(',').map(item => item.trim());
+    return compatibles.includes(gpsProducto.id);
+  });
+
+  // Solo pintar accesorios si hay al menos uno compatible
+  if (accesoriosCompatibles.length > 0) {
+    accesoriosCompatibles.forEach((accesorio, idx) => {
+      const coord = coordenadas[idx + 1] || { top: '50%', left: '50%' };
+      const accesorioElement = crearProductoElement(accesorio, coord, false, activo);
+      productosContainer.appendChild(accesorioElement);
+    });
+  }
+}
+
+/**
+ * Función para crear la card de un producto (GPS o accesorio).
+ * Si el producto ya estaba seleccionado previamente, se restauran sus estilos.
+ * @param {Object} producto - Datos del producto.
+ * @param {Object} coordenada - Objeto con propiedades top y left para posicionar la card.
+ * @param {Boolean} esGPS - true si es GPS; false si es accesorio.
+ * @param {String} activo - Activo actual (para mantener la selección).
+ * @returns {HTMLElement} La card del producto.
+ */
+function crearProductoElement(producto, coordenada, esGPS, activo) {
+  const productoElement = document.createElement('div');
+  productoElement.className = 'producto-card';
+  productoElement.style.position = 'absolute';
+  productoElement.style.top = coordenada.top;
+  productoElement.style.left = coordenada.left;
+  productoElement.style.width = '180px';
+  productoElement.style.height = '220px';
+  productoElement.style.backgroundColor = 'white';
+  productoElement.style.border = '1px solid #ccc';
+  productoElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+  productoElement.style.cursor = 'pointer';
+  productoElement.style.transition = 'transform 0.3s, box-shadow 0.3s, background-color 0.3s';
+  productoElement.style.padding = '10px';
+  productoElement.style.overflow = 'hidden';
+
+  productoElement.innerHTML = `
+    <div class="card-content">
+      <div class="producto-img-wrapper" style="width:100%; height:120px; display:flex; align-items:center; justify-content:center; background:#f1f1f1; border-radius:4px; margin-bottom:5px;">
+        <img src="${producto.img}" alt="${producto.name}" class="producto-img" style="max-width:100%; max-height:100%; object-fit:contain;">
+      </div>
+      <p class="producto-nombre" style="margin:5px 0; font-size:16px; text-align:center;">${producto.name}</p>
+      <div class="producto-actions" style="text-align:center;">
+        ${ esGPS ? '<i class="fas fa-sync-alt cambiar-gps" title="Cambiar GPS" style="cursor:pointer; margin-right:5px;"></i>' : '' }
+        <i class="fas fa-chevron-down collapse-btn" title="Ver Descripción" style="cursor:pointer;"></i>
+      </div>
+    </div>
+  `;
+
+  // Si el producto ya estaba seleccionado en una sesión anterior para este activo, se marca
+  if (seleccionGuardada.some(p => p.id === producto.id)) {
+    productoElement.classList.add('seleccionado');
+    productoElement.style.backgroundColor = 'green';
+    productoElement.style.opacity = '1';
+    if (!window.productosSeleccionados.some(p => p.id === producto.id)) {
+      window.productosSeleccionados.push(producto);
+    }
+  } else {
+    productoElement.style.opacity = '0.8';
+  }
+
+  // Efectos de hover
+  productoElement.addEventListener('mouseenter', () => {
+    productoElement.style.transform = 'scale(1.05)';
+    productoElement.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+  });
+  productoElement.addEventListener('mouseleave', () => {
+    productoElement.style.transform = 'scale(1)';
+    productoElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+  });
+
+  // Evento para mostrar/ocultar la descripción (collapse)
+  const collapseBtn = productoElement.querySelector('.collapse-btn');
+  collapseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleCollapse(producto, esGPS, productoElement);
+    collapseBtn.classList.toggle('fa-chevron-down');
+    collapseBtn.classList.toggle('fa-chevron-up');
+  });
+
+  // Si el producto es GPS, agregar el botón para cambiar de GPS
+  if (esGPS) {
+    const cambiarBtn = productoElement.querySelector('.cambiar-gps');
+    cambiarBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      gpsIndex = (gpsIndex + 1) % gpsProductos.length;
+      // Guardar la selección actual antes de cambiar
+      window.seleccionesPorActivo[activo] = window.productosSeleccionados.slice();
+      mostrarGPS();
+    });
+  }
+
+ // Evento para seleccionar/deseleccionar la card (cada selección representa un kit)
+productoElement.addEventListener('click', () => {
+if (productoElement.classList.contains('seleccionado')) {
+  // Deseleccionar: quitar la clase 'seleccionado' y remover el ícono
+  productoElement.classList.remove('seleccionado');
+  // Quitar el ícono de check si existe
+  const checkIcon = productoElement.querySelector('.selected-icon');
+  if (checkIcon) {
+    checkIcon.remove();
+  }
+  // Remover la clase de animación de salto (si se desea reiniciar la animación en futuras selecciones)
+  productoElement.classList.remove('jump-animation');
+  // Remover el producto de las listas de selección
+  window.productosSeleccionados = window.productosSeleccionados.filter(p => p.id !== producto.id);
+  if (window.seleccionesPorActivo[activo]) {
+    window.seleccionesPorActivo[activo] = window.seleccionesPorActivo[activo].filter(p => p.id !== producto.id);
+  }
+} else {
+  // Seleccionar: agregar la clase 'seleccionado' y aplicar la animación de salto
+  productoElement.classList.add('seleccionado');
+  productoElement.classList.add('jump-animation');
+  // Agregar un ícono de check (FontAwesome) en la esquina superior derecha
+  let checkIcon = productoElement.querySelector('.selected-icon');
+  if (!checkIcon) {
+    checkIcon = document.createElement('i');
+    checkIcon.className = 'fas fa-check selected-icon';
+    
+    // Estilos en línea (puedes moverlos a CSS)
+    checkIcon.style.position = 'absolute';
+    checkIcon.style.top = '10px';
+    checkIcon.style.right = '10px';
+    checkIcon.style.color = 'green';
+    checkIcon.style.fontSize = '35px';
+    productoElement.appendChild(checkIcon);
+  }
+  // Agregar el producto a la selección global y por activo
+  window.productosSeleccionados.push(producto);
+  if (!window.seleccionesPorActivo[activo]) {
+    window.seleccionesPorActivo[activo] = [];
+  }
+  window.seleccionesPorActivo[activo].push(producto);
+}
+});
+
+
+  return productoElement;
+}
+
+/**
+ * Función para crear o eliminar la card de descripción (collapse) de un producto.
+ * Se posiciona a la izquierda para GPS o a la derecha para accesorios.
+ * @param {Object} producto - Datos del producto.
+ * @param {Boolean} esGPS - true si el producto es GPS; false si es accesorio.
+ * @param {HTMLElement} productElement - La card sobre la que se hizo clic.
+ */
+function toggleCollapse(producto, esGPS, productElement) {
+  const descId = 'collapse-' + producto.id;
+  let descCard = document.getElementById(descId);
+  if (descCard) {
+    // Si la card ya está visible, se elimina
+    descCard.remove();
+  } else {
+    // Se crea la card de descripción con detalles del producto
+    descCard = document.createElement('div');
+    descCard.id = descId;
+    descCard.className = 'collapse-card card';
+    descCard.innerHTML = `
+      <div class="card-body">
+        <h5 class="card-title" style="font-size:16px;">${producto.name}</h5>
+        <p class="card-text" style="font-size:14px;">${producto.description}</p>
+        <p class="card-text"><small class="text-muted">${producto.especificaciones || ''}</small></p>
+      </div>
+    `;
+    // Posicionar la card de descripción fuera de la card principal
+    const rect = productElement.getBoundingClientRect();
+    if (esGPS) {
+      descCard.style.left = (rect.left - 220) + 'px';
+    } else {
+      descCard.style.left = (rect.right + 20) + 'px';
+    }
+    descCard.style.top = rect.top + 'px';
+    descCard.style.position = 'absolute';
+    descCard.style.width = '220px';
+    descCard.style.zIndex = '1000';
+    descCard.style.backgroundColor = '#fff';
+    descCard.style.border = '1px solid #ccc';
+    descCard.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+    descCard.style.padding = '10px';
+
+    // Botón para cerrar la descripción
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'btn btn-sm btn-secondary';
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '5px';
+    closeBtn.style.right = '5px';
+    closeBtn.textContent = 'X';
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      descCard.remove();
+      const collapseIcon = productElement.querySelector('.collapse-btn');
+      if (collapseIcon) {
+        collapseIcon.classList.remove('fa-chevron-up');
+        collapseIcon.classList.add('fa-chevron-down');
+      }
+    });
+    descCard.appendChild(closeBtn);
+
+    document.body.appendChild(descCard);
+  }
+}
+
+// Evento para el botón "ADD": muestra alert, agrega los kits a la lista global (factura)
+// y actualiza el contenido del modal con la factura en formato de tabla.
+document.getElementById('addProductos').addEventListener('click', () => {
+  if (window.productosSeleccionados.length === 0) {
+    alert('No hay productos seleccionados.');
+    return;
+  }
+  // Determinar el activo actual y obtener su nombre
+  const activo = window.currentActivo || (productosFiltrados[0] && productosFiltrados[0].activo.split(',')[0].trim()) || 'Activo';
+  const kitCount = parseInt(document.getElementById('contador').textContent, 10) || 1;
+  const productosNombres = window.productosSeleccionados.map(p => p.name).join(', ');
+  alert(`${kitCount} kit(s) para ${activo} contiene: ${productosNombres}`);
+  
+  // Agregar la selección actual a la lista de kits (factura), guardando también el nombre del activo
+  if (!window.listaDeKits) {
+    window.listaDeKits = [];
+  }
+  window.listaDeKits = window.listaDeKits.concat(window.productosSeleccionados.map(item => ({ ...item, activo })));
+  
+  // Actualizar el contenido del modal (factura) mediante generateFacturaHTML
+  const facturaElement = document.getElementById('factura');
+  if (facturaElement) {
+    facturaElement.innerHTML = generateFacturaHTML(window.listaDeKits);
+  }
+  
+  // Luego de "Add": limpiar la selección, cerrar colapsos y re-renderizar el activo
+  window.productosSeleccionados = [];
+  window.seleccionesPorActivo[activo] = [];
+  document.querySelectorAll('.collapse-card').forEach(card => card.remove());
+  mostrarGPS();
+});
+
+// Mostrar inicialmente el GPS actual y sus accesorios compatibles
+mostrarGPS();
+}
+
+/**
+* Función para generar el HTML de la factura (lista de kits) en forma de tabla.
+* Cada fila muestra el kit, el activo, precio unitario, cantidad, subtotal y controles para modificar.
+* @param {Array} lista - Arreglo de productos (kits) agregados a la factura.
+* @returns {String} HTML generado.
+*/
+function generateFacturaHTML(lista) {
+// Agrupar kits por id para calcular cantidades y subtotales
+const grouped = {};
+lista.forEach(item => {
+  if (!grouped[item.id]) {
+    grouped[item.id] = { ...item, quantity: 1 };
+  } else {
+    grouped[item.id].quantity++;
+  }
+});
+let html = '<table class="table table-striped">';
+html += '<thead><tr><th>Kit</th><th>Activo</th><th>Precio Unitario</th><th>Cantidad</th><th>Subtotal</th><th>Acciones</th></tr></thead>';
+html += '<tbody>';
+let total = 0;
+for (const id in grouped) {
+  const kit = grouped[id];
+  const subtotal = kit.precio * kit.quantity;
+  total += subtotal;
+  html += `<tr data-kit-id="${kit.id}">
+             <td>${kit.name}</td>
+             <td>${kit.activo || ''}</td>
+             <td>${kit.precio.toFixed(2)}</td>
+             <td>
+               <button class="btn btn-sm btn-outline-secondary decrement">-</button>
+               <span class="mx-2 quantity">${kit.quantity}</span>
+               <button class="btn btn-sm btn-outline-secondary increment">+</button>
+             </td>
+             <td>${subtotal.toFixed(2)}</td>
+             <td><button class="btn btn-sm btn-danger remove-kit">Eliminar</button></td>
+           </tr>`;
+}
+html += '</tbody>';
+html += `<tfoot>
+           <tr>
+             <td colspan="4"><strong>Total</strong></td>
+             <td colspan="2"><strong>${total.toFixed(2)}</strong></td>
+           </tr>
+         </tfoot>`;
+html += '</table>';
+return html;
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+
+  botones.forEach(boton => {
+      boton.addEventListener('click', function () {
+          let tipoVehiculo = this.getAttribute("data-vehiculo");
+
+          // Actualiza el kit según el tipo de vehículo
+          switch (tipoVehiculo) {
+              case "Carro":
+                  mensaje.textContent = "Has seleccionado un Carro. 🚗";
+                  actualizarImagenVehiculo(tipoVehiculo);
+                  const productosCarro = filtrarProductosPorActivo("Carro");
+                  pintarProductos(productosCarro, [
+                      { top: '10%', left: '10%' },
+                      { top: '30%', left: '50%' },
+                      { top: '40%', left: '70%' },
+                      
+                  ]);
+                  nombrePaquete.textContent = "PAQUETE GPS (CARRO)";
+                  break;
+
+              case "Moto":
+                  mensaje.textContent = "Has seleccionado una Moto. 🏍️";
+                  actualizarImagenVehiculo(tipoVehiculo);
+                  const productosMoto = filtrarProductosPorActivo("Moto");
+                  pintarProductos(productosMoto, [
+                      { top: '10%', left: '20%' },
+                     
+                  ]);
+                  nombrePaquete.textContent = "PAQUETE GPS (MOTO)";
+                  break;
+
+              case "Camion":
+                  mensaje.textContent = "Has seleccionado un Camión. 🚚";
+                  actualizarImagenVehiculo(tipoVehiculo);
+                  const productosCamion = filtrarProductosPorActivo("Camion");
+                  pintarProductos(productosCamion, [
+                      { top: '15%', left: '30%' },
+                      { top: '50%', left: '60%' }
+                  ]);
+                  nombrePaquete.textContent = "PAQUETE GPS (CAMION)";
+                  break;
+
+              case "Personas":
+                  mensaje.textContent = "Has seleccionado Personas. 👨‍👩‍👦";
+                  actualizarImagenVehiculo(tipoVehiculo);
+                  const productosPersonas = filtrarProductosPorActivo("Personas");
+                  pintarProductos(productosPersonas, [
+                      { top: '20%', left: '60%' },
+                      { top: '50%', left: '10%' }
+                  ]);
+                  nombrePaquete.textContent = "PAQUETE GPS PERSONAS";
+                  break;
+
+              case "Carga":
+                  mensaje.textContent = "Has seleccionado Carga. 📦";
+                  actualizarImagenVehiculo(tipoVehiculo);
+                  const productosCarga = filtrarProductosPorActivo("Carga");
+                  pintarProductos(productosCarga, [
+                      { top: '25%', left: '40%' },
+                      { top: '60%', left: '20%' }
+                  ]);
+                  nombrePaquete.textContent = "PAQUETE GPS CARGA";
+                  break;
+
+              case "Flotas":
+                  mensaje.textContent = "Has seleccionado Flotas. 🚚";
+                  actualizarImagenVehiculo(tipoVehiculo);
+                  const productosFlotas = filtrarProductosPorActivo("Flotas");
+                  pintarProductos(productosFlotas, [
+                      { top: '00%', left: '35%' },
+                      { top: '00%', left: '00%' },
+                      { top: '10%', left: '00%' },
+                      { top: '40%', left: '40%' },
+                      { top: '50%', left: '50%' }
+                  ]);
+                  nombrePaquete.textContent = "PAQUETE GPS FLOTAS";
+                  break;
+
+              case "Mascotas":
+                  mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
+                  actualizarImagenVehiculo(tipoVehiculo);
+                  const productosMascotas = filtrarProductosPorActivo("Mascotas");
+                  pintarProductos(productosMascotas, [
+                      { top: '30%', left: '70%' },
+                      { top: '60%', left: '40%' }
+                  ]);
+                  nombrePaquete.textContent = "PAQUETE GPS MASCOTAS)";
+                  break;
+
+              default:
+                  mensaje.textContent = "Selecciona una opción.";
+          }
+      });
+  });
+
+  // Lógica para incrementar y decrementar el contador
+  incrementar.addEventListener('click', () => {
+      contador++;
+      contadorElement.textContent = contador;
+  });
+
+  decrementar.addEventListener('click', () => {
+      if (contador > 1) {
+          contador--;
+          contadorElement.textContent = contador;
+      }
+  });
+
+  // Actualiza el contenido del modal (factura) al hacer clic en el botón Preview
+document.getElementById('PREVIEW').addEventListener('click', () => {
+const facturaElement = document.getElementById('factura');
+// Se asume que generateFacturaHTML es la función que genera el HTML de la factura
+facturaElement.innerHTML = generateFacturaHTML(window.listaDeKits);
+});
+
+});

@@ -1,3 +1,7 @@
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
@@ -10,15 +14,13 @@ h1 {
 }
 
 
-/* cambios arriba */
-
-
 /* Estilos básicos para el carrito */
 .carrito-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
+    
 }
 
 .carrito-header {
@@ -235,25 +237,15 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
+
 #checkoutBtn:hover {
     background-color: #388e3c;
 }
 
 .container1 {
     min-height: 100dvh;
-    display: grid;
     grid-template-rows: auto 1fr auto;
-}
-
-@media (max-width: 768px) {
-    .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .cart-item-img {
-        margin-bottom: 10px;
-    }
+    margin-top: 20px;
 }
 
 .cart-header,
@@ -270,6 +262,7 @@ h1 {
     font-weight: bold;
     text-align: center;
     background-color: #f8f8f8;
+    margin-top: 180px;
 }
 
 .cart-header-item {
@@ -298,4 +291,85 @@ h1 {
 .cart-item-acciones button {
     padding: 5px 10px;
     font-size: 0.9rem;
+}
+
+
+
+
+
+/* Media Queries para pantallas menores a 580px */
+
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item-img {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 580px) {
+    h1 {
+        font-size: 2rem; /* Ajustar tamaño de fuente */
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item-img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+
+    .cart-item-details p {
+        font-size: 0.9rem;
+    }
+
+    .carrito-header {
+        font-size: 1.5rem;
+    }
+
+    .producto-en-carrito {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .producto-en-carrito img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .producto-en-carrito-info h3 {
+        font-size: 1rem;
+    }
+
+    .boton-agregar {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+
+    .resumen-compra {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .numero-carrito {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+
+    #checkoutBtn {
+        font-size: 1rem;
+        padding: 12px 25px;
+       
+    }
+
+    .cart-header {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }

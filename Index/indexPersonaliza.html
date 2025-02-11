@@ -9,12 +9,11 @@
     
 </head>
 <body>
+    <div id="custom-alertaMensaje" class="custom-alert"></div>
     <div class="container text-center mt-4">
         <h1>Personaliza tu kit</h1>
-        
-        <p id="mensaje" class="mt-3"></p>
-
-        <div id="vehiculoSelector" class="btn-group mt-3" role="group">
+              
+       <div id="vehiculoSelector" class="btn-group mt-3" role="group">
             <button class="btn btn-outline-dark" data-vehiculo="Carro">Carro</button>
             <button class="btn btn-outline-dark" data-vehiculo="Moto">Moto</button>
             <button class="btn btn-dark active" data-vehiculo="Camion">Camión</button>
@@ -23,104 +22,245 @@
             <button class="btn btn-outline-dark" data-vehiculo="Personas">Personas</button>
             <button class="btn btn-outline-dark" data-vehiculo="Mascotas">Mascotas</button>
         </div>
-        <div class="row justify-content-center align-items-center mt-4">
-            <div class="col-2 d-flex flex-column align-items-center">
-                <img src="producto1.png" class="product-img mb-3" alt="Producto 1">
-                <img src="producto2.png" class="product-img mb-3" alt="Producto 2">
-                <img src="producto3.png" class="product-img mb-3" alt="Producto 3">
-                <img src="producto4.png" class="product-img mb-3" alt="Producto 4">
-            </div>
-            <div class="col-4 d-flex justify-content-center">
-                <div class="image-container">
-                    <img src="camion.png" style="max-width: 300px; width: 200%; height: auto; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;" class="main-image" alt="Camión">
-                </div>
+            <p id="mensaje" class="mt-3"></p>
+            <div class="position-relative mt-4" style="width: 100%; max-width: 800px; margin: auto; text-align: center;">
+            <!-- Banner de fondo -->
+            <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058636/GPS_-_SENSORES_-_ACTUADORES_CANDADOS_DE_RASTREO_sgbmsc.png"
+            style="width: 120%; height: auto; max-height: 400px; object-fit: cover; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 1px; transform: translateX(-10%);
+                        margin: 0 auto; display: block;"
+                   class="main-image" alt="Camión"
+                 alt="Kit">
+    
+            <!-- Contenedor de productos encima del banner -->
+            <div id="productosContainer" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-around align-items-center">
+                <!-- Aquí se cargarán los productos dinámicamente desde JS -->
             </div>
             
-            
-            <div class="col-2 d-flex flex-column align-items-center">
-                <img src="producto5.png" class="product-img mb-3" alt="Producto 5">
-                <img src="producto6.png" class="product-img mb-3" alt="Producto 6">
-                <img src="producto7.png" class="product-img mb-3" alt="Producto 7">
-                <img src="producto8.png" class="product-img mb-3" alt="Producto 8">
-            </div>
+         
         </div>
+        
+      
+           
         <div class="d-flex justify-content-center align-items-center mt-4">
-            <button class="btn btn-danger px-4 me-3">PAQUETE GPS (VEHÍCULO)</button>
+            <button class="btn btn-danger px-4 me-3" id="nombrePaquete">PAQUETE GPS (VEHÍCULO)</button>
             <div class="d-flex align-items-center">
-                <button class="btn btn-outline-secondary">-</button>
-                <span class="mx-3">2</span>
-                <button class="btn btn-outline-secondary">+</button>
+              <button class="btn btn-outline-secondary" id="decrementar">-</button>
+              <span class="mx-3" id="contador">2</span>
+              <button class="btn btn-outline-secondary" id="incrementar">+</button>
             </div>
-            <button class="btn btn-primary px-4 ms-3">ADD</button>
-        </div>
+            <button class="btn btn-primary px-4 ms-3" id="addProductos">ADD</button>
+          </div>
+          
+
     </div>
     <div class="container my-4">
         <div class="row">
+            <!-- Columna para Resumen de Compra y Planes -->
             <div class="col-md-4">
-                <h3>Havic HV G-92 Gamepad</h3>
-                <div class="d-flex align-items-center">
-                    <span class="text-warning">★★★★☆</span>
-                    <span class="ms-2">(50 Reviews)</span>
+               
+              <!-- Planes de Plataforma de Rastreo con Tarjetas Seleccionables -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Elige tu Plan de Rastreo</h5>
+                        <p class="text-muted text-center mb-4">Optimiza la seguridad y el seguimiento de tus activos GPS</p>
+                        <hr>
+
+                        <!-- Plan Start -->
+                        <div class="border p-3 rounded mb-3 plan-card" onclick="selectPlan('planStart')">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="plan" id="planStart" hidden>
+                                <label class="form-check-label fw-bold" for="planStart">Plan Start</label>
+                                <p class="text-muted small mt-1">Ideal para iniciar en el mundo del rastreo.</p>
+                                <a href="#" class="small text-primary">Detalles</a>
+                            </div>
+                        </div>
+
+                        <!-- Plan Starter -->
+                        <div class="border p-3 rounded mb-3 plan-card" onclick="selectPlan('planStarter')">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="plan" id="planStarter" hidden>
+                                <label class="form-check-label fw-bold" for="planStarter">Plan Starter</label>
+                                <p class="text-muted small mt-1">Para empresas organizadas con GPS existentes.</p>
+                                <a href="#" class="small text-primary">Detalles</a>
+                            </div>
+                        </div>
+
+                        <!-- Plan Enterprise -->
+                        <div class="border p-3 rounded plan-card" onclick="selectPlan('planEnterprise')">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="plan" id="planEnterprise" hidden>
+                                <label class="form-check-label fw-bold" for="planEnterprise">Plan Enterprise</label>
+                                <p class="text-muted small mt-1">Rastreo avanzado para flotas empresariales.</p>
+                                <a href="#" class="small text-primary">Detalles</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p class="fw-bold text-primary">$192.00</p>
-                <p class="text-success">In Stock</p>
-                <div class="plan-container">
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" name="plan" id="planStart">
-                        <label class="form-check-label" for="planStart">Plan Start</label>
+
+            </div>
+    
+            <!-- Columna para Selección de Tipo de Activo -->
+            <div class="col-md-4">
+    <!-- Card Principal: Detalles del Kit -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Detalles del Kit</h5>
+
+            <!-- Selector de Activos (Minimalista) -->
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <button class="btn btn-outline-dark flex-grow-1">Carro</button>
+                <button class="btn btn-outline-dark flex-grow-1">Moto</button>
+                <button class="btn btn-dark active flex-grow-1">Camión</button>
+                <button class="btn btn-outline-dark flex-grow-1">Personas</button>
+                <button class="btn btn-outline-dark flex-grow-1">Mascotas</button>
+            </div>
+
+            <!-- Desplegable 1: Detalles del Kit -->
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseKit" aria-expanded="true">
+                    <span class="fw-bold">Detalles del Kit</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapse show" id="collapseKit" data-parent="#accordion">
+                    <div class="card-body">
+                        <p class="fw-bold mb-2">GPS: <span class="text-primary">5 unidades</span></p>
+                        <p class="fw-bold mb-2">Accesorios: <span class="text-primary">3 unidades</span></p>
+                        <p class="text-muted small">Incluye instalación profesional y soporte técnico.</p>
                     </div>
-                    <p>View details at clients</p>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" name="plan" id="planStarter">
-                        <label class="form-check-label" for="planStarter">Plan Starter</label>
-                    </div>
-                    <p>Free 30 Days Delivery Returns. <a href="#">Details</a></p>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" name="plan" id="planEnterprise">
-                        <label class="form-check-label" for="planEnterprise">Plan Enterprise</label>
-                    </div>
-                    <p>Free 30 Days Delivery Returns. <a href="#">Details</a></p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="d-flex mb-3">
-                    <button class="btn btn-outline-dark">Carro</button>
-                    <button class="btn btn-outline-dark">Moto</button>
-                    <button class="btn btn-dark active">Camión</button>
-                    <button class="btn btn-outline-dark">Personas</button>
-                    <button class="btn btn-outline-dark">Mascotas</button>
+
+            <!-- Desplegable 2: Detalles del Plan -->
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapsePlan" aria-expanded="false">
+                    <span class="fw-bold">Detalles del Plan</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
-                <div class="plan-container">
-                    <p class="fw-bold">Kit Camión - $1750</p>
-                    <p>Enter your postal code for Delivery Availability</p>
-                    <p class="fw-bold">Plan Start - $1750</p>
-                    <p>Free 30 Days Delivery Returns. <a href="#">Details</a></p>
-                    <p class="fw-bold">Instalación - Free</p>
-                    <p>Free 30 Days Delivery Returns. <a href="#">Details</a></p>
+                <div class="collapse" id="collapsePlan" data-parent="#accordion">
+                    <div class="card-body">
+                        <p class="fw-bold">Plan Start - $1750</p>
+                        <h6 class="card-subtitle mb-2">Alertas Incluidas</h6>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="sosAlert">
+                            <label class="form-check-label small" for="sosAlert">Botón SOS</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="geofenceAlert">
+                            <label class="form-check-label small" for="geofenceAlert">Geocerca</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="engineOffAlert">
+                            <label class="form-check-label small" for="engineOffAlert">Apagado de Motor</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="maintenanceAlert">
+                            <label class="form-check-label small" for="maintenanceAlert">Alerta de Mantenimiento</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="border p-3 rounded mb-2">
-                    <p class="fw-bold mb-0">9 unidades</p>
+
+            <!-- Desplegable 3: Suscripción -->
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseSubscription" aria-expanded="false">
+                    <span class="fw-bold">Suscripción</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
-                <div class="border p-3 rounded mb-2">
-                    <p class="fw-bold mb-0">2 Licencias track</p>
-                </div>
-                <div class="border p-3 rounded mb-2">
-                    <p class="fw-bold mb-0">1 Free Off</p>
-                </div>
-                <div class="border p-3 rounded mb-2">
-                    <p class="fw-bold mb-0">3 Activos Dev</p>
-                </div>
-                <div class="d-flex justify-content-between mt-3">
-                    <button class="btn btn-outline-dark">Preview</button>
-                    <button class="btn btn-primary">Place Order</button>
+                <div class="collapse" id="collapseSubscription" data-parent="#accordion">
+                    <div class="card-body">
+                        <p class="text-muted small">Elige la duración de tu suscripción.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-outline-dark flex-grow-1">Demo</button>
+                            <button class="btn btn-outline-dark flex-grow-1">3 Meses</button>
+                            <button class="btn btn-outline-dark flex-grow-1">1 Año</button>
+                            <button class="btn btn-outline-dark flex-grow-1">Indefinido</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <button class="miBoton" id="miBoton">Haz clic aquí</button>
+    <!-- Compatibilidad (Fuera de la Card Principal) -->
+    <div class="mt-4">
+        <h5 class="card-title">Compatibilidad</h5>
+        <div class="progress mb-3">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95% Compatible</div>
+        </div>
+        <p class="text-muted small">Tu compra es compatible con la mayoría de los dispositivos GPS disponibles en el mercado.</p>
+    </div>
+</div>
+
+<!-- Incluir FontAwesome para los íconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- Script para manejar el colapso de los desplegables -->
+<script>
+    document.querySelectorAll('.card-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const target = header.getAttribute('data-bs-target');
+            const collapse = document.querySelector(target);
+            document.querySelectorAll('.collapse').forEach(c => {
+                if (c !== collapse) {
+                    c.classList.remove('show');
+                }
+            });
+        });
+    });
+</script>
+    
+            <!-- Columna para Detalles Adicionales y Acciones -->
+            <div class="col-md-4">
+                  <!-- Resumen de Compra Unificado -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <!-- Precio Total -->
+                        <h4 class="card-title text-center">Total de tu Compra</h4>
+                        <hr>
+                        <p class="fw-bold text-primary fs-1 text-center">$192.00 COP</p>
+                        <p class="text-muted text-center">Precio final incluye todos los impuestos y descuentos aplicables.</p>
+
+                        <!-- Detalles de la Compra -->
+                        <div class="mt-4">
+                            <h5 class="card-title">Resumen de la Compra</h5>
+                            <div class="border p-3 rounded mb-2">
+                                <p class="fw-bold mb-0">Dispositivos: <span class="text-primary">9 unidades</span></p>
+                            </div>
+                            <div class="border p-3 rounded mb-2">
+                                <p class="fw-bold mb-0">Licencias: <span class="text-primary">2 Licencias track</span></p>
+                            </div>
+                        </div>
+                        <!-- Acciones -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <div class="modal fade" id="facturaModal" tabindex="-1" aria-labelledby="facturaModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="facturaModalLabel">Factura - Lista de Kits</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="factura">
+                                      <!-- Se inyectará el contenido de la factura -->
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <!-- Botón para mostrar la factura (Preview) -->
+                              <button id="PREVIEW" class="btn btn-info mt-3" data-bs-toggle="modal" data-bs-target="#facturaModal">Preview Factura</button>
+  
+
+                            <button class="btn btn-primary">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+                
+               
+    </div>
+</div>
 
     
 

@@ -6,11 +6,16 @@
 body
 {
     font-family: sans-serif;
+    min-height: 90dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 #nav-bar{
-    position: 0;
-    top: 0;
-    z-index: 10;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 .navbar
 {
@@ -20,10 +25,61 @@ body
 #Banner{
     background-image: linear-gradient(to right, #a517ba ,#5f1782);
     color: #fff;
-    padding-top: 5% ;
+  
 } 
 #carouselPaquetes .carousel-inner {
-  padding: 50px;  /* Espacio interno para que las cards no estén tan ajustadas */
+  padding: 25px;  /* Espacio interno para que las cards no estén tan ajustadas */
+}
+/* Fondo con huellitas y perro */
+.seccion-mascotas {
+  background: linear-gradient(135deg, #0e0144, #4a90e2); /* Degradado azul */
+  color: white;
+  padding: 80px 20px;
+  position: relative;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Imagen de huellitas */
+.seccion-mascotas::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://media.istockphoto.com/id/1292922583/vector/human-footprints-icon-isolated-on-white-background-footsteps-footprint-trekking-route.jpg?s=612x612&w=0&k=20&c=r2PLH7cztvpV4WicJmyMLZni8SR01VhkzefZbIYTNzw=') repeat;
+  opacity: 0.2;
+}
+
+/* Imagen del perro */
+.seccion-mascotas::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+  background: url('https://cdn-icons-png.flaticon.com/512/194/194279.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.9;
+}
+
+/* Estilo del texto */
+.titulo-seccion {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+/* Estilo especial para "Ubicación" */
+.ubicacion {
+  color: orange;
+  font-weight: bold;
 }
 
 
@@ -52,6 +108,11 @@ body
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
   opacity: 1;    /* Totalmente visible al pasar el mouse */
+}
+
+#topVendidos{
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 
@@ -87,7 +148,7 @@ body
     align-items: center;
     justify-content: center;
     font-size: 30px;
-    background-color: #284170 ;
+    background-color: #1e3359 ;
     color: white;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
@@ -149,6 +210,7 @@ body
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
 .package-card:hover {
@@ -197,9 +259,14 @@ body
 
 
 .carousel-item .card {
-    height: 450px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+  height: 480px;
+  width: 290px; /* Ajusta el ancho según lo que necesites */
+  background-color: #f1f0f0; /* Un color gris claro, puedes cambiarlo a otro tono claro */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px; /* Opcional, para esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional, para darle un efecto de sombra más suave */
+}
+
   
   .carousel-item .card:hover {
     transform: scale(1.05);
@@ -225,4 +292,59 @@ body
   .carousel-indicators button {
     background-color: #007bff;
   }
+
+  /*Categorias */
+  
+  #carouselCategoriasNegro .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    width: 200px;
+    height: 220px;
+    margin: 10px auto;
+    border: 1px solid #000;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  #carouselCategoriasNegro .card:hover {
+    transform: scale(1.05);
+    background-color: #e0e0e0;
+  }
+
+  #carouselCategoriasNegro img {
+    width: 50px;
+    height: 50px;
+    margin: 15px 0;
+  }
+
+  #carouselCategoriasNegro .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .carousel-indicators button {
+    background-color: #000;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: #000;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .carousel-control-prev-icon::before,
+  .carousel-control-next-icon::before {
+    color: #fff;
+    font-size: 16px;
+    line-height: 30px;
+  }
+  
   

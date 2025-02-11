@@ -10,6 +10,33 @@
     top: 0;
     z-index: 1050; /* Asegura que esté sobre el navbar */
 }
+.navbar-toggler:focus, .navbar-toggler.collapsed {
+    box-shadow: none !important; /* Elimina cualquier sombra o borde de foco */
+    outline: none !important; /* Elimina cualquier contorno que se agregue al hacer clic */
+    border: none !important; /* Elimina el borde predeterminado */
+  }
+
+/* //icono login  */
+.login-icon-container {
+    display: inline-block;
+    margin: 16px;
+  
+}
+
+.login-icon {
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+    margin-left: 10px;
+}
+
+.login-icon:hover {
+    color: #007bff;
+}
+
+
+
 
 
 /* Iconos de redes sociales */
@@ -30,6 +57,9 @@
 }
 
 /* Textos informativos */
+.top-texts::after {
+    content: "Rastreo satelital en tiempo real | Dispositivos GPS avanzados | Tecnología IoT para monitoreo y control";
+}
 .top-texts {
     text-align: center;
     flex-grow: 1;
@@ -83,14 +113,13 @@
     color: #ffffff !important;
 }
 
-/* Icono del carrito */
-.cart-icon-container {
+/* Icono del carrito  y login*/
+.cart-icon-container, .login-icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    margin: auto;
-    max-width: 200px;
+}
+
 
 .cart-icon {
     margin-left: 10px; /* Espaciado entre icono y texto */
@@ -118,8 +147,18 @@
     justify-content: center;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+    }
 
+    .cart-icon-container, .login-icon-container {
+        margin-top: 10px;
+    }
 }
+
 
 /* Mostrar menú desplegable al pasar el mouse------------------------------- */
 
@@ -162,3 +201,36 @@
        font-size: 0.6rem; 
    }
 }
+/* Ajuste del texto en la barra superior */
+@media (max-width: 768px) {
+    .top-texts {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .social-icons {
+        display: none;
+    }
+    
+    .top-texts::after {
+        content: "Rastreo satelital en tiempo real🌏"; /* Solo muestra esta parte del texto */
+        display: block;
+    }
+}
+
+/* Ajuste del navbar */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    .cart-icon-container {
+        margin-left: auto;
+    }
+}
+
+

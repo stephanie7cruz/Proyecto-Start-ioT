@@ -1,10 +1,44 @@
+
+.product-img {
+    width: 100px;
+    height: auto;
+}
+
+.main-image {
+    width: 250px;
+    height: auto;
+}
+.custom-alert {
+    position: fixed;
+    top: 88px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 13, 179, 0.8);
+    color: white;
+    padding: 25px 30px; /* Más padding para agrandar */
+    border-radius: 5px;
+    display: none;
+    z-index: 1151; /* Mayor que el modal de Bootstrap */
+    font-size: 22px;
+    text-align: center;
+    min-width: 250px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Agrega sombra */
+}
+
+
 .product-img { width: 100px; height: auto; }
-.main-image { width: 250px; height: auto; }
+
+
 
 body {
-    background: #f8f8f8;
+    background:#ffffff;
     font-family: Arial, sans-serif;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
+
 
 .product-img {
     width: 80px;
@@ -12,28 +46,152 @@ body {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 5px;
+
     background: white;
 }
 
 .main-image {
-    max-width: 300px; /* Limita el tamaño máximo de la imagen */
-    width: 100%; /* Asegura que la imagen ocupe todo el espacio disponible hasta el límite máximo */
-    height: auto; /* Mantiene la proporción de la imagen */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Agrega sombra sutil */
-    border-radius: 8px; /* Bordes redondeados para una mejor apariencia */
-    transition: box-shadow 0.3s ease; /* Transición suave para el efecto hover */
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
 }
 
 .main-image:hover {
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa al hacer hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+
+    background: rgb(255, 255, 255);
+
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.in-stock {
+    color: green;
+    font-weight: bold;
+}
+
+.plan-container {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
 }
 
 
-.price { font-size: 24px; font-weight: bold; }
-.in-stock { color: green; font-weight: bold; }
-.plan-container { border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
-.plan-option { display: flex; align-items: center; padding: 8px; }
-.plan-option input { margin-right: 10px; }
-.category-btn { border: 1px solid #ddd; padding: 8px 12px; border-radius: 8px; margin: 5px; }
-.order-summary { text-align: center; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-.place-order-btn { background-color: #1e2d58; color: white; }
+.plan-option {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.plan-option input {
+    margin-right: 10px;
+}
+
+.category-btn {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 5px;
+}
+
+.order-summary {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.place-order-btn {
+    background-color: #1e2d58;
+    color: white;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .col-2, .col-4 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    .product-img {
+        width: 60px;
+    }
+    .main-image {
+        max-width: 100%;
+    }
+    .btn-group {
+        flex-wrap: wrap;
+    }
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+.plan-card {
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.plan-card:hover {
+    background-color: #cfcfd1;
+    border-color: #0d6efd;
+}
+.selected-plan {
+    background-color: #e9f5ff;
+    border-color: #0d6efd !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Contenedor principal de productos (banner) */
+#productosContainer {
+  position: relative;
+  width: 500px;
+  height: 600px; /* Altura del banner */
+  overflow: hidden;
+}
+
+/* Estilo base para las cards de producto */
+.producto-card {
+  border-radius: 5px;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+  opacity: 0.8;
+}
+
+/* Estilo para la card seleccionada */
+.producto-card.seleccionado {
+  background-color: green;
+  opacity: 1 !important;
+}
+
+/* Estilos para la card de descripción (collapse) */
+.collapse-card {
+  border-radius: 5px;
+}
+
+/* Estilos para el modal de factura */
+#factura {
+  margin-top: 20px;
+}
