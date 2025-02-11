@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const div = document.createElement("div");
             div.classList.add("col-10", "col-md-6", "col-lg-3", "mb-4");
             div.innerHTML = `
-                <div class="card w-100 h-100" style="width: 18rem;">
+                <div class="card w-100 h-100 " style="width: 18rem;">
                     <i class="fas fa-heart heart-icon" onclick="toggleHeart(this)"></i>
-                    <img src="${producto.img}" class="card-img-top object-fit-cover" alt="image" style="height: 200px; width: 100%; object-fit: cover;">
+                    <img src="${producto.img}" class="card-img-top object-fit-conten" alt="image" style="height: 300px; width: 300px; object-fit: cover;">
                     <div class="info">
                         <p class="categoria">${producto.categoria}</p>
                         <h5 class="card-title">${producto.name}</h5>
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p class="descripcion">${producto.description}</p>
                         <div class="clasificacion" id="clasificacion-${index}"></div>
                     </div>
-                    <a href="#" class="btn btn-cart w-100 producto-agregar" id="${producto.id}">
+                    <a href="#" class="btn btn-cart w-100 mb-4 producto-agregar" id="${producto.id}">
                         <i class="fas fa-shopping-cart"></i> Agregar al carrito
                     </a>
                 </div>

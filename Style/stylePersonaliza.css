@@ -1,4 +1,51 @@
-
+/* Estilos Generales */
+body {
+    font-family: sans-serif; /* Fuente legible y moderna */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8; /* Fondo muy claro para un look minimalista */
+    color: #333; /* Color de texto principal */
+  }
+  
+  .header-container {
+    text-align: center; /* Centrar el contenido de la cabecera */
+    padding: 2rem 1rem; /* Espaciado vertical y horizontal */
+    background-color: #fff; /* Fondo blanco para la cabecera */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sutil sombra para destacar la cabecera */
+  }
+  
+  h1 {
+    font-size: 2.5rem; /* Tamaño de fuente para el título principal */
+    font-weight: 600; /* Grosor de fuente semi-negrita */
+    margin-bottom: 0.5rem; /* Espacio debajo del título */
+    color: #2c3e50; /* Color del título */
+  }
+  
+  h4 {
+    font-size: 1.1rem; /* Tamaño de fuente para el subtítulo */
+    font-weight: 400; /* Grosor de fuente normal */
+    color: #777; /* Color del subtítulo (más suave) */
+    line-height: 1.6; /* Espaciado entre líneas para mejor legibilidad */
+    max-width: 600px; /* Ancho máximo para evitar que el texto se extienda demasiado */
+    margin: 0 auto; /* Centrar horizontalmente */
+  }
+  
+  /* Media Queries para Responsividad */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem; /* Reducir el tamaño del título en pantallas más pequeñas */
+    }
+  
+    h4 {
+      font-size: 1rem; /* Reducir el tamaño del subtítulo en pantallas más pequeñas */
+      padding: 0 1rem; /* Añadir un poco de padding lateral en pantallas pequeñas */
+    }
+  
+    .header-container {
+      padding: 1.5rem 0.5rem; /* Reducir el padding en pantallas pequeñas */
+    }
+  }
+  
 .product-img {
     width: 100px;
     height: auto;
@@ -51,8 +98,8 @@ body {
 }
 
 .main-image {
-    max-width: 300px;
-    width: 100%;
+    max-width: 1200px;
+    width: 200%;
     height: auto;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -158,13 +205,74 @@ body {
 
 
 
+.plan-card.selected {
+    border: 2px solid #113e6e;         /* Azul oscuro elegante */
+    background-color: #0d6efd;           /* Tono sutil y minimalista */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    color: #fff;                       /* Texto en blanco para destacar */
+  }
+  
+  /* Aseguramos que todos los elementos de texto dentro de la tarjeta seleccionada sean blancos */
+  .plan-card.selected .form-check-label,
+  .plan-card.selected p,
+  .plan-card.selected a {
+    color: #fff !important;
+  }
+  
+ 
 
 
 
 
 
 
+/* mensaje personaliza */
+/* Estilos para el contenedor del mensaje (card) - Refinado */
+.mensaje-container {
+    background-color: #e0eafc; /* Azul muy claro */
+    color: #333; /* Texto principal oscuro */
+    padding: 1rem 1.5rem; /* Espaciado */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin: 1rem auto; /* Centrado y margen */
+    max-width: 800px; /* Ancho máximo */
+    text-align: center; /* Texto centrado */
+    border: 1px solid #c6d4ef; /* Borde sutil */
+  }
+  
+  /* Estilos para el texto del mensaje */
+  #mensaje {
+    font-size: 1.1rem; /* Tamaño de fuente */
+    font-weight: 400; /* Grosor normal */
+    margin: 0; /* Sin margen */
+    color: #555; /* Color de texto secundario */
+  }
+  
+  /* Eliminar animación de aparición */
+  @keyframes fadeIn {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /* Eliminar animacion linea brillante */
+  .mensaje-container::before {
+    content: "";
+  }
+  
 
+/* Contenedor principal de productos (banner) */
+/* Contenedor principal de productos (banner) */
+/* Contenedor principal de productos (banner) */
+/* Contenedor principal de productos (banner) */
+/* Contenedor principal de productos (banner) */
+/* Contenedor principal de productos (banner) */
 /* Contenedor principal de productos (banner) */
 #productosContainer {
   position: relative;

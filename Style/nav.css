@@ -127,15 +127,13 @@
     color: #ffffff !important;
 }
 
-/* Icono del carrito */
-.cart-icon-container {
+/* Icono del carrito  y login*/
+.cart-icon-container, .login-icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    margin: auto;
-    max-width: 200px;
 }
+
 
 .login-icon-container {
     display: flex;
@@ -147,13 +145,12 @@
 
 }
 
+
 .cart-icon {
     margin-left: 10px;
     /* Espaciado entre icono y texto */
     font-size: 1.6rem;
     position: relative;
-
-
 }
 
 /* Contador del carrito */
@@ -174,7 +171,17 @@
     justify-content: center;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+    }
 
+    .cart-icon-container, .login-icon-container {
+        margin-top: 10px;
+    }
+}
 
 
 /* Mostrar menú desplegable al pasar el mouse------------------------------- */
@@ -253,4 +260,5 @@
     .cart-icon-container {
         margin-left: auto;
     }
+
 }
