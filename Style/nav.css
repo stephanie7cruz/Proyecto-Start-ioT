@@ -1,0 +1,236 @@
+/* Barra superior */
+.top-bar {
+    background: linear-gradient(135deg, #284170, #943c7a);
+
+    color: white;
+    padding: 5px 15px;
+    font-size: 14px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1050; /* Asegura que esté sobre el navbar */
+}
+.navbar-toggler:focus, .navbar-toggler.collapsed {
+    box-shadow: none !important; /* Elimina cualquier sombra o borde de foco */
+    outline: none !important; /* Elimina cualquier contorno que se agregue al hacer clic */
+    border: none !important; /* Elimina el borde predeterminado */
+  }
+
+/* //icono login  */
+.login-icon-container {
+    display: inline-block;
+    margin: 16px;
+  
+}
+
+.login-icon {
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+    margin-left: 10px;
+}
+
+.login-icon:hover {
+    color: #007bff;
+}
+
+
+
+
+
+/* Iconos de redes sociales */
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: #ddd;
+}
+
+/* Textos informativos */
+.top-texts::after {
+    content: "Rastreo satelital en tiempo real | Dispositivos GPS avanzados | Tecnología IoT para monitoreo y control";
+}
+.top-texts {
+    text-align: center;
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+/* Ajuste para el navbar al usar fixed-top */
+.navbar {
+    margin-top: 30px; /* Espacio para la barra superior */
+}
+
+/* Estilos generales de la navbar */
+.navbar {
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    margin-bottom: 20px; /* Margen debajo del navbar para que se vea la sombra */
+}
+
+/* Estilo de los enlaces de la navbar */
+.navbar-nav .nav-link {
+    color: #15193e !important; /* Color oscuro */
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+    color: #2d3262 !important; /* Color principal */
+}
+
+/* Botón de búsqueda */
+.navbar .btn-outline-success {
+    border-color: #2d3262 !important;
+}
+
+/* Hover del botón de búsqueda */
+.navbar .btn-outline-success:hover {
+    background-color: #2d3262 !important;
+    color: #ffffff !important;
+}
+
+/* Menú desplegable */
+.navbar-nav .dropdown-menu {
+    border: 1px solid #15193e; /* Bordes oscuros */
+}
+
+.navbar-nav .dropdown-item {
+    color: #15193e !important;
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #2d3262 !important;
+    color: #ffffff !important;
+}
+
+/* Icono del carrito  y login*/
+.cart-icon-container, .login-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.cart-icon {
+    margin-left: 10px; /* Espaciado entre icono y texto */
+    font-size: 1.6rem;
+    position: relative;
+
+
+}
+
+/* Contador del carrito */
+.cart-icon .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #15193e;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    padding: 3px 7px;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cart-icon-container, .login-icon-container {
+        margin-top: 10px;
+    }
+}
+
+
+/* Mostrar menú desplegable al pasar el mouse------------------------------- */
+
+
+
+/* Contador del carrito */
+
+
+/* Mostrar menú desplegable al pasar el mouse -----------------------------*/
+
+
+
+/* Mostrar menú desplegable al pasar el mouse */
+.nav-item.dropdown:hover .dropdown-menu {
+   display: block; 
+   margin-top: 0; 
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+   .navbar-toggler-icon {
+       border-color: transparent; /* Eliminar borde gris al hacer clic */
+   }
+
+   .cart-icon {
+       font-size: 1.5rem; 
+   }
+
+   .cart-icon .cart-count {
+       font-size: 0.7rem; 
+   }
+}
+
+@media (max-width: 480px) {
+   .cart-icon {
+       font-size: 1.2rem; 
+   }
+
+   .cart-icon .cart-count {
+       font-size: 0.6rem; 
+   }
+}
+/* Ajuste del texto en la barra superior */
+@media (max-width: 768px) {
+    .top-texts {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .social-icons {
+        display: none;
+    }
+    
+    .top-texts::after {
+        content: "Rastreo satelital en tiempo real🌏"; /* Solo muestra esta parte del texto */
+        display: block;
+    }
+}
+
+/* Ajuste del navbar */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    .cart-icon-container {
+        margin-left: auto;
+    }
+}
+
+
