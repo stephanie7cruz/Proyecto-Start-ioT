@@ -1,6 +1,12 @@
 
-
-
+// Función para actualizar el numerito del carrito
+function actualizarNumerito() {
+    let cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+        let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, );
+        cartCountElement.innerText = nuevoNumerito;
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     let productosMasVendidos = [];
     const contenedorProductos = document.querySelector("#list-items");
@@ -22,12 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             document.getElementById('navbar').innerHTML = data;
 
+            actualizarNumerito();
+
             // Aquí ya podemos acceder al contenedor del carrito y agregar el evento de click
             const cartIconContainer = document.querySelector(".cart-icon");
             if (cartIconContainer) {
                 cartIconContainer.addEventListener("click", function () {
 
                     const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+                    event.preventDefault();
                     cartModal.show();
                     mostrarCarrito();
                 });
