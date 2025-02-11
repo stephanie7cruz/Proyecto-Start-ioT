@@ -11,14 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
   let contador = 2;
 
   const imagenesVehiculo = {
-      "Carro": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/4_vdsf8b.png",
-      "Moto": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058633/5_njn7g8.png",
-      "Camion": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058631/6_krdneg.png",
-      "Carga": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/7_adr5tm.png",
-      "Flotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058633/8_nqdl03.png",
-      "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058630/9_fugogy.png",
-      "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058629/10_ihmhgy.png"
+      "Carro": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264947/5_la63bl.png",
+      "Moto": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264943/6_lsntlw.png",
+      "Camion": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264944/7_slutxo.png",
+      "Carga": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264944/8_o2prh9.png",
+      "Flotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264946/9_mem2mw.png",
+      "Personas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264945/10_ues1f7.png",
+      "Mascotas": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264945/11_mfqnih.png"
   };
+  //-------------------------------------------------------------------------------------------
 
   function actualizarImagenVehiculo(tipoVehiculo) {
       const imagenVehiculo = document.querySelector('.main-image');
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
           botonSeleccionado.classList.add('active', 'btn-dark');
       }
   }
-
+//----------------------------------------------------
   // Cargar productos desde el JSON
   fetch('../Template/data.json')
       .then(response => response.json())
@@ -174,8 +175,10 @@ function crearProductoElement(producto, coordenada, esGPS, activo) {
   // Si el producto ya estaba seleccionado en una sesión anterior para este activo, se marca
   if (seleccionGuardada.some(p => p.id === producto.id)) {
     productoElement.classList.add('seleccionado');
-    productoElement.style.backgroundColor = 'green';
-    productoElement.style.opacity = '1';
+    productoElement.style.backgroundColor = 'white';
+    productoElement.style.border = '1px solid #ccc';
+    productoElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+    productoElement.style.cursor = 'pointer';
     if (!window.productosSeleccionados.some(p => p.id === producto.id)) {
       window.productosSeleccionados.push(producto);
     }
@@ -290,7 +293,7 @@ function toggleCollapse(producto, esGPS, productElement) {
     // Posicionar la card de descripción fuera de la card principal
     const rect = productElement.getBoundingClientRect();
     if (esGPS) {
-      descCard.style.left = (rect.left - 220) + 'px';
+      descCard.style.left = (rect.left - 270) + 'px';
     } else {
       descCard.style.left = (rect.right + 20) + 'px';
     }
@@ -303,23 +306,7 @@ function toggleCollapse(producto, esGPS, productElement) {
     descCard.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
     descCard.style.padding = '10px';
 
-    // Botón para cerrar la descripción
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'btn btn-sm btn-secondary';
-    closeBtn.style.position = 'absolute';
-    closeBtn.style.top = '5px';
-    closeBtn.style.right = '5px';
-    closeBtn.textContent = 'X';
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      descCard.remove();
-      const collapseIcon = productElement.querySelector('.collapse-btn');
-      if (collapseIcon) {
-        collapseIcon.classList.remove('fa-chevron-up');
-        collapseIcon.classList.add('fa-chevron-down');
-      }
-    });
-    descCard.appendChild(closeBtn);
+  
 
     document.body.appendChild(descCard);
   }
@@ -336,7 +323,6 @@ document.getElementById('addProductos').addEventListener('click', () => {
   const activo = window.currentActivo || (productosFiltrados[0] && productosFiltrados[0].activo.split(',')[0].trim()) || 'Activo';
   const kitCount = parseInt(document.getElementById('contador').textContent, 10) || 1;
   const productosNombres = window.productosSeleccionados.map(p => p.name).join(', ');
-  alert(`${kitCount} kit(s) para ${activo} contiene: ${productosNombres}`);
   
   // Agregar la selección actual a la lista de kits (factura), guardando también el nombre del activo
   if (!window.listaDeKits) {
@@ -344,11 +330,17 @@ document.getElementById('addProductos').addEventListener('click', () => {
   }
   window.listaDeKits = window.listaDeKits.concat(window.productosSeleccionados.map(item => ({ ...item, activo })));
   
+  
   // Actualizar el contenido del modal (factura) mediante generateFacturaHTML
   const facturaElement = document.getElementById('factura');
   if (facturaElement) {
     facturaElement.innerHTML = generateFacturaHTML(window.listaDeKits);
   }
+   // Actualizar el bloque "Detalles del Kit"
+   updateCollapseKit(window.listaDeKits);
+  
+   // Actualizar el "Resumen de la Compra" (total, dispositivos y licencias)
+   updateFacturaSummary(window.listaDeKits);
   
   // Luego de "Add": limpiar la selección, cerrar colapsos y re-renderizar el activo
   window.productosSeleccionados = [];
@@ -377,6 +369,7 @@ lista.forEach(item => {
     grouped[item.id].quantity++;
   }
 });
+
 let html = '<table class="table table-striped">';
 html += '<thead><tr><th>Kit</th><th>Activo</th><th>Precio Unitario</th><th>Cantidad</th><th>Subtotal</th><th>Acciones</th></tr></thead>';
 html += '<tbody>';
@@ -409,6 +402,8 @@ html += '</table>';
 return html;
 }
 
+
+
 //-----------------------------------------------------------------------------------------------------------------------------
 
   botones.forEach(boton => {
@@ -418,85 +413,96 @@ return html;
           // Actualiza el kit según el tipo de vehículo
           switch (tipoVehiculo) {
               case "Carro":
-                  mensaje.textContent = "Has seleccionado un Carro. 🚗";
-                  actualizarImagenVehiculo(tipoVehiculo);
+                mensaje.innerHTML = "¡<i class='fas fa-car'></i> Protege a tu familia y tu inversión!<br>Diseña el sistema de seguridad perfecto para tu carro: ubica, rastrea y controla en <strong>tiempo real</strong>  prevenir es mejor que lamentar.";
+                actualizarImagenVehiculo(tipoVehiculo);
                   const productosCarro = filtrarProductosPorActivo("Carro");
                   pintarProductos(productosCarro, [
-                      { top: '10%', left: '10%' },
-                      { top: '30%', left: '50%' },
-                      { top: '40%', left: '70%' },
+                      { top: '50%', left: '3%' },
+                      { top: '50%', left: '80%' },
+                      { top: '3%', left: '80%' },
+                      { top: '0%', left: '1%' },
                       
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS (CARRO)";
+                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CARRO";
                   break;
 
               case "Moto":
-                  mensaje.textContent = "Has seleccionado una Moto. 🏍️";
-                  actualizarImagenVehiculo(tipoVehiculo);
+                mensaje.innerHTML = "¡<i class='fas fa-motorcycle'></i> Toma el control total de tu moto!<br>Activa un GPS preciso que te permite apagarla remotamente y gestionar cada trayecto.";
+                actualizarImagenVehiculo(tipoVehiculo);
                   const productosMoto = filtrarProductosPorActivo("Moto");
                   pintarProductos(productosMoto, [
-                      { top: '10%', left: '20%' },
+                      { top: '2%', left: '13%' },
+                      { top: '49%', left: '6%' },
+
                      
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS (MOTO)";
+                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA MOTO";
                   break;
 
               case "Camion":
-                  mensaje.textContent = "Has seleccionado un Camión. 🚚";
-                  actualizarImagenVehiculo(tipoVehiculo);
+                mensaje.innerHTML = "¡<i class='fas fa-truck'></i> Optimiza la gestión de tu camión!<br>Ubica y rastrea cada ruta en <strong>tiempo real</strong> para mejorar la logística y la seguridad de tus activos.";
+                actualizarImagenVehiculo(tipoVehiculo);
                   const productosCamion = filtrarProductosPorActivo("Camion");
                   pintarProductos(productosCamion, [
-                      { top: '15%', left: '30%' },
-                      { top: '50%', left: '60%' }
+                      { top: '50%', left: '2%' },
+                      { top: '50%', left: '20%' },
+                      { top: '50%', left: '80%' },
+                      { top: '50%', left: '50%' },
+                      { top: '0%', left: '80%' },
+                      { top: '0%', left: '1%' }
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS (CAMION)";
+                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CAMIÓN";
                   break;
 
               case "Personas":
-                  mensaje.textContent = "Has seleccionado Personas. 👨‍👩‍👦";
-                  actualizarImagenVehiculo(tipoVehiculo);
+                mensaje.innerHTML = "¡<i class='fas fa-users'></i> Protege a tu equipo!<br>Activa el botón de pánico y gestiona la seguridad de tus colaboradores con rastreo en <strong>tiempo real</strong>.";
+                actualizarImagenVehiculo(tipoVehiculo);
                   const productosPersonas = filtrarProductosPorActivo("Personas");
                   pintarProductos(productosPersonas, [
-                      { top: '20%', left: '60%' },
-                      { top: '50%', left: '10%' }
+                      { top: '25%', left: '80%' },
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS PERSONAS";
+                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA PERSONAS";
                   break;
 
               case "Carga":
-                  mensaje.textContent = "Has seleccionado Carga. 📦";
-                  actualizarImagenVehiculo(tipoVehiculo);
+                mensaje.innerHTML = "¡<i class='fas fa-box'></i> Maximiza la eficiencia de tus envíos!<br>Controla y gestiona cada carga con un rastreo satelital preciso y en <strong>tiempo real</strong>.";
+                actualizarImagenVehiculo(tipoVehiculo);
                   const productosCarga = filtrarProductosPorActivo("Carga");
                   pintarProductos(productosCarga, [
-                      { top: '25%', left: '40%' },
+                      { top: '1%', left: '80%' },
+                      { top: '50%', left: '40%' },
+                      { top: '50%', left: '20%' },
+                      { top: '50%', left: '0%' },
+                      { top: '0%', left: '1%' },
                       { top: '60%', left: '20%' }
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS CARGA";
+                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CARGA";
                   break;
 
               case "Flotas":
-                  mensaje.textContent = "Has seleccionado Flotas. 🚚";
-                  actualizarImagenVehiculo(tipoVehiculo);
+                mensaje.innerHTML = "¡<i class='fas fa-truck-moving'></i> Gestiona tu flota con precisión!<br>Ubica y controla todos tus vehículos en <strong>tiempo real</strong> para optimizar la seguridad y recuperación.";
+                actualizarImagenVehiculo(tipoVehiculo);
                   const productosFlotas = filtrarProductosPorActivo("Flotas");
                   pintarProductos(productosFlotas, [
-                      { top: '00%', left: '35%' },
-                      { top: '00%', left: '00%' },
-                      { top: '10%', left: '00%' },
-                      { top: '40%', left: '40%' },
-                      { top: '50%', left: '50%' }
+                      { top: '5%', left: '75%' },
+                      { top: '50%', left: '5%' },
+                      { top: '0%', left: '20%' },
+                      { top: '50%', left: '80%' },
+                      { top: '1%', left: '5%' },
+                      { top: '50%', left: '20%' }
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS FLOTAS";
+                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA FLOTAS";
                   break;
 
               case "Mascotas":
-                  mensaje.textContent = "Has seleccionado Mascotas. 🐶🐱";
-                  actualizarImagenVehiculo(tipoVehiculo);
+                mensaje.innerHTML = "¡<i class='fas fa-paw'></i> Cuida a tus peludos!<br>Rastrea a tus mascotas en <strong>tiempo real</strong> y asegúrate de que nunca se alejen de tu lado.";
+                actualizarImagenVehiculo(tipoVehiculo);
                   const productosMascotas = filtrarProductosPorActivo("Mascotas");
                   pintarProductos(productosMascotas, [
-                      { top: '30%', left: '70%' },
-                      { top: '60%', left: '40%' }
+                      { top: '1%', left: '80%' },
+                     
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS MASCOTAS)";
+                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA MASCOTAS";
                   break;
 
               default:
@@ -524,5 +530,104 @@ const facturaElement = document.getElementById('factura');
 // Se asume que generateFacturaHTML es la función que genera el HTML de la factura
 facturaElement.innerHTML = generateFacturaHTML(window.listaDeKits);
 });
+/**
+ * Actualiza el resumen de la compra en el panel de detalles.
+ * Se actualizan:
+ * - El total de la compra.
+ * - La cantidad de dispositivos (kits que no son "licencia").
+ * - La cantidad de licencias (kits cuyo nombre incluya "licencia").
+ * @param {Array} lista - Arreglo de productos (kits) agregados a la factura.
+ */
+function updateFacturaSummary(lista) {
+  let total = 0;
+  let dispositivosCount = 0;
+  let licenciasCount = 0;
+  const grouped = {};
+
+  // Agrupar kits por id para tener la cantidad por cada uno
+  lista.forEach(item => {
+    if (!grouped[item.id]) {
+      grouped[item.id] = { ...item, quantity: 1 };
+    } else {
+      grouped[item.id].quantity++;
+    }
+  });
+
+  // Calcular total y separar dispositivos vs licencias
+  for (const id in grouped) {
+    const kit = grouped[id];
+    const subtotal = kit.precio * kit.quantity;
+    total += subtotal;
+    if (kit.name.toLowerCase().includes("licencia")) {
+      licenciasCount += kit.quantity;
+    } else {
+      dispositivosCount += kit.quantity;
+    }
+  }
+
+  // Actualizar Total de Compra
+  const totalCompraEl = document.getElementById("totalCompra");
+  if (totalCompraEl) {
+    totalCompraEl.textContent = `$${total.toFixed(2)} COP`;
+  }
+
+  // Actualizar cantidad de Dispositivos
+  const dispositivosCountEl = document.getElementById("dispositivosCount");
+  if (dispositivosCountEl) {
+    dispositivosCountEl.textContent = `${dispositivosCount} unidades`;
+  }
+
+  // Actualizar cantidad de Licencias
+  const licenciasCountEl = document.getElementById("licenciasCount");
+  if (licenciasCountEl) {
+    licenciasCountEl.textContent = `${licenciasCount} Licencias track`;
+  }
+}
+/**
+ * Actualiza el contenido del bloque collapseKit (detalles del kit).
+ * Se actualizan los totales de unidades de GPS y Accesorios.
+ * @param {Array} lista - Arreglo de productos (kits) agregados a la factura.
+ */
+function updateCollapseKit(lista) {
+  const grouped = {};
+  lista.forEach(item => {
+    if (!grouped[item.id]) {
+      grouped[item.id] = { ...item, quantity: 1 };
+    } else {
+      grouped[item.id].quantity++;
+    }
+  });
+  
+  let gpsCount = 0;
+  let accesoriosCount = 0;
+  
+  Object.values(grouped).forEach(kit => {
+    const kitName = kit.name.toLowerCase();
+    if (kitName.includes("gps")) {
+      gpsCount += kit.quantity;
+    }
+    if (kitName.includes("accesorio")) {
+      accesoriosCount += kit.quantity;
+    }
+  });
+  
+  // Actualizar los elementos del collapse
+  const gpsSpan = document.getElementById("gpsUnits");
+  if (gpsSpan) {
+    gpsSpan.textContent = gpsCount + " unidades";
+  }
+  const accesoriosSpan = document.getElementById("accesoriosUnits");
+  if (accesoriosSpan) {
+    accesoriosSpan.textContent = accesoriosCount + " unidades";
+  }
+  
+  // (Opcional) Puedes actualizar otros mensajes si lo requieres:
+  const supportMessage = document.getElementById("supportMessage");
+  if (supportMessage) {
+    supportMessage.textContent = "Incluye instalación profesional y soporte técnico.";
+  }
+}
+
+
 
 });

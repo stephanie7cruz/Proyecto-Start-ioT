@@ -6,65 +6,123 @@
     <title>Personaliza tu Kit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Style/stylePersonaliza.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     
 </head>
 <body>
     <div id="custom-alertaMensaje" class="custom-alert"></div>
     <div class="container text-center mt-4">
         <h1>Personaliza tu kit</h1>
-              
        <div id="vehiculoSelector" class="btn-group mt-3" role="group">
             <button class="btn btn-outline-dark" data-vehiculo="Carro">Carro</button>
             <button class="btn btn-outline-dark" data-vehiculo="Moto">Moto</button>
-            <button class="btn btn-dark active" data-vehiculo="Camion">Camión</button>
+            <button class="btn btn-outline-dark" data-vehiculo="Camion">Camión</button>
             <button class="btn btn-outline-dark" data-vehiculo="Carga">Carga</button>
             <button class="btn btn-outline-dark" data-vehiculo="Flotas">Flotas</button>
             <button class="btn btn-outline-dark" data-vehiculo="Personas">Personas</button>
             <button class="btn btn-outline-dark" data-vehiculo="Mascotas">Mascotas</button>
         </div>
-            <p id="mensaje" class="mt-3"></p>
-            <div class="position-relative mt-4" style="width: 100%; max-width: 800px; margin: auto; text-align: center;">
-            <!-- Banner de fondo -->
-            <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739058636/GPS_-_SENSORES_-_ACTUADORES_CANDADOS_DE_RASTREO_sgbmsc.png"
-            style="width: 120%; height: auto; max-height: 400px; object-fit: cover; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 1px; transform: translateX(-10%);
-                        margin: 0 auto; display: block;"
-                   class="main-image" alt="Camión"
-                 alt="Kit">
-    
-            <!-- Contenedor de productos encima del banner -->
-            <div id="productosContainer" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-around align-items-center">
-                <!-- Aquí se cargarán los productos dinámicamente desde JS -->
+        <H4>Da click en los componentes que mejor se adapten a tus necesidades.</H4>
+        
+        <div class="position-relative mt-4" style="width: 100%; max-width: 1200px; margin: auto;">
+            <div class="row align-items-center">
+              <!-- Columna para el mensaje (izquierda) -->
+              <div class="col-md-2 position-relative">
+                <!-- Tarjeta con el mensaje, posicionada un poco más a la izquierda y 15px más arriba -->
+                <div class="card shadow-sm border-0 rounded-4 position-absolute" style="top: -295px; left: -170px; background-color: #faf7f7;">
+                  <div class="card-body p-3 text-center">
+                    <p id="mensaje" class="card-text text-secondary" style="font-size: 1.2rem;">
+                      <i class="fas fa-satellite-dish me-2"></i>
+                      Descubre cómo proteger lo que más te importa
+                      <i class="fas fa-map-marker-alt ms-2"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Columna para el banner (derecha) -->
+              <div class="col-md-10 position-relative">
+                <!-- Banner de fondo -->
+                <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264946/4_dty70r.png"
+                     style="width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+                     class="main-image" alt="Kit">
+          
+                <!-- Contenedor de productos sobre el banner -->
+                <div id="productosContainer" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-around align-items-center">
+                  <!-- Aquí se cargarán los productos dinámicamente desde JS -->
+                </div>
+              </div>
             </div>
-            
-         
-        </div>
+          </div>
+          
+        
+        
         
       
            
-        <div class="d-flex justify-content-center align-items-center mt-4">
-            <button class="btn btn-danger px-4 me-3" id="nombrePaquete">PAQUETE GPS (VEHÍCULO)</button>
-            <div class="d-flex align-items-center">
-              <button class="btn btn-outline-secondary" id="decrementar">-</button>
-              <span class="mx-3" id="contador">2</span>
-              <button class="btn btn-outline-secondary" id="incrementar">+</button>
+          <div class="container mt-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="row">
+                  <!-- Columna izquierda: Información del kit -->
+                  <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end">
+                    <h5 id="nombrePaquete" class="text-dark mb-2">
+                      <i class="fas fa-map-marker-alt me-2"></i>
+                      PAQUETE GPS (VEHÍCULO)
+                    </h5>
+                    <p class="text-muted mb-0">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Aquí puedes añadir kits para personalizar tu sistema de rastreo y seguridad. 
+                      ¡Activa la tecnología de punta en tu vehículo! 🚀
+                    </p>
+                  </div>
+                  <!-- Columna derecha: Controles para ajustar cantidad y acciones -->
+                  <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                    <!-- Control de cantidad de kits con logo de FontAwesome -->
+                    <div class="d-flex align-items-center mb-3">
+                      <button class="btn btn-lg btn-outline-secondary me-3" id="decrementar">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <div id="kitCountBox" class="border rounded px-3 py-2 d-flex align-items-center" style="min-width: 80px; font-size: 1.5rem; justify-content: center;">
+                        <i class="fas fa-layer-group me-2"></i>
+                        <span id="contador">0</span>
+                      </div>
+                      <button class="btn btn-lg btn-outline-secondary ms-3" id="incrementar">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                    <!-- Botones de acción -->
+                    <div class="d-flex">
+                      <button class="btn btn-lg btn-danger px-4 me-3" id="addProductos">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        AGREGAR KIT
+                      </button>
+                      <button class="btn btn-lg btn-primary px-4" id="nextStep">
+                        <i class="fas fa-arrow-right me-2"></i>
+                        Siguiente
+                    </button>
+                </div>
             </div>
-            <button class="btn btn-primary px-4 ms-3" id="addProductos">ADD</button>
+                </div>
+              </div>
+            </div>
           </div>
           
-
+          
+          
     </div>
     <div class="container my-4">
         <div class="row">
             <!-- Columna para Resumen de Compra y Planes -->
             <div class="col-md-4">
-               
-              <!-- Planes de Plataforma de Rastreo con Tarjetas Seleccionables -->
+                <!-- Planes de Plataforma de Rastreo con Tarjetas Seleccionables -->
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-center">Elige tu Plan de Rastreo</h5>
                         <p class="text-muted text-center mb-4">Optimiza la seguridad y el seguimiento de tus activos GPS</p>
                         <hr>
-
+                        
                         <!-- Plan Start -->
                         <div class="border p-3 rounded mb-3 plan-card" onclick="selectPlan('planStart')">
                             <div class="form-check">
@@ -106,59 +164,164 @@
         <div class="card-body">
             <h5 class="card-title">Detalles del Kit</h5>
 
-            <!-- Selector de Activos (Minimalista) -->
-            <div class="d-flex flex-wrap gap-2 mb-4">
-                <button class="btn btn-outline-dark flex-grow-1">Carro</button>
-                <button class="btn btn-outline-dark flex-grow-1">Moto</button>
-                <button class="btn btn-dark active flex-grow-1">Camión</button>
-                <button class="btn btn-outline-dark flex-grow-1">Personas</button>
-                <button class="btn btn-outline-dark flex-grow-1">Mascotas</button>
-            </div>
+          <!-- Selector de Activos (Minimalista) -->
+        <div id="activosSelector" class="d-flex flex-wrap gap-2 mb-4">
+            <button id="activoCarro" class="btn btn-outline-dark flex-grow-1">Carro</button>
+            <button id="activoMoto" class="btn btn-outline-dark flex-grow-1">Moto</button>
+            <button id="activoCamion" class="btn btn-outline-dark flex-grow-1">Camión</button>
+            <button id="activoPersonas" class="btn btn-outline-dark flex-grow-1">Personas</button>
+            <button id="activoMascotas" class="btn btn-outline-dark flex-grow-1">Mascotas</button>
+        </div>
+  
 
             <!-- Desplegable 1: Detalles del Kit -->
-            <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseKit" aria-expanded="true">
-                    <span class="fw-bold">Detalles del Kit</span>
-                    <i class="fas fa-chevron-down"></i>
+            <div class="card mb-3" id="detallesKitCard">
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseKit" aria-expanded="true" id="collapseKitHeader">
+                  <span class="fw-bold">Detalles del Kit</span>
+                  <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="collapse show" id="collapseKit" data-parent="#accordion">
-                    <div class="card-body">
-                        <p class="fw-bold mb-2">GPS: <span class="text-primary">5 unidades</span></p>
-                        <p class="fw-bold mb-2">Accesorios: <span class="text-primary">3 unidades</span></p>
-                        <p class="text-muted small">Incluye instalación profesional y soporte técnico.</p>
-                    </div>
+                  <div class="card-body" id="collapseKitBody">
+                    <p class="fw-bold mb-2">
+                      GPS: <span id="gpsUnits" class="text-primary"> unidades</span>
+                    </p>
+                    <p class="fw-bold mb-2">
+                      Accesorios: <span id="accesoriosUnits" class="text-primary"> unidades</span>
+                    </p>
+                    <p class="text-muted small" id="supportMessage">
+                      Incluye instalación profesional y soporte técnico.
+                    </p>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
 
             <!-- Desplegable 2: Detalles del Plan -->
             <div class="card mb-3">
                 <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapsePlan" aria-expanded="false">
-                    <span class="fw-bold">Detalles del Plan</span>
-                    <i class="fas fa-chevron-down"></i>
+                  <span class="fw-bold">Detalles del Plan</span>
+                  <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="collapse" id="collapsePlan" data-parent="#accordion">
-                    <div class="card-body">
-                        <p class="fw-bold">Plan Start - $1750</p>
-                        <h6 class="card-subtitle mb-2">Alertas Incluidas</h6>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="sosAlert">
-                            <label class="form-check-label small" for="sosAlert">Botón SOS</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="geofenceAlert">
-                            <label class="form-check-label small" for="geofenceAlert">Geocerca</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="engineOffAlert">
-                            <label class="form-check-label small" for="engineOffAlert">Apagado de Motor</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="maintenanceAlert">
-                            <label class="form-check-label small" for="maintenanceAlert">Alerta de Mantenimiento</label>
-                        </div>
-                    </div>
+                  <div class="card-body" id="planDetailsBody">
+                    <!-- Se actualizará con updatePlanDetails() -->
+                  </div>
                 </div>
-            </div>
+              </div>
+              <SCRIpt>
+                    // Función para seleccionar un plan y marcarlo visualmente
+                    function selectPlan(planId) {
+                    // Deselecciona todos los planes: remueve la clase 'selected' y desmarca el radio input
+                    document.querySelectorAll('.plan-card').forEach(function(card) {
+                        card.classList.remove('selected');
+                        const input = card.querySelector('input[type="radio"]');
+                        if (input) {
+                        input.checked = false;
+                        }
+                    });
+
+                    // Selecciona el input correspondiente al plan clickeado
+                    const selectedInput = document.getElementById(planId);
+                    if (selectedInput) {
+                        selectedInput.checked = true;
+                        // Marca la tarjeta (plan-card) contenedora como seleccionada
+                        const selectedCard = selectedInput.closest('.plan-card');
+                        if (selectedCard) {
+                        selectedCard.classList.add('selected');
+                        }
+                    }
+
+                    // Actualiza los detalles del plan (alertas, precio, etc.)
+                    updatePlanDetails(planId);
+                    }
+
+                                    // Configuración de los detalles para cada plan
+                    const planDetails = {
+                        planStart: {
+                            title: "Plan Start - $1750",
+                            alerts: [
+                                { id: "sosAlert", label: "Botón SOS" },
+                                { id: "geofenceAlert", label: "Geocerca" },
+                                { id: "speedAlert", label: "Alerta de Velocidad" },
+                                { id: "ignitionAlert", label: "Alerta de Encendido/Apagado" }
+                            ]
+                        },
+                        planStarter: {
+                            title: "Plan Starter - $2950",
+                            alerts: [
+                                { id: "sosAlert", label: "Botón SOS" },
+                                { id: "geofenceAlert", label: "Geocerca" },
+                                { id: "speedAlert", label: "Alerta de Velocidad" },
+                                { id: "ignitionAlert", label: "Alerta de Encendido/Apagado" },
+                                { id: "towingAlert", label: "Entrega de pedidos" }
+                            ]
+                        },
+                        planEnterprise: {
+                            title: "Plan Enterprise - $4950",
+                            alerts: [
+                                { id: "sosAlert", label: "Botón SOS" },
+                                { id: "geofenceAlert", label: "Geocerca" },
+                                { id: "speedAlert", label: "Alerta de Velocidad" },
+                                { id: "ignitionAlert", label: "Control de Encendido/Apagado" },
+                                { id: "towingAlert", label: "Alerta de Recogida y Entrega" },
+                                { id: "harshDrivingAlert", label: "Alertas de Conducción Brusca" },
+                                { id: "maintenanceAlert", label: "Alerta de Mantenimiento" }
+                            ]
+                        }
+                    };
+
+                    // Función para actualizar los detalles del plan en el panel
+                    function updatePlanDetails(planId) {
+                    const details = planDetails[planId];
+                    if (!details) return;
+
+                    let html = `<p class="fw-bold">${details.title}</p>
+                                <h6 class="card-subtitle mb-2">Alertas Incluidas</h6>`;
+                    details.alerts.forEach(function(alert) {
+                        html += `<div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="${alert.id}">
+                                    <label class="form-check-label small" for="${alert.id}">${alert.label}</label>
+                                </div>`;
+                    });
+
+                    const detailsContainer = document.getElementById('planDetailsBody');
+                    if (detailsContainer) {
+                        detailsContainer.innerHTML = html;
+                    }
+                    }
+
+                    // Función para seleccionar (pin) un plan y actualizar la interfaz
+                    function selectPlan(planId) {
+                    // Deseleccionar todas las tarjetas
+                    document.querySelectorAll('.plan-card').forEach(function(card) {
+                        card.classList.remove('selected');
+                        const input = card.querySelector('input[type="radio"]');
+                        if (input) {
+                        input.checked = false;
+                        }
+                    });
+
+                    // Marcar el input del plan seleccionado y resaltar la tarjeta
+                    const selectedInput = document.getElementById(planId);
+                    if (selectedInput) {
+                        selectedInput.checked = true;
+                        const selectedCard = selectedInput.closest('.plan-card');
+                        if (selectedCard) {
+                        selectedCard.classList.add('selected');
+                        }
+                    }
+
+                    // Actualizar el panel de detalles según el plan seleccionado
+                    updatePlanDetails(planId);
+                    }
+
+                    // Opcional: Para asegurarte de que el DOM esté cargado antes de asignar eventos
+                    document.addEventListener("DOMContentLoaded", function() {
+                    // Si lo deseas, puedes inicializar algún plan por defecto
+                    // selectPlan('planStart');
+                    });
+
+              </SCRIpt>
 
             <!-- Desplegable 3: Suscripción -->
             <div class="card mb-3">
@@ -175,7 +338,37 @@
                             <button class="btn btn-outline-dark flex-grow-1">1 Año</button>
                             <button class="btn btn-outline-dark flex-grow-1">Indefinido</button>
                         </div>
-                    </div>
+                        <script>
+                            // Selecciona todos los botones del contenedor
+                            const subscriptionButtons = document.querySelectorAll('.d-flex.flex-wrap.gap-2 button');
+                          
+                            subscriptionButtons.forEach(button => {
+                              // Al hacer click, se selecciona el botón (y se deseleccionan los demás)
+                              button.addEventListener('click', function() {
+                                // Si el botón no está ya activo, deselecciona todos y luego actívalo
+                                if (!this.classList.contains('active')) {
+                                  subscriptionButtons.forEach(btn => {
+                                    btn.classList.remove('active');
+                                    btn.classList.remove('btn-dark');
+                                    btn.classList.add('btn-outline-dark');
+                                  });
+                                  this.classList.add('active');
+                                  this.classList.remove('btn-outline-dark');
+                                  this.classList.add('btn-dark');
+                                }
+                              });
+                          
+                              // Al hacer doble click en un botón activo, se deselecciona
+                              button.addEventListener('dblclick', function() {
+                                if (this.classList.contains('active')) {
+                                  this.classList.remove('active');
+                                  this.classList.remove('btn-dark');
+                                  this.classList.add('btn-outline-dark');
+                                }
+                              });
+                            });
+                          </script>
+                                              </div>
                 </div>
             </div>
         </div>
@@ -209,29 +402,32 @@
     });
 </script>
     
-            <!-- Columna para Detalles Adicionales y Acciones -->
-            <div class="col-md-4">
-                  <!-- Resumen de Compra Unificado -->
-                <div class="card mb-4 shadow-sm">
+           <!-- Columna para Detalles Adicionales y Acciones -->
+                <div class="col-md-4">
+                    <!-- Resumen de Compra Unificado -->
+                    <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <!-- Precio Total -->
                         <h4 class="card-title text-center">Total de tu Compra</h4>
                         <hr>
-                        <p class="fw-bold text-primary fs-1 text-center">$192.00 COP</p>
+                        <p id="totalCompra" class="fw-bold text-primary fs-1 text-center">0 COP</p>
                         <p class="text-muted text-center">Precio final incluye todos los impuestos y descuentos aplicables.</p>
-
+                
                         <!-- Detalles de la Compra -->
                         <div class="mt-4">
-                            <h5 class="card-title">Resumen de la Compra</h5>
-                            <div class="border p-3 rounded mb-2">
-                                <p class="fw-bold mb-0">Dispositivos: <span class="text-primary">9 unidades</span></p>
-                            </div>
-                            <div class="border p-3 rounded mb-2">
-                                <p class="fw-bold mb-0">Licencias: <span class="text-primary">2 Licencias track</span></p>
-                            </div>
+                        <h5 class="card-title">Resumen de la Compra</h5>
+                        <div class="border p-3 rounded mb-2">
+                            <p class="fw-bold mb-0">Dispositivos: <span id="dispositivosCount" class="text-primary">9 unidades</span></p>
                         </div>
-                        <!-- Acciones -->
-                        <div class="d-flex justify-content-between mt-4">
+                        <div class="border p-3 rounded mb-2">
+                            <p class="fw-bold mb-0">Licencias: <span id="licenciasCount" class="text-primary">2 Licencias track</span></p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+    <!-- Acciones -->
+    <div class="d-flex justify-content-between mt-4">
                             <div class="modal fade" id="facturaModal" tabindex="-1" aria-labelledby="facturaModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                   <div class="modal-content">
@@ -258,6 +454,7 @@
                     </div>
                 </div>
                 
+            </div>
                
     </div>
 </div>
