@@ -460,7 +460,7 @@ return html;
                       { top: '20%', left: '60%' },
                       { top: '50%', left: '10%' }
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS (PERSONAS)";
+                  nombrePaquete.textContent = "PAQUETE GPS PERSONAS";
                   break;
 
               case "Carga":
@@ -471,7 +471,7 @@ return html;
                       { top: '25%', left: '40%' },
                       { top: '60%', left: '20%' }
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS (CARGA)";
+                  nombrePaquete.textContent = "PAQUETE GPS CARGA";
                   break;
 
               case "Flotas":
@@ -485,7 +485,7 @@ return html;
                       { top: '40%', left: '40%' },
                       { top: '50%', left: '50%' }
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS (FLOTAS)";
+                  nombrePaquete.textContent = "PAQUETE GPS FLOTAS";
                   break;
 
               case "Mascotas":
@@ -496,7 +496,7 @@ return html;
                       { top: '30%', left: '70%' },
                       { top: '60%', left: '40%' }
                   ]);
-                  nombrePaquete.textContent = "PAQUETE GPS (MASCOTAS)";
+                  nombrePaquete.textContent = "PAQUETE GPS MASCOTAS)";
                   break;
 
               default:
