@@ -206,12 +206,14 @@ body {
 .card-img-top {
     background-color: rgba(253, 252, 252, 0.982);
     object-fit: cover;
-    width: 100%;
-    height: 180px;
+
     border-radius: 4px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
     /* Sombra ligera */
-
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
 
 }
 
@@ -497,12 +499,6 @@ body {
     /* Asegura que esté alineado verticalmente */
 }
 
-.card-img-top {
-    height: 150px;
-    width: 100%;
-    object-fit: cover;
-    cursor: pointer;
-}
 
 /* Ajustes generales del modal */
 .modal-dialog {
