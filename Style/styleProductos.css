@@ -6,6 +6,20 @@ body {
     margin: 0;
 }
 
+.container {
+    width: 100%;
+    max-width: none;
+    padding: 20px;
+
+}
+
+.row {
+    margin: 0;
+    width: 100%;
+
+    /* Asegura que ocupe todo el ancho disponible */
+}
+
 /* Filtro */
 /* Estilos para la sección de filtros */
 #filter-section {
@@ -32,6 +46,9 @@ body {
     gap: 15px;
 }
 
+.col-md-9 {
+    align-items: center;
+}
 
 /* Separación entre categorías, precios y activos */
 #filter-section h5 {
@@ -86,9 +103,7 @@ body {
 
 .form-select {
     width: initial !important;
-    /* Restablece el ancho predeterminado */
     max-width: 150px !important;
-    /* Limita el tamaño */
 }
 
 
@@ -157,9 +172,7 @@ body {
 /* Filtro */
 
 /* Estilo de la tarjeta */
-.container2 {
-    margin-top: 140px;
-}
+
 
 .card {
     position: relative;
@@ -193,11 +206,14 @@ body {
 .card-img-top {
     background-color: rgba(253, 252, 252, 0.982);
     object-fit: cover;
-    width: 100%;
-    height: 180px;
+
     border-radius: 4px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
     /* Sombra ligera */
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
 
 }
 
@@ -254,7 +270,7 @@ body {
 
 /* Estilo del botón con icono de carrito */
 .btn-cart {
-    background-color: #284170!important;
+    background-color: #284170 !important;
     color: white !important;
     width: 100% !important;
     border: none;
@@ -328,52 +344,123 @@ body {
 
 /* modal */
 
-/* Modal alineado a la izquierda */
+/* Modal alineado a la derecha */
 #cartModal .modal-dialog {
-    width: 60%;
+    width: 50%;
     /* Ajusta el ancho según lo desees */
     margin-left: auto;
     /* Coloca el modal a la izquierda */
     margin-right: 0;
 }
 
+.cart-total {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    padding: 15px 0;
+    border-top: 2px solid #ddd;
+    margin-top: 10px;
+}
+
 #cartModal .modal-content {
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Encabezado del modal */
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #ddd;
+    padding: 15px;
+    font-weight: bold;
 }
 
 /* Estilo de los elementos dentro del carrito */
 #cartItemsContainer {
     max-height: 400px;
     overflow-y: auto;
+    padding: 10px;
 }
 
 .cart-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 15px;
+    background: #fff;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
 }
 
 .cart-item-img {
-    width: 80px;
-    /* Ajusta el tamaño de la imagen temporal */
-    height: 80px;
-    /* Mantenemos la relación cuadrada */
+    width: 70px;
+    height: 70px;
     object-fit: cover;
+    border-radius: 5px;
     margin-right: 15px;
 }
 
 .cart-item-details {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .cart-item p {
     margin: 0;
     font-size: 14px;
+    color: #333;
 }
+
+/* Controles de cantidad */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-controls button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.quantity-controls button:hover {
+    background: #0056b3;
+}
+
+.product-quantity {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    padding: 0 6px;
+}
+
+/* Botón de eliminar */
+.delete-product {
+    background: #dc3545;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-product:hover {
+    background: #a71d2a;
+}
+
 
 .cart-item button {
     padding: 5px 10px;
@@ -382,8 +469,21 @@ body {
 
 /* Estilo para el botón "Ir al carrito" */
 #checkoutButton {
-    width: 100%;
+    width: 50%;
+    background: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease;
 }
+
+#checkoutButton:hover {
+    background: #218838;
+}
+
 
 /* Ajustes para el modal */
 .modal1-header {
@@ -392,35 +492,376 @@ body {
 }
 
 .modal1-footer {
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Asegura que esté alineado verticalmente */
 }
 
-.card-img-top {
-    height: 150px;
+
+/* Ajustes generales del modal */
+.modal-dialog {
+    max-width: 750px;
+    /* Reduce el ancho del modal */
+}
+
+.modal-content {
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajustes específicos para el segundo modal */
+.modal02 {
+    border-radius: 15px;
+    background-color: #f9f9f9;
+}
+
+.modal02-header {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal02-footer {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+/* Ajustes del modal02-body en dos columnas */
+.modal02-body {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Ajustes para la imagen del producto */
+.modal02-body .image-container {
+    flex: 1;
+    text-align: center;
+}
+
+#modalProductImg {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustes para la información del producto */
+.modal02-body .info-container {
+    flex: 1.5;
+}
+
+#modalProductName {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+#modalProductCategory {
+    color: #6c757d;
+    font-style: italic;
+}
+
+#modalProductPrice {
+    font-size: 1.2rem;
+    color: #dc3545;
+    font-weight: bold;
+}
+
+#modalProductDescription {
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* Sección de productos recomendados */
+.recommended-products {
+    padding: 15px;
+    border-top: 2px solid #ddd;
+    background: #f8f9fa;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.recommended-products h6 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.recommended-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.recommended-item {
+    width: 90px;
+    text-align: center;
+}
+
+.recommended-item img {
     width: 100%;
+    height: 70px;
     object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsividad para pantallas pequeñas */
-@media (max-width: 768px) {
+.recommended-item p {
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* Responsividad */
+@media (min-width: 992px) {
     #cartModal .modal-dialog {
-        width: 90%;
-        /* Reducción del ancho del modal en pantallas pequeñas */
+        .card {
+            max-width: 200px;
+            margin: auto;
+        }
+    }
+}
+
+
+/* detalles de productos */
+
+
+
+/* ================= RESPONSIVIDAD ================= */
+@media (min-width: 992px) {
+    #cartModal .modal-dialog {
+        .card {
+            max-width: 200px;
+            /* Ajusta este valor según el tamaño deseado */
+            margin: auto;
+            /* Centra las tarjetas si es necesario */
+        }
+
+    }
+
+}
+
+
+
+/* Pantallas pequeñas (Celulares) */
+@media (min-width: 481px) and (max-width: 768px) {
+    #cartModal .modal-dialog {
+        max-width: 95%;
+        /* Modal más ancho para mejor visibilidad */
+        margin: 5vh auto;
+        /* Lo centra completamente */
+        transform: translateY(0);
+        margin-right: 0;
+    }
+
+    .row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center;
+    }
+
+    .card {
+        width: calc(50% - 20px) !important;
+        width: auto !important;
+        max-width: 230px !important;
+        /* Ajusta según necesites */
+        margin: 10px auto !important;
+        /* Centra las tarjetas */
+
     }
 
     .cart-item {
         flex-direction: column;
-        /* Cambia la disposición de los productos en columna */
-        align-items: flex-start;
+        align-items: center;
+        padding: 15px;
+        text-align: center;
     }
 
     .cart-item-img {
         width: 100px;
-        /* Aumenta el tamaño de la imagen */
         height: 100px;
-        margin-right: 0;
+        margin-bottom: 8px;
+    }
+
+    .delete-product {
+        position: relative;
+        top: 0;
+        right: 0;
         margin-bottom: 10px;
     }
 
+}
 
+/* Dispositivos extra pequeños (celulares compactos) */
+@media (max-width: 480px) {
+    #cartModal .modal-dialog {
+        max-width: 100%;
+        height: 80vh;
+        margin: 5vh auto;
+        width: 55vh;
+    }
+
+    #cartModal .modal-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    /* Contenedor del carrito */
+    #cartItemsContainer {
+        flex-grow: 1;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+
+    /* Estilo del producto en fila horizontal */
+    .cart-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+        gap: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Imagen del producto más pequeña */
+    .cart-item-img {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+    }
+
+    /* Información del producto en una fila */
+    .cart-item-details {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+    }
+
+    /* Precio del producto alineado a la izquierda */
+    .cart-item-price {
+        font-weight: bold;
+        font-size: 12px;
+        color: #333;
+        margin-left: 10px;
+    }
+
+    /* Segunda fila con botones de cantidad y eliminar */
+    .cart-item-bottom {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5px;
+    }
+
+    /* Controles de cantidad alineados a la izquierda */
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .quantity-controls button {
+        width: 20px;
+        height: 20px;
+        font-size: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .quantity-controls input {
+        width: 28px;
+        font-size: 9px;
+        text-align: center;
+        padding: 2px;
+    }
+
+    /* Ícono de basurero alineado a la derecha */
+    .delete-product {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        /* Tamaño del icono */
+        color: #ff4d4d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+    }
+
+    .delete-product i {
+        font-size: 18px;
+        /* Ajuste del tamaño del ícono */
+    }
+
+
+
+}
+
+
+
+@media (min-width: 768px) and (max-width: 986px) {
+    .card {
+        max-width: 200px;
+        /* Ajusta este valor según el tamaño deseado */
+        margin: auto;
+        /* Centra las tarjetas si es necesario */
+    }
+}
+
+
+
+
+@media (max-width: 767px) {
+    #filter-container {
+        display: none !important;
+    }
+
+    .modal-content {
+        border-radius: 10px;
+        /* Esquinas redondeadas */
+    }
+
+    .modal-header,
+    .modal-footer {
+        background-color: #f8f9fa;
+        /* Color claro para destacar */
+    }
+
+    .modal-body {
+        max-height: 60vh;
+        /* Limita la altura del modal */
+        overflow-y: auto;
+        /* Agrega scroll si hay muchos filtros */
+    }
+
+    #modal-filters div {
+        padding: 5px 0;
+        /* Reduce el espacio entre filtros */
+    }
+
+    #modal-filters h5 {
+        font-size: 14px;
+        /* Texto más compacto */
+        margin-bottom: 5px;
+    }
+
+    #modal-filters input {
+        transform: scale(0.9);
+        /* Hace checkboxes y radios más pequeños */
+    }
 }
