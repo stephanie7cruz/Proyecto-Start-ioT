@@ -1,7 +1,6 @@
 /* Barra superior */
 .top-bar {
     background: linear-gradient(135deg, #284170, #943c7a);
-
     color: white;
     padding: 5px 15px;
     font-size: 14px;
@@ -85,7 +84,7 @@
     /* Fondo blanco */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     /* Sombra ligera */
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* Margen debajo del navbar para que se vea la sombra */
 }
 

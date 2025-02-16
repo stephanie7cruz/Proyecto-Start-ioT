@@ -7,7 +7,7 @@
         {
             "id": "STRT1",
             "name": "MEITRACK P88L",
-            "description": "Mini rastreador personal, ideal para personas.",
+            "description": "Mini rastreador personal.",
             "categoria": "GPS",
             "activo": "Personas",
             "precio": 721067.01,
@@ -127,7 +127,7 @@
         {
             "id": "STRT19",
             "name": "SOLAR X 120",
-            "description": "Cerradura electrónica GPS con energía solar.",
+            "description": "Cerradura electrónica  con energía solar.",
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 959999,
@@ -138,7 +138,7 @@
         {
             "id": "STRT20",
             "name": "SOLAR X 110",
-            "description": "Rastreador GNSS y LTE para gestionar flotas.",
+            "description": "Rastreador GNSS y LTE para  flotas.",
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 831.999,
@@ -171,7 +171,7 @@
         {
             "id": "STRT24",
             "name": "WarriorX 100",
-            "description": "Rastreador robusto con conectividad 4G LTE.",
+            "description": "Rastreador con conectividad 4G LTE.",
             "categoria": "GPS",
             "activo": "Flotas",
             "precio": 524.800,
@@ -193,7 +193,7 @@
         {
             "id": "STRT8",
             "name": "SOS BUTTON",
-            "description": "Botón de pánico para alertas instantáneas.",
+            "description": "Botón de pánico para alertas instantáneas, facil de usar.",
             "categoria": "ACCESORIO",
             "activo": "Carro, Camion, Flotas, Carga",
             "precio": 7996.80,
@@ -248,7 +248,7 @@
         {
             "id": "STRT54",
             "name": "CI-01 CABIN CAM",
-            "description": "Cámara monitorea el interior del vehículo.",
+            "description": "Cámara de uso exclusivo, monitorea el interior del vehículo.",
             "categoria": "ACCESORIO",
             "activo": " Camion",
             "precio": 148.74,

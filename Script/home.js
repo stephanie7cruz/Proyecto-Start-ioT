@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="clasificacion" id="clasificacion-${index}"></div>
                     </div>
                     <a href="#" class="btn btn-cart w-100 producto-agregar" id="${producto.id}">
-                        <i class="fas fa-shopping-cart"></i> Agregar al carrito
+                        <i class="fas fa-shopping-cart mb-3"></i> Agregar al carrito
                     </a>
                 </div>
             `;
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const textoOriginal = boton.innerHTML;
 
         boton.classList.add("clicked");
-        boton.innerHTML = `<i class="fas fa-check"></i> AGREGADO AL CARRITO`;
+        boton.innerHTML = `<i class="fas fa-check mb-3"></i> AGREGADO AL CARRITO`;
 
 
         setTimeout(() => {
