@@ -321,6 +321,27 @@ function showProductDetails(imgElement) {
     console.log("🟢 Mostrando modal...");
     productModal.show();
 }
+document.addEventListener("DOMContentLoaded", function() {
+  const navbar = document.querySelector('nav.navbar');
+  // Si la página actual NO es el Home (ajusta los nombres según corresponda)
+  if (
+    !window.location.pathname.endsWith('home.html') &&
+    !window.location.pathname.endsWith('index.html')
+  ) {
+    // Fuerza el nav a tener la clase "scrolled" para que se vea en páginas con fondo claro
+    navbar.classList.add('scrolled');
+  } else {
+    // En el Home, utiliza el scroll para cambiar el estilo
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 30) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  }
+});
+
 
 
 // modalagregar
@@ -361,7 +382,11 @@ function handleModalAddToCart(e) {
 
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
     actualizarNumerito();
+
+
+    
 }
+
 // modalagregar
 
 
