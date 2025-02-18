@@ -512,18 +512,26 @@
   </script>
 
   <script src="../Script/login.js"></script>
+
   <script>
-    // Detecta el scroll para cambiar el estilo del nav
-    window.addEventListener('scroll', function() {
+    function updateNavbar() {
       const navbar = document.querySelector('nav.navbar');
-      // Umbral de 30px (puedes ajustarlo)
-      if (window.scrollY > 30) {
+      if (!navbar) return;
+      // Si estamos cerca de la parte superior (menos de 30px), queremos el nav transparente (clase "scrolled")
+      if (window.scrollY < 30) {
         navbar.classList.add('scrolled');
       } else {
+        // Si se ha hecho scroll, removemos la clase para que el nav sea blanco
         navbar.classList.remove('scrolled');
       }
-    });
+    }
+    // Ejecuta al cargar la página
+    document.addEventListener('DOMContentLoaded', updateNavbar);
+    window.addEventListener('load', updateNavbar);
+    // Ejecuta en cada evento de scroll
+    window.addEventListener('scroll', updateNavbar);
   </script>
+  
   
 
 </body>

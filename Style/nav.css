@@ -1,5 +1,5 @@
-/* ==========================================================================
-   BARRA SUPERIOR (TOP-BAR)
+/* ==========================================================================  
+   BARRA SUPERIOR (TOP-BAR)  
    ========================================================================== */
    .top-bar {
     background: linear-gradient(135deg, #284170, #943c7a);
@@ -15,7 +15,6 @@
     justify-content: space-between;
   }
   
-  /* Textos informativos (cambia en responsive) */
   .top-texts {
     text-align: center;
     flex-grow: 1;
@@ -45,22 +44,22 @@
     color: #ddd;
   }
   
-  /* ==========================================================================
-     NAVBAR FLOTANTE Y CIRCULAR
+  /* ==========================================================================  
+     NAVBAR FLOTANTE Y CIRCULAR  
      ========================================================================== */
-  /* Estado inicial (antes de hacer scroll en Home) */
+  /* Estado inicial (antes de hacer scroll en Home): **blanco** y con texto oscuro */
   nav.navbar {
     position: fixed;
-    top: 52px; /* Se muestra debajo de la top-bar (6px + 40~46px) */
+    top: 52px; /* Debajo de la top-bar */
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
     border-radius: 40px;               /* Bordes circulares */
-    background: transparent;
-    color: white;
+    background: #ffffff;              /* Fondo blanco por defecto */
+    color: #15193e;                   /* Texto oscuro */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 1040; /* Debajo de la top-bar (1050) */
+    z-index: 1040;
   }
   
   /* Contenedor interno para un mejor centrado */
@@ -79,40 +78,39 @@
     transform: scale(1.05);
   }
   
-  /* Enlaces de la navbar (inicialmente blancos en Home) */
+  /* Enlaces de la navbar (por defecto, texto oscuro) */
   nav.navbar .nav-link {
-    color: white !important;
+    color: #15193e !important;
     padding: 8px 15px;
     transition: color 0.3s ease;
   }
   
-  /* Hover en modo overlay (antes de scroll) */
+  /* Hover: se oscurece ligeramente */
   nav.navbar .nav-link:hover {
-    color: #cfcfcf !important;
+    color: #2d3262 !important;
   }
   
-  /* Cuando se hace scroll (clase .scrolled), el nav se vuelve blanco y el texto se oscurece */
+  /* Estado .scrolled: cuando se hace scroll, el nav se vuelve transparente con texto blanco */
   nav.navbar.scrolled {
-    background: #ffffff;
-    color: #1a191c;
+    background: transparent;
+    color: white;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
   
   nav.navbar.scrolled .nav-link {
-    color: #3e1515 !important;
+    color: white !important;
   }
   
   nav.navbar.scrolled .nav-link:hover {
-    color: #7b2e2e !important;
+    color: #cfcfcf !important;
   }
   
-  /* Dropdown menu (sin cambios radicales) */
+  /* Dropdown menu */
   .navbar-nav .dropdown-menu {
     border: 1px solid #15193e;
     min-width: 180px;
   }
   
-  /* Enlaces del dropdown */
   .navbar-nav .dropdown-item {
     color: #15193e !important;
     transition: background-color 0.2s ease;
@@ -136,15 +134,15 @@
   }
   
   .navbar-toggler-icon {
-    filter: invert(1); /* Para que se vea en fondo oscuro (modo overlay) */
+    filter: invert(0.3); /* Por defecto, en fondo blanco, ícono oscuro */
   }
   
-  /* ==========================================================================
-     ÍCONOS DE LOGIN Y CARRITO
+  /* ==========================================================================  
+     ÍCONOS DE LOGIN Y CARRITO  
      ========================================================================== */
   .login-icon,
   .cart-icon {
-    color: inherit;   /* Hereda el color blanco o el de .scrolled */
+    color: inherit;   /* Hereda el color (oscuro o blanco según el estado) */
     font-size: 1.1rem;
     display: flex;
     align-items: center;
@@ -165,7 +163,7 @@
   
   .login-icon:hover,
   .cart-icon:hover {
-    color: #cfcfcf;  /* Antes de scroll */
+    color: #2d3262;  /* En hover se oscurece ligeramente */
   }
   
   /* Contador del carrito */
@@ -186,17 +184,15 @@
     top: -2px;
   }
   
-  /* ==========================================================================
-     RESPONSIVE
+  /* ==========================================================================  
+     RESPONSIVE  
      ========================================================================== */
-  /* Tablets y pantallas medianas */
   @media (max-width: 992px) {
     .navbar-collapse {
       text-align: center;
     }
   }
   
-  /* Móviles y pantallas pequeñas */
   @media (max-width: 768px) {
     .navbar-nav {
       flex-direction: column;
@@ -208,17 +204,16 @@
     }
   
     .social-icons {
-      display: none;  /* Oculta redes en top-bar si prefieres más espacio */
+      display: none;
     }
   
-    /* Ajusta el nav flotante un poco más para pantallas pequeñas */
+    /* Ajusta el nav flotante en pantallas pequeñas */
     nav.navbar {
       top: 60px;
       width: 95%;
     }
   }
   
-  /* Muy pequeñas (max-width: 480px) */
   @media (max-width: 480px) {
     .navbar-brand img {
       max-width: 100px;
@@ -234,6 +229,4 @@
       font-size: 0.9rem;
     }
   }
-
-  
   
