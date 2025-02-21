@@ -9,13 +9,15 @@ body {
 .container {
     width: 100%;
     max-width: none;
-    padding: 20px;
+    padding: 5px;
+    margin-top: 65px;
 
 }
 
 .row {
     margin: 0;
     width: 100%;
+    margin-bottom: 40px;
 
     /* Asegura que ocupe todo el ancho disponible */
 }
@@ -115,7 +117,7 @@ body {
     /* Alinear a la derecha */
     gap: 5px !important;
     /* Espaciado entre "Ordenar por" y el select */
-    margin-bottom: 15px !important;
+    margin-bottom: 80px !important;
     white-space: nowrap !important;
 }
 
@@ -477,6 +479,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     border-radius: 5px;
+    margin-bottom: 15px;
     transition: background 0.3s ease;
 }
 
@@ -568,8 +571,14 @@ body {
 
 #modalProductPrice {
     font-size: 1.2rem;
-    color: #dc3545;
+    color: #0f821d;
     font-weight: bold;
+}
+#modalAddToCart{
+    background: linear-gradient(135deg, #2e5090, #7b325f) !important;
+    border: none;
+    color: white; /* Asegura que el texto sea visible */
+
 }
 
 #modalProductDescription {

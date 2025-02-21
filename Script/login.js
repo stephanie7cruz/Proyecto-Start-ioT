@@ -28,11 +28,12 @@ function iniciarSesion() {
     let usuario = JSON.parse(localStorage.getItem(correo));
     
     if (usuario && atob(usuario.clave) === clave) {
+          // ✅ Guardar al usuario autenticado en sesión
+          localStorage.setItem("usuario", JSON.stringify(usuario));
         showMessage("¡Inicio de sesión exitoso!");
         var modal = bootstrap.Modal.getInstance(document.getElementById("modalInicioSesion1"));
         modal.hide();
-
-        
+       
     } else {
         document.getElementById("errorInicio").textContent = "Correo o contraseña incorrectos.";
     }
@@ -46,7 +47,7 @@ function usuarioExiste(correo) {
 // Función para registrar usuario
 function registrarUsuario() {
     let nombre = document.getElementById("nombreCompleto").value.trim();
-    let telefono = document.getElementById("telefono").value.trim();
+    let telefono = document.getElementById("telefonoLogin").value.trim();
     let correo = document.getElementById("correoRegistro").value.trim();
     let clave = document.getElementById("claveRegistro2").value.trim();
     
@@ -99,89 +100,81 @@ function recuperarClave() {
         errorCorreo.textContent = "Correo no registrado.";
     }
 }
- // Validar correo en tiempo real
- document.getElementById("correoInicio").addEventListener("blur", function() {
-    let correo = this.value.trim();
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
-    let errorMensaje = document.getElementById("errorInicioCorreo");
-
-    if (!emailRegex.test(correo)) {
-        errorMensaje.textContent = "Correo inválido. Debe contener @ y un dominio válido.";
-        errorMensaje.style.color = "red";
-    } else {
-        errorMensaje.textContent = "";
-    }
-});
- // Validar contraseña en tiempo real
- document.getElementById("claveInicio").addEventListener("input", function() {
-    let clave = this.value.trim();
-    let errorMensaje = document.getElementById("errorInicioClave");
-
-    let claveRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/; // Al menos 6 caracteres, 1 mayúscula y 1 número
-
-    if (!claveRegex.test(clave)) {
-        errorMensaje.textContent = "Debe tener al menos 6 caracteres,\nuna mayúscula y un número.";
-        errorMensaje.style.color = "red";
-    } else {
-        errorMensaje.textContent = " ";
-    }
-});
 
 
-    // Validar teléfono en tiempo real
-    document.getElementById("telefono").addEventListener("blur", function() {
-        let telefono = this.value.trim();
-        let errorMensaje = document.getElementById("errorRegistroTelefono");
+       // Validaciones  en tiempo real
+
+       document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            console.log("⚡ DOM completamente cargado, agregando eventos...");
     
-        if (telefono.length !== 10 || !/^\d+$/.test(telefono)) {
-            errorMensaje.textContent = "Ingresa un número de celular válido (10 dígitos).";
-            errorMensaje.style.color = "red";
-        } else {
-            errorMensaje.textContent = "";
-        }
+            function agregarEvento(id, evento, callback) {
+                let elemento = document.getElementById(id);
+                if (elemento) {
+                    elemento.addEventListener(evento, callback);
+                } else {
+                    console.warn(`⚠ El elemento con ID '${id}' no existe en el DOM.`);
+                }
+            }
+    
+            agregarEvento("correoRegistro", "blur", function () {
+                let correo = this.value.trim();
+                let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+                let errorMensaje = document.getElementById("errorRegistroCorreo");
+    
+                if (!emailRegex.test(correo)) {
+                    errorMensaje.textContent = "Correo inválido. Debe contener @ y un dominio válido.";
+                    errorMensaje.style.color = "red";
+                } else {
+                    errorMensaje.textContent = "";
+                }
+            });
+    
+            agregarEvento("telefonoLogin", "blur", function () {
+                let telefono = this.value.trim();
+                let errorMensaje = document.getElementById("errorRegistroTelefono");
+    
+                if (telefono.length !== 10 || !/^\d+$/.test(telefono)) {
+                    errorMensaje.textContent = "Ingresa un número de celular válido (10 dígitos).";
+                    errorMensaje.style.color = "red";
+                } else {
+                    errorMensaje.textContent = "";
+                }
+            });
+    
+            agregarEvento("claveRegistro2", "input", function () {
+                let clave = this.value.trim();
+                let errorMensaje = document.getElementById("errorRegistroContra");
+    
+                let claveRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+    
+                if (!claveRegex.test(clave)) {
+                    errorMensaje.textContent = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.";
+                    errorMensaje.style.color = "red";
+                } else {
+                    errorMensaje.textContent = "";
+                }
+            });
+    
+            agregarEvento("nombreCompleto", "input", function () {
+                let nombre = this.value.trim();
+                let errorMensaje = document.getElementById("errorRegistro");
+    
+                let nombreRegex = /^(?=[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{6,})\b[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\s+[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\b/;
+    
+                if (!nombreRegex.test(nombre)) {
+                    errorMensaje.textContent = "Escribe el nombre completo.";
+                    errorMensaje.style.color = "red";
+                } else {
+                    errorMensaje.textContent = "";
+                }
+            });
+    
+        }, 100); // Espera 100ms para asegurarse de que el DOM está cargado
     });
     
-    // Validar correo en tiempo real
-    document.getElementById("correoRegistro").addEventListener("blur", function() {
-        let correo = this.value.trim();
-        let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
-        let errorMensaje = document.getElementById("errorRegistroCorreo");
     
-        if (!emailRegex.test(correo)) {
-            errorMensaje.textContent = "Correo inválido. Debe contener @ y un dominio válido.";
-            errorMensaje.style.color = "red";
-        } else {
-            errorMensaje.textContent = "";
-        }
-    });
+    
 
-      
-    // Validar contraseña en tiempo real
-    document.getElementById("claveRegistro2").addEventListener("input", function() {
-        let clave = this.value.trim();
-        let errorMensaje = document.getElementById("errorRegistroContra");
-    
-        let claveRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/; // Al menos 6 caracteres, 1 mayúscula y 1 número
-    
-        if (!claveRegex.test(clave)) {
-            errorMensaje.textContent = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.";
-            errorMensaje.style.color = "red";
-        } else {
-            errorMensaje.textContent = "";
-        }
-    });
-    
-   // Validar Nombre en tiempo real
-    document.getElementById("nombreCompleto").addEventListener("input", function() {
-        let nombre = this.value.trim();
-        let errorMensaje = document.getElementById("errorRegistro");
-    
-        let nombreRegex = /^(?=[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{6,})\b[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\s+[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\b/;
-    
-        if (!nombreRegex.test(nombre)) {
-            errorMensaje.textContent = "Escribe el nombre completo.";
-            errorMensaje.style.color = "red";
-        } else {
-            errorMensaje.textContent = "";
-        }
-    });
+
+

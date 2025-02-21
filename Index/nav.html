@@ -1,10 +1,7 @@
+<!-- Barra Superior (Top-Bar) -->
 <div class="top-bar">
   <div class="container-fluid d-flex justify-content-between align-items-center">
-    <!-- Textos separados por "|" -->
-    <div class="top-texts">
-    
-    </div>  
-    <!-- Iconos de redes sociales -->
+    <div class="top-texts"></div>
     <div class="social-icons">
       <a href="https://web.facebook.com/profile.php?id=61566480064736" class="social-link"><i class="fab fa-facebook-f"></i></a>
       <a href="https://startiotsystem.com" class="social-link"><i class="fa-brands fa-linkedin"></i></a>
@@ -13,53 +10,74 @@
   </div>
 </div>
 
-<nav class="navbar navbar-expand-lg bg-bg-success fixed-top">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <!-- Logo -->
+<!-- 
+  Clase "main-navbar" es el estilo por defecto (fondo blanco, texto oscuro).
+  Para el Home, agrega también la clase "home-nav" (ver CSS) para overlay transparente.
+-->
+<nav class="navbar navbar-expand-lg fixed-top main-navbar">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    
+    <!-- LOGO (Izquierda) -->
     <a class="navbar-brand" href="home.html">
-      <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg" alt="START" class="img-fluid ms-3" style="max-width: 120px;">
+      <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg"
+           alt="START" class="img-fluid ms-3" style="max-width:120px;">
     </a>
 
-    <!-- Iconos del carrito y usuario -->
-    <div class="d-flex align-items-center">
+    <!-- Botón Hamburguesa (móviles) -->
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menú Principal (Centrado) -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+      <ul class="navbar-nav d-flex justify-content-center align-items-center">
+        <!-- Ítems de menú -->
+        <li class="nav-item">
+          <a class="nav-link active" href="home.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contacto.html">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="nosotros.html">Nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="indexPproductos.html">Tienda</a>
+        </li>
+        <li class="nav-item dropdown me-3">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Soluciones</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="indexPersonaliza.html">Personalización</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="https://start-iot.fulltrackapp.com/">Plataforma de rastreo</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown me-3">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Cuenta</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Deseos</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="perfil.html">Perfil</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Íconos (Derecha) -->
+    <div class="d-flex align-items-center nav-icons me-3">
+      <!-- Iniciar Sesión -->
       <a href="#" class="login-icon d-flex align-items-center me-3" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1">
         <i class="fas fa-user"></i>
+        <span class="ms-1 d-none d-md-inline">Iniciar Sesión</span>
       </a>
-      <a href="#" class="cart-icon d-flex align-items-center me-3">
+      <!-- Carrito -->
+      <a href="#" class="cart-icon d-flex align-items-center">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-count ms-1" id="cart-count">0</span>
+        <span class="ms-1 d-none d-md-inline">Carrito</span>
       </a>
-    
-      <!-- Botón del menú hamburguesa -->
-      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
-        <span class="navbar-toggler-icon"></span>
-      </button>
     </div>
   </div>
-
-  <!-- Menú principal -->
-  <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
-    <ul class="navbar-nav d-flex justify-content-center align-items-center">
-      <li class="nav-item"><a class="nav-link active" href="home.html">Inicio</a></li>
-      <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-      <li class="nav-item dropdown"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-      <li class="nav-item dropdown me-3">
-        <a class="nav-link dropdown-toggle perfil-btn" href="#" data-bs-toggle="dropdown">Soluciones</a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="indexPersonaliza.html">Personalización</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="https://start-iot.fulltrackapp.com/">Plataforma de rastreo</a></li>
-        </ul>
-      </li>
-      <li class="nav-item dropdown me-3">
-        <a class="nav-link dropdown-toggle perfil-btn" href="#" data-bs-toggle="dropdown">Cuenta</a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="indexPproductos.html">Tienda</a></li>
-          <li><a class="dropdown-item" href="#">Deseos</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="perfil.html">Perfil</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
 </nav>
+
+

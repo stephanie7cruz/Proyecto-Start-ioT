@@ -188,6 +188,7 @@ font-family: var(--heading-54px-semibold-font-family,
       flex-direction: column;
       align-items: center;
       text-align: center;
+      margin-top: 60px;
   }
 
   .text {
@@ -248,5 +249,52 @@ font-family: var(--heading-54px-semibold-font-family,
   }
   .misi-n {
       margin-top: 15px;
+  }
+}
+.card-equipo {
+  border: none;
+  text-align: center;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-equipo:hover {
+  transform: scale(1.05);
+}
+
+/* Hacer las imágenes circulares */
+.card-equipo .card-img-top {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+  border: 4px solid #ddd;
+}
+
+/* Estilos para los íconos sociales */
+.social-links a {
+  color: #333;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: #007bff;
+}
+
+/* Responsive para mejorar la visualización en dispositivos pequeños */
+@media (max-width: 768px) {
+  .carousel-inner .row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .col-12.col-md-4 {
+    width: 80%;
+    margin-bottom: 15px;
   }
 }

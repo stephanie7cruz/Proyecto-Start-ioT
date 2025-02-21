@@ -51,8 +51,29 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarCarrito();
     };
 
-    // Evento para finalizar compra (solo muestra alerta por ahora)
     document.getElementById("checkoutBtn").addEventListener("click", () => {
+        const usuarioLogueado = localStorage.getItem("usuario"); // Verifica si hay un usuario en sesión
+        
+
+        if (!usuarioLogueado) {
+            // Si el usuario NO ha iniciado sesión, mostrar modal de inicio de sesión
+            Swal.fire({
+                title: "Inicia sesión",
+                text: "Debes iniciar sesión para completar la compra.",
+                icon: "info",
+                confirmButtonText: "Iniciar sesión",
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Abre el modal de inicio de sesión
+                    const modalLogin = new bootstrap.Modal(document.getElementById("modalInicioSesion1"));
+                    modalLogin.show();
+                }
+            });
+            return; // Detener el proceso de compra hasta que inicie sesión
+        }
+    
+        // Si el usuario ha iniciado sesión, proceder con la compra
         if (productosEnCarrito.length > 0) {
             Swal.fire({
                 title: "¡Compra Realizada!",
@@ -77,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
+    
     
 eliminarDelCarrito();
     mostrarCarrito();

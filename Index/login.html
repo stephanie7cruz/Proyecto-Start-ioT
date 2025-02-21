@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Inicio Sesion</title>
+    <link rel="stylesheet" href="../Style/nav.css">
+    <link rel="stylesheet" href="../Style/login.css">
+   
+
+</head>
+
+<body>
+    <section id="homemodales">
+        <div id="custom-alertaMensaje" class="custom-alert"></div>
+        <!-- Modal de Iniciar Sesión -->
+        <div class="modal fade" id="modalInicioSesion1" tabindex="-1">
+    
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header border-0 ">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <!-- Logo centrado -->
+                <a class="navbar-brand " href="home.html">
+                  <img
+                    src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg"
+                    alt="START" class="img-fluid" style="max-width: 120px;">
+                </a>
+                <h2 class="modal-title mt-2 ">Iniciar Sesión</h2>
+              </div>
+    
+              <div class="modal-body">
+                <input type="email" id="correoInicio" class="form-control mb-2" placeholder="Correo electrónico">
+                <span id="errorInicioCorreo" class="text-danger"></span>
+                <div class="input-group mb-2">
+                  <input type="password" id="claveInicio" class="form-control" placeholder="Contraseña">
+    
+                  <button class="btn btn-outline-secondary" type="button"
+                    onclick="togglePassword('claveInicio', 'iconoClaveRegistro')">
+                    <i id="iconoClaveRegistro" class="bi bi-eye"></i>
+                  </button>
+                  <span id="errorInicioClave" class="text-danger"></span>
+                </div>
+                <span id="errorInicio" class="text-danger"></span>
+                <div class="modal-footer">
+                  <button class="btn btn-gradient" onclick="iniciarSesion()">Ingresar</button>
+    
+                </div>
+                <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+                  <p>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalRecuperarClave" data-bs-dismiss="modal">
+                      ¿Olvidaste tu contraseña?
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalRegistro" data-bs-dismiss="modal">
+                      ¿No tienes una cuenta? Regístrate aquí
+                    </a>
+                  </p>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+    
+        <!-- Modal de Registro -->
+        <div class="modal fade" id="modalRegistro" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Mensaje de alerta -->
+    
+              <div class="modal-header  border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <a class="navbar-brand " href="home.html">
+                  <img
+                    src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg"
+                    alt="START" class="img-fluid" style="max-width: 120px;">
+                </a>
+                <h2 class="modal-title">Registro</h2>
+              </div>
+    
+              <div class="modal-body">
+                <input type="text" id="nombreCompleto" class="form-control mb-2" placeholder="Nombre completo">
+                <span id="errorRegistro" class="text-danger"></span>
+    
+                <input type="tel" id="telefonoLogin" class="form-control mb-2" placeholder="Teléfono">
+                <span id="errorRegistroTelefono" class="text-danger"></span>
+    
+                <input type="email" id="correoRegistro" class="form-control mb-2" placeholder="Correo electrónico">
+                <span id="errorRegistroCorreo" class="text-danger"></span>
+    
+                <input type="password" id="claveRegistro2" class="form-control mb-2" placeholder="Contraseña">
+                <span id="errorRegistroContra" class="text-danger"></span>
+                <div class="modal-footer">
+                  <button class="btn btn-gradient" onclick="registrarUsuario()">Registrarse</button>
+                </div>
+                <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+                  <p>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1" data-bs-dismiss="modal">
+                      <span>¿Ya tienes una cuenta? </span> inicia sesion aqui
+                    </a>
+                  </p>
+    
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+        <!-- Modal de Recuperar Contraseña -->
+        <div class="modal fade" id="modalRecuperarClave" tabindex="-1">
+    
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Mensaje de alerta -->
+    
+              <div class="modal-header border-0">
+                <a class="navbar-brand m-3" href="home.html">
+                  <img
+                    src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738520711/2sUpKZ1Ev4TIPJR2rWWvEE7NtS1_lpczxq.svg"
+                    alt="START" class="img-fluid" style="max-width: 120px;">
+                </a>
+                <h3 class="modal-title">Recuperar Contraseña</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="email" id="correoRecuperacion" class="form-control mb-2" placeholder="Correo electrónico">
+                <span id="errorRecuperar" class="text-danger"></span>
+                <div class="modal-footer">
+                  <button class="btn btn-gradient" onclick="recuperarClave()">Recuperar</button>
+    
+                </div>
+                <div class="mt-3 d-flex flex-column align-items-center justify-content-center">
+                  <p>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalInicioSesion1" data-bs-dismiss="modal">
+                      Volver a inicio de sesión
+                    </a>
+                  </p>
+    
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+    
+    
+      </section>
+
+  
+
+
+    <!-- Cargar navbar -->
+ 
+   
+    <script>
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error al cargar el navbar:', error));
+    </script>
+
+    <!-- Cargar footer -->
+    <script>
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error al cargar el footer:', error));
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+   
+        <script src="../Script/login.js"></script>
+
+</body>
+
+</html>

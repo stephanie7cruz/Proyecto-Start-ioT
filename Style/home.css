@@ -1,3 +1,5 @@
+
+
 * {
   margin: 0;
   padding: 0;
@@ -5,31 +7,117 @@
 
 body {
   font-family: sans-serif;
-  min-height: 90dvh;
+  min-height: dvh;
   display: flex;
   flex-direction: column;
   margin: 0;
 }
-
-#nav-bar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.navbar {
-  background-image: linear-gradient(to right, );
-}
-
-#Banner {
-  background-image: linear-gradient(to right, #a517ba, #5f1782);
-  color: #fff;
-
-}
-
+/* ================================
+   BANNER PRINCIPAL
+   ================================ */
+   #Banner {
+    background-image: linear-gradient(to right, #a517ba, #5f1782);
+    color: #fff;
+    margin-top: -120px;  /* Pega el nav con el banner principal */
+    position: relative;
+    height: 100vh;       /* Ocupa el 100% de la altura del viewport */
+    overflow: hidden;
+  }
+  
+  /* El carrusel y cada slide se extienden al 100% del Banner */
+  #carouselBanner,
+  #carouselBanner .carousel-inner,
+  #carouselBanner .carousel-item {
+    height: 100%;
+  }
+  
+  /* Imágenes responsivas con recorte (cover) */
+  #carouselBanner .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Efecto zoom opcional al hover */
+  #carouselBanner .carousel-item img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* ================================
+     CAPTION (TEXTOS DEL BANNER)
+     ================================ */
+  #carouselBanner .carousel-caption {
+    position: absolute;
+    bottom: 20%;                /* Ajusta el % para acercarlo o alejarlo del fondo */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.3);  /* Fondo oscuro más sutil */
+    padding: 15px 20px;              /* Menos padding para que se vea más la imagen */
+    border-radius: 8px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  
+  /* Animación de aparición para el caption del slide activo */
+  .carousel-item.active .carousel-caption {
+    animation: fadeInUp 1s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 50%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+  
+  /* Ajustes de tipografía en el caption (sin cambiar posiciones) */
+  #carouselBanner .carousel-caption h5 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  #carouselBanner .carousel-caption p {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  #carouselBanner .carousel-caption a.btn {
+    margin-top: 0.5rem;
+  }
+  
+  /* ================================
+     CONTROLES DEL CARRUSEL (prev/next)
+     ================================ */
+  #carouselBanner .carousel-control-prev,
+  #carouselBanner .carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(90, 29, 29, 0.5);
+    border-radius: 50%;
+  }
+  
+  /* Indicadores (puntos) */
+  #carouselBanner .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #910a0a;
+    transition: background-color 0.3s ease;
+  }
+  
+  #carouselBanner .carousel-indicators .active {
+    background-color: #007bff;
+  }
+    
 #carouselPaquetes .carousel-inner {
-  padding: 25px;
+  padding: 2px;
   /* Espacio interno para que las cards no estén tan ajustadas */
 }
 
@@ -120,7 +208,15 @@ body {
 
 #topVendidos {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 65px;
+}
+#tituloCategoria{
+  text-align: center;
+  margin-bottom: 65px !important;
+}
+#tituloPaquetes{
+  text-align: center;
+  margin-bottom: 55px !important;
 }
 
 
@@ -375,4 +471,30 @@ body {
   color: #fff;
   font-size: 16px;
   line-height: 30px;
+}
+.modal1-header {
+  background-color: #f1f1f1;
+  padding: 15px;
+}
+
+.modal1-footer {
+  display: flex;
+  justify-content: center;
+  /* Centra horizontalmente */
+  align-items: center;
+  /* Asegura que esté alineado verticalmente */
+}
+
+/* Estilo para el botón "Ir al carrito" */
+#checkoutButton {
+  width: 50%;
+  background: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  transition: background 0.3s ease;
 }

@@ -1,163 +1,173 @@
-/* Barra superior */
-.top-bar {
+/* ==========================================================================  
+   BARRA SUPERIOR (TOP-BAR)  
+   ========================================================================== */
+   .top-bar {
     background: linear-gradient(135deg, #284170, #943c7a);
-
     color: white;
-    padding: 5px 15px;
+    padding: 6px 20px;
     font-size: 14px;
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1050;
-    /* Asegura que esté sobre el navbar */
-}
-
-.navbar-toggler:focus,
-.navbar-toggler.collapsed {
-    box-shadow: none !important;
-    /* Elimina cualquier sombra o borde de foco */
-    outline: none !important;
-    /* Elimina cualquier contorno que se agregue al hacer clic */
-    border: none !important;
-    /* Elimina el borde predeterminado */
-}
-
-/* //icono login  */
-.login-icon-container {
-    display: inline-block;
-    margin: 16px;
-
-}
-
-.login-icon {
-    text-decoration: none;
-    color: #333;
-    font-size: 24px;
-    transition: color 0.3s ease-in-out;
-    margin-left: 10px;
-}
-
-.login-icon:hover {
-    color: #007bff;
-}
-
-
-
-
-
-/* Iconos de redes sociales */
-.social-icons {
+    z-index: 1050; /* Encima de casi todo, pero debajo de modals si es el caso */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .top-texts {
+    text-align: center;
+    flex-grow: 1;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .top-texts::after {
+    content: "Rastreo satelital en tiempo real | Dispositivos GPS avanzados | Tecnología IoT para monitoreo y control";
+  }
+  
+  .social-icons {
     display: flex;
     gap: 10px;
-}
-
-.social-link {
+  }
+  
+  .social-link {
     color: white;
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s;
-}
-
-.social-link:hover {
+  }
+  
+  .social-link:hover {
     color: #ddd;
-}
-
-/* Textos informativos */
-.top-texts::after {
-    content: "Rastreo satelital en tiempo real | Dispositivos GPS avanzados | Tecnología IoT para monitoreo y control";
-}
-
-.top-texts {
-    text-align: center;
-    flex-grow: 1;
-    font-weight: bold;
-}
-
-/* Ajuste para el navbar al usar fixed-top */
-.navbar {
-    margin-top: 30px;
-    /* Espacio para la barra superior */
-}
-
-/* Estilos generales de la navbar */
-.navbar {
-    background-color: #ffffff;
-    /* Fondo blanco */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    /* Sombra ligera */
-    margin-bottom: 20px;
-    /* Margen debajo del navbar para que se vea la sombra */
-}
-
-/* Estilo de los enlaces de la navbar */
-.navbar-nav .nav-link {
+  }
+  
+  /* ==========================================================================  
+     NAVBAR FLOTANTE Y CIRCULAR  
+     ========================================================================== */
+  /* Estado inicial (antes de hacer scroll en Home): **blanco** y con texto oscuro */
+  nav.navbar {
+    position: fixed;
+    top: 52px; /* Debajo de la top-bar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    border-radius: 40px;               /* Bordes circulares */
+    background: #ffffff;              /* Fondo blanco por defecto */
+    color: #15193e;                   /* Texto oscuro */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1040;
+  }
+  
+  /* Contenedor interno para un mejor centrado */
+  .nav-floating {
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Ajustes para el logo */
+  .navbar-brand img {
+    max-width: 120px;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .navbar-brand img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Enlaces de la navbar (por defecto, texto oscuro) */
+  nav.navbar .nav-link {
     color: #15193e !important;
-    /* Color oscuro */
-}
-
-.navbar-nav .nav-link.active,
-.navbar-nav .nav-link:hover {
+    padding: 8px 15px;
+    transition: color 0.3s ease;
+  }
+  
+  /* Hover: se oscurece ligeramente */
+  nav.navbar .nav-link:hover {
     color: #2d3262 !important;
-    /* Color principal */
-}
-
-/* Botón de búsqueda */
-.navbar .btn-outline-success {
-    border-color: #2d3262 !important;
-}
-
-/* Hover del botón de búsqueda */
-.navbar .btn-outline-success:hover {
-    background-color: #2d3262 !important;
-    color: #ffffff !important;
-}
-
-/* Menú desplegable */
-.navbar-nav .dropdown-menu {
+  }
+  
+  /* Estado .scrolled: cuando se hace scroll, el nav se vuelve transparente con texto blanco */
+  nav.navbar.scrolled {
+    background: transparent;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  nav.navbar.scrolled .nav-link {
+    color: white !important;
+  }
+  
+  nav.navbar.scrolled .nav-link:hover {
+    color: #cfcfcf !important;
+  }
+  
+  /* Dropdown menu */
+  .navbar-nav .dropdown-menu {
     border: 1px solid #15193e;
-    /* Bordes oscuros */
-}
-
-.navbar-nav .dropdown-item {
+    min-width: 180px;
+  }
+  
+  .navbar-nav .dropdown-item {
     color: #15193e !important;
-}
-
-.navbar-nav .dropdown-item:hover {
+    transition: background-color 0.2s ease;
+  }
+  
+  .navbar-nav .dropdown-item:hover {
     background-color: #2d3262 !important;
     color: #ffffff !important;
-}
-
-/* Icono del carrito  y login*/
-.cart-icon-container, .login-icon-container {
+  }
+  
+  /* Mostrar menú desplegable al pasar el mouse (opcional) */
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+  }
+  
+  /* Íconos Toggler (hamburguesa) */
+  .navbar-toggler {
+    border: none !important;
+    outline: none !important;
+  }
+  
+  .navbar-toggler-icon {
+    filter: invert(0.3); /* Por defecto, en fondo blanco, ícono oscuro */
+  }
+  
+  /* ==========================================================================  
+     ÍCONOS DE LOGIN Y CARRITO  
+     ========================================================================== */
+  .login-icon,
+  .cart-icon {
+    color: inherit;   /* Hereda el color (oscuro o blanco según el estado) */
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-
-
-.login-icon-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: auto;
-    max-width: 200px;
-
-}
-
-
-.cart-icon {
-    margin-left: 10px;
-    /* Espaciado entre icono y texto */
-    font-size: 1.6rem;
-    position: relative;
-}
-
-/* Contador del carrito */
-.cart-icon .cart-count {
-    position: absolute;
-    top: -5px;
-    right: -10px;
+    transition: color 0.3s ease;
+  }
+  
+  .login-icon i,
+  .cart-icon i {
+    font-size: 1.4rem;
+  }
+  
+  /* Texto junto al ícono (opcional) */
+  .login-icon span,
+  .cart-icon span:not(.cart-count) {
+    margin-left: 6px;
+    font-size: 1rem;
+  }
+  
+  .login-icon:hover,
+  .cart-icon:hover {
+    color: #2d3262;  /* En hover se oscurece ligeramente */
+  }
+  
+  /* Contador del carrito */
+  .cart-icon .cart-count {
     background-color: #15193e;
     color: #ffffff;
     border-radius: 50%;
@@ -165,100 +175,58 @@
     padding: 3px 7px;
     font-weight: bold;
     min-width: 20px;
+    margin-left: 5px;
     text-align: center;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .navbar-nav {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .cart-icon-container, .login-icon-container {
-        margin-top: 10px;
-    }
-}
-
-
-/* Mostrar menú desplegable al pasar el mouse------------------------------- */
-
-
-
-/* Contador del carrito */
-
-
-/* Mostrar menú desplegable al pasar el mouse -----------------------------*/
-
-
-
-/* Mostrar menú desplegable al pasar el mouse */
-.nav-item.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0;
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-    .navbar-toggler-icon {
-        border-color: transparent;
-        /* Eliminar borde gris al hacer clic */
-    }
-
-    .cart-icon {
-        font-size: 1.5rem;
-    }
-
-    .cart-icon .cart-count {
-        font-size: 0.7rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .cart-icon {
-        font-size: 1.2rem;
-    }
-
-    .cart-icon .cart-count {
-        font-size: 0.6rem;
-    }
-
-}
-
-/* Ajuste del texto en la barra superior */
-@media (max-width: 768px) {
-    .top-texts {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .social-icons {
-        display: none;
-    }
-
-    .top-texts::after {
-        content: "Rastreo satelital en tiempo real🌏";
-        /* Solo muestra esta parte del texto */
-        display: block;
-    }
-}
-
-/* Ajuste del navbar */
-@media (max-width: 992px) {
+    position: relative;
+    top: -2px;
+  }
+  
+  /* ==========================================================================  
+     RESPONSIVE  
+     ========================================================================== */
+  @media (max-width: 992px) {
     .navbar-collapse {
-        text-align: center;
+      text-align: center;
     }
-
-    .navbar-toggler {
-        border: none;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-nav {
+      flex-direction: column;
+      text-align: center;
     }
-
-    .cart-icon-container {
-        margin-left: auto;
+  
+    .top-texts::after {
+      content: "Rastreo satelital en tiempo real 🌏";
     }
-
-}
+  
+    .social-icons {
+      display: none;
+    }
+  
+    /* Ajusta el nav flotante en pantallas pequeñas */
+    nav.navbar {
+      top: 60px;
+      width: 95%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .navbar-brand img {
+      max-width: 100px;
+    }
+  
+    .login-icon i,
+    .cart-icon i {
+      font-size: 1.2rem;
+    }
+  
+    .login-icon span,
+    .cart-icon span:not(.cart-count) {
+      font-size: 0.9rem;
+    }
+  }
+  
