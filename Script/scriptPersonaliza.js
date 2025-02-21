@@ -312,15 +312,46 @@ document.getElementById('addProductos').addEventListener('click', () => {
     gps: window.productosSeleccionados.filter(p => p.categoria === 'GPS').length,
     accesorios: window.productosSeleccionados.filter(p => p.categoria === 'ACCESORIO').length,
     id: Date.now(), // Nuevo id único para este kit
-    plan:"",
-    total_suscripciones: 0,
-    detalles_plan: "",
+    plan:"Plan Start",
+    totalLicencias:window.productosSeleccionados.filter(p => p.categoria === 'GPS').length,
+    detallesPlan: "alertas personalizadas",
+    Suscripcion:"indefinido",
+    Total:100000
   };
 
   listaDeKits.push(newKit);
   localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
 
-  alert(`${kitCount} producto(s) para ${activo} añadidos.`);
+const popup = document.createElement('div');
+popup.style.position = 'fixed';
+popup.style.top = '50%';
+popup.style.left = '50%';
+popup.style.transform = 'translate(-50%, -50%)';
+popup.style.background = '#fff'; // Fondo blanco
+popup.style.color = '#333'; // Texto oscuro para contraste
+popup.style.padding = '30px 40px';
+popup.style.borderRadius = '8px';
+popup.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+popup.style.zIndex = '9999';
+popup.style.fontSize = '1.3rem';
+popup.style.textAlign = 'center';
+popup.style.opacity = '1';
+popup.style.transition = 'opacity 0.5s ease';
+
+popup.innerHTML = `
+  <i class="fas fa-check-circle" style="font-size: 3rem; color: #28a745; display:block; margin-bottom: 15px;"></i>
+  <strong>¡Excelente elección!</strong><br>
+  Has agregado un nuevo kit. ¡Prepárate para vivir una experiencia única!
+`;
+
+document.body.appendChild(popup);
+
+setTimeout(() => {
+  popup.style.opacity = '0';
+  setTimeout(() => {
+    popup.remove();
+  }, 500);
+}, 3000);
 
   // Actualizar el contenido del modal factura y resumen (suponiendo que estas funciones existen)
   const facturaElement = document.getElementById('factura');
@@ -363,54 +394,286 @@ decrementar.addEventListener('click', () => {
 
 /*  HAhora vamos al step2*/
 
-
-/**
-* Función para generar el HTML de la factura (lista de kits) en forma de tabla.
-* Cada fila muestra el kit, el activo, precio unitario, cantidad, subtotal y controles para modificar.
-* @param {Array} lista - Arreglo de productos (kits) agregados a la factura.
-* @returns {String} HTML generado.
-*/
-function generateFacturaHTML(lista) {
-// Agrupar kits por id para calcular cantidades y subtotales
-const grouped = {};
-lista.forEach(item => {
-  if (!grouped[item.id]) {
-    grouped[item.id] = { ...item, quantity: 1 };
-  } else {
-    grouped[item.id].quantity++;
-  }
-});
-
-let html = '<table class="table table-striped">';
-html += '<thead><tr><th>Kit</th><th>Activo</th><th>Precio Unitario</th><th>Cantidad</th><th>Subtotal</th><th>Acciones</th></tr></thead>';
-html += '<tbody>';
-let total = 0;
-for (const id in grouped) {
-  const kit = grouped[id];
-  const subtotal = kit.precio * kit.quantity;
-  total += subtotal;
-  html += `<tr data-kit-id="${kit.id}">
-             <td>${kit.name}</td>
-             <td>${kit.activo || ''}</td>
-             <td>${kit.precio.toFixed(2)}</td>
-             <td>
-               <button class="btn btn-sm btn-outline-secondary decrement">-</button>
-               <span class="mx-2 quantity">${kit.quantity}</span>
-               <button class="btn btn-sm btn-outline-secondary increment">+</button>
-             </td>
-             <td>${subtotal.toFixed(2)}</td>
-             <td><button class="btn btn-sm btn-danger remove-kit">Eliminar</button></td>
-           </tr>`;
+// Funciones auxiliares (defínelas globalmente en tu proyecto)
+function formatPrice(value) {
+  return Number(value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 }
-html += '</tbody>';
-html += `<tfoot>
-           <tr>
-             <td colspan="4"><strong>Total</strong></td>
-             <td colspan="2"><strong>${total.toFixed(2)}</strong></td>
-           </tr>
-         </tfoot>`;
-html += '</table>';
-return html;
+
+function getActiveIcon(activo) {
+  switch(activo.toLowerCase()) {
+    case "carro": return "fas fa-car";
+    case "moto": return "fas fa-motorcycle";
+    case "carga": return "fas fa-truck";
+    default: return "fas fa-box";
+  }
+}
+
+function generateFacturaHTML() {
+  // Recuperar o inicializar la lista de kits desde localStorage
+  let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+  let html = '';
+
+  // Agregar estilos CSS personalizados (puedes mover este bloque a tu archivo de estilos)
+  html += `
+  <style>
+    /* Estilos globales para las cards de kit */
+    .kit-card {
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      background-color: #fff;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .kit-card:hover {
+      transform: translateY(-5px);
+    }
+    .kit-card-header {
+      background: linear-gradient(135deg, #284170, #943c7a);
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    .kit-header-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kit-header-controls h4 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .kit-info {
+      margin-top: 0.5rem;
+      text-align: center;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .kit-info span {
+      margin-right: 1rem;
+    }
+    .collapse-header {
+      background: #f8f9fa;
+      border-radius: 4px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #333;
+    }
+    .collapse-header:hover {
+      background: #e9ecef;
+    }
+    .product-item {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      min-height: 100px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .product-item:hover {
+      transform: scale(1.02);
+    }
+    .product-overlay {
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 0.5rem;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+    .subscription-section {
+      border-top: 1px solid #ddd;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+    .subscription-btn {
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .subscription-btn:hover, .subscription-btn.active {
+      background: #284170;
+      color: #fff;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      background-color: #f8f9fa;
+    }
+    .remove-kit-footer {
+      color: #6c757d;
+      cursor: pointer;
+    }
+    .remove-kit-footer:hover {
+      color: #dc3545;
+    }
+    /* Transiciones para el modal de producto */
+    .tracking-modal-enter {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    .tracking-modal-enter-active {
+      opacity: 1;
+      transform: scale(1);
+      transition: all 0.3s ease;
+    }
+    .tracking-modal-exit {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .tracking-modal-exit-active {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.3s ease;
+    }
+  </style>
+  `;
+
+  // Título principal con más estilo
+  html += `
+  <div class="text-center my-4">
+    <h3 style="font-family: 'Helvetica Neue', sans-serif; font-weight: bold;">Descubre Tus Kits Personalizados</h3>
+    <p class="text-muted" style="font-size: 1rem;">Explora y ajusta cada detalle de tus kits, creados especialmente para ti.</p>
+  </div>
+  `;
+
+  // Iterar sobre cada kit en la lista
+  listaDeKits.forEach(kit => {
+    // Filtrar productos por categoría
+    const gpsProducts = kit.productos.filter(p => p.categoria && p.categoria.toUpperCase() === "GPS");
+    const accesoriosProducts = kit.productos.filter(p => p.categoria && p.categoria.toUpperCase() === "ACCESORIO");
+
+    // Preparar el contenido para 'detallesPlan'
+    let detallesPlanContent = '';
+    if (Array.isArray(kit.detallesPlan)) {
+      detallesPlanContent = kit.detallesPlan.length > 0
+        ? kit.detallesPlan.map(detail => `<li class="list-group-item">${detail}</li>`).join('')
+        : `<li class="list-group-item">No hay detalles del plan.</li>`;
+    } else {
+      detallesPlanContent = kit.detallesPlan && kit.detallesPlan.trim() !== ''
+        ? `<li class="list-group-item">${kit.detallesPlan}</li>`
+        : `<li class="list-group-item">No hay detalles del plan.</li>`;
+    }
+
+    html += `
+      <div class="card kit-card shadow-sm">
+        <div class="card-header kit-card-header">
+          <div class="kit-header-controls">
+            <button class="btn btn-outline-light btn-sm decrement-kit" data-kit-id="${kit.id}">
+              <i class="fas fa-minus"></i>
+            </button>
+            <h4>
+              <i class="${getActiveIcon(kit.activo)}"></i> Kit para ${kit.activo}
+            </h4>
+            <button class="btn btn-outline-light btn-sm increment-kit" data-kit-id="${kit.id}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <div class="kit-info">
+            <span><i class="fas fa-layer-group"></i> Kits: ${kit.cantidad_Kits}</span>
+            <span><i class="fas fa-satellite-dish"></i> GPS: ${kit.gps}</span>
+            <span><i class="fas fa-plug"></i> Accesorios: ${kit.accesorios}</span>
+            <span><i class="fas fa-key"></i> Licencias: ${kit.totalLicenses || kit.totalLicencias || 0}</span>
+            <span><i class="fas fa-bell"></i> Suscripciones: ${kit.Suscripcion || 0}</span>
+            <span><i class="fas fa-file-alt"></i> Plan: ${kit.plan || "N/A"}</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <!-- Columna: Productos GPS -->
+            <div class="col-md-4 mb-3">
+              <div class="collapse-header" data-bs-toggle="collapse" data-bs-target="#collapseGps${kit.id}" aria-expanded="false" aria-controls="collapseGps${kit.id}">
+                <i class="fas fa-chevron-down"></i> Productos GPS
+              </div>
+              <div class="collapse" id="collapseGps${kit.id}">
+                <div class="list-group">
+                  ${gpsProducts.length > 0 ? gpsProducts.map(p => `
+                    <div class="list-group-item product-item" style="background-image: url('${p.img}');" onclick='showProductPreview(${JSON.stringify(p)})'>
+                      <div class="product-overlay">
+                        <strong>${p.name}</strong><br>
+                        <small>${formatPrice(p.precio)}</small>
+                      </div>
+                    </div>
+                  `).join('') : '<div class="list-group-item">No hay productos GPS.</div>'}
+                </div>
+              </div>
+            </div>
+            <!-- Columna: Accesorios -->
+            <div class="col-md-4 mb-3">
+              <div class="collapse-header" data-bs-toggle="collapse" data-bs-target="#collapseAcc${kit.id}" aria-expanded="false" aria-controls="collapseAcc${kit.id}">
+                <i class="fas fa-chevron-down"></i> Accesorios
+              </div>
+              <div class="collapse" id="collapseAcc${kit.id}">
+                <div class="list-group">
+                  ${accesoriosProducts.length > 0 ? accesoriosProducts.map(p => `
+                    <div class="list-group-item product-item" style="background-image: url('${p.img}');" onclick='showProductPreview(${JSON.stringify(p)})'>
+                      <div class="product-overlay">
+                        <strong>${p.name}</strong><br>
+                        <small>${formatPrice(p.precio)}</small>
+                      </div>
+                    </div>
+                  `).join('') : '<div class="list-group-item">No hay accesorios.</div>'}
+                </div>
+              </div>
+            </div>
+            <!-- Columna: Detalles del Plan -->
+            <div class="col-md-4 mb-3">
+              <div class="collapse-header" data-bs-toggle="collapse" data-bs-target="#collapsePlan${kit.id}" aria-expanded="false" aria-controls="collapsePlan${kit.id}">
+                <i class="fas fa-chevron-down"></i> Detalles del Plan
+              </div>
+              <div class="collapse" id="collapsePlan${kit.id}">
+                <ul class="list-group">
+                  ${detallesPlanContent}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Sección de Suscripción -->
+          <div class="subscription-section">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <div class="btn-group d-flex" role="group">
+                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="Demo">
+                    <i class="fas fa-play"></i> Demo
+                  </button>
+                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="3 Meses">
+                    <i class="fas fa-calendar-alt"></i> 3 Meses
+                  </button>
+                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="1 Año">
+                    <i class="fas fa-calendar-alt"></i> 1 Año
+                  </button>
+                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="Indefinido">
+                    <i class="fas fa-infinity"></i> Indefinido
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4 text-end">
+                <h5 class="kit-total">Total: ${formatPrice(kit.Total || 0)}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-outline-secondary btn-sm remove-kit-footer" data-kit-id="${kit.id}">
+            <i class="fas fa-trash-alt"></i> Eliminar
+          </button>
+          <span>ID del Kit: ${kit.id}</span>
+        </div>
+      </div>
+    `;
+  });
+
+  return html;
 }
 
 

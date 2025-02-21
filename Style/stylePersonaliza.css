@@ -66,9 +66,7 @@
   }
   
   /* NUEVO: Añadir margen superior al contenedor de la barra de progreso */
-  .container.mt-3 {
-    margin-top: 100px !important; /* Ajusta este valor a tu preferencia */
-  }
+
   
 /* ================================
    ESTILOS GENERALES DEL BODY
@@ -478,3 +476,279 @@ h4 {
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0); }
 }
+/* =========================
+   STEP 1: PERSONALIZA TU KIT - ESTILOS ESPECÍFICOS
+   ========================= */
+
+/* ------------------------------------------
+   ESTILOS GENERALES DEL CONTENEDOR DE STEP 1
+   ------------------------------------------ */
+   #step1 .step-container {
+    background: #fdfdfd;
+    padding: 30px; /* Aumentamos el padding para más espacio */
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.6s ease;
+  }
+  
+  /* Animación suave al mostrar el step */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* ------------------------------------------
+     ESTILOS DE LA BARRA PRINCIPAL (SUPERIOR)
+     ------------------------------------------ */
+  #step1 .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    margin-top: 20px;
+  }
+  
+  #step1 .card-body {
+    padding: 20px;
+  }
+  
+  /* Estilos para la información del kit */
+  #step1 #nombrePaquete {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  #step1 .text-muted {
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  /* Estilos para los botones de paso */
+  #step1 .step-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5rem;
+  }
+  
+  #step1 .btn-primary {
+    background-color: #1e2d58;
+    border-color: #1e2d58;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  #step1 .btn-primary:hover {
+    background-color: #182345;
+    border-color: #182345;
+    transform: translateY(-2px);
+  }
+  
+ /* ------------------------------------------
+   ESTILOS DEL TOGGLE SWITCH (PLATAFORMA) - ¡IMPACTO MÁXIMO!
+   ------------------------------------------ */
+#step1 .switch-container {
+  position: relative;
+  display: inline-block;
+  width: 120px;  /* Aún más ancho */
+  height: 60px;   /* Aún más alto */
+  margin-right: 25px; /* Espacio a la derecha */
+  margin-left: -60px; /* Lo corremos más a la izquierda */
+  transform: scale(1.1); /* Aumenta el tamaño general */
+}
+
+#step1 .switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#step1 .switch-label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ddd; /* Un gris más claro inicialmente */
+  transition: background-color 0.4s, box-shadow 0.4s;
+  border-radius: 60px; /* Muy redondeado */
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3); /* Sombra pronunciada */
+}
+
+#step1 .switch-label::before {
+  content: "";
+  position: absolute;
+  left: 8px;   /* Ajustamos posición */
+  top: 8px;    /* Ajustamos posición */
+  width: 44px;  /* Aumentamos tamaño */
+  height: 44px; /* Aumentamos tamaño */
+  background-color: #fff;
+  transition: transform 0.4s;
+  border-radius: 50%;
+}
+
+#step1 .switch-handle {
+  position: absolute;
+  top: 8px;   /* Ajustamos posición */
+  left: 8px;   /* Ajustamos posición */
+  width: 44px;  /* Aumentamos tamaño */
+  height: 44px; /* Aumentamos tamaño */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s;
+  color: #777; /* Un gris más oscuro para el icono */
+  font-size: 24px; /* Aumentamos el tamaño del icono */
+  border-radius: 50%;
+}
+
+#step1 .switch-input:checked + .switch-label {
+  background-color: #66bb6a; /* Verde más atractivo */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4); /* Sombra más intensa al activarse */
+}
+
+#step1 .switch-input:checked + .switch-label::before {
+  transform: translateX(60px); /* Ajustamos el recorrido */
+}
+
+#step1 .switch-input:checked + .switch-label .switch-handle {
+  transform: translateX(60px); /* Ajustamos el recorrido */
+  color: #fff;
+}
+
+#step1 .text-switch {
+  font-size: 1.5rem; /* Aún más grande */
+  font-weight: 700; /* Más negrita */
+  letter-spacing: 0.5px; /* Espaciado para mayor legibilidad */
+  color: #333; /* Texto más oscuro */
+}
+
+  /* ------------------------------------------
+     ESTILOS DE LOS TEXTOS DINÁMICOS (ANIMACIONES)
+     ------------------------------------------ */
+  #step1 #nombrePaquete {
+    animation: fadeInText 1s ease;
+  }
+  
+  #step1 .text-muted {
+    animation: fadeInText 1.2s ease;
+  }
+  
+  @keyframes fadeInText {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* ------------------------------------------
+     ESTILOS DEL SELECTOR DE ACTIVOS
+     ------------------------------------------ */
+  #step1 #vehiculoSelector .btn {
+    border: 2px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 5px;
+    font-size: 1rem;
+    color: #555;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  #step1 #vehiculoSelector .btn:hover {
+    background-color: #f0f0f0;
+    border-color: #bbb;
+    color: #333;
+  }
+  
+  #step1 #vehiculoSelector .btn:focus,
+  #step1 #vehiculoSelector .btn.active {
+    background-color: #1e2d58;
+    border-color: #1e2d58;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ------------------------------------------
+     ESTILOS DE LA BARRA DE CONTROL INFERIOR
+     ------------------------------------------ */
+  #step1 .flow-control {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Estilos para los botones de incremento/decremento */
+  #step1 .btn-outline-secondary {
+    border-color: #aaa;
+    color: #555;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  
+  #step1 .btn-outline-secondary:hover {
+    border-color: #777;
+    color: #333;
+    background-color: transparent;
+  }
+  
+  /* Estilos para el contador */
+  #step1 #kitCountBox {
+    border-color: #aaa;
+    font-size: 1.7rem;
+    color: #333;
+  }
+  
+  /* Estilos para el botón "AGREGAR KIT" */
+  #step1 #addProductos {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  #step1 #addProductos:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+    transform: translateY(-2px);
+  }
+  
+  /* ------------------------------------------
+     ESTILOS GENERALES DE BOTONES (UNIFICACIÓN)
+     ------------------------------------------ */
+  #step1 .btn {
+    font-weight: 500;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  #step1 .btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ------------------------------------------
+     AJUSTE DE PADDING INFERIOR
+     ------------------------------------------ */
+  #step1 .container {
+    padding-bottom: 30px;
+  }
+  
