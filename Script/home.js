@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p class="descripcion">${producto.descripcion}</p>
                         <div class="clasificacion" id="clasificacion-${index}"></div>
                     </div>
-                    <a href="#" class="btn btn-cart w-100 producto-agregar" id="${producto.id}">
+                    <a href="#" class="btn btn-cart w-100 producto-agregar" id="${producto.id_producto}">
                         <i class="fas fa-shopping-cart mb-3"></i> Agregar al carrito
                     </a>
                 </div>
@@ -107,35 +107,49 @@ document.addEventListener("DOMContentLoaded", function () {
     // Función para agregar al carrito
     function agregarAlCarrito(e) {
         e.preventDefault();
-        const boton = e.currentTarget.id;
-        const idBoton = e.currentTarget.id;
+    
+        const boton = e.currentTarget; // Obtenemos el botón HTML
+        const idBoton = boton.id ? parseInt(boton.id, 10) : null; // Convertimos el ID a número si existe
+    
         console.log("ID del botón:", idBoton);
-        
-        const productoAgregado = productosMasVendidos.find(producto => producto.id === idBoton);
-
+        console.log("Productos cargados:", productosMasVendidos);
+    
+        if (!idBoton) {
+            console.error("Error: El ID del botón no es válido.");
+            return;
+        }
+    
+        // Buscar el producto en productosMasVendidos usando id_producto
+        const productoAgregado = productosMasVendidos.find(producto => producto.id_producto == idBoton);
+    
+        if (!productoAgregado) {
+            console.error("Error: Producto no encontrado en productosMasVendidos.");
+            return;
+        }
+    
         const textoOriginal = boton.innerHTML;
-
         boton.classList.add("clicked");
         boton.innerHTML = `<i class="fas fa-check mb-3"></i> AGREGADO AL CARRITO`;
-
-
+    
         setTimeout(() => {
             boton.classList.remove("clicked");
             boton.innerHTML = textoOriginal;
-        }, 2000); // 1 segundo
-
-
-        if (productosEnCarrito.some(producto => producto.id === idBoton)) {
-            const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
+        }, 2000);
+    
+        // Verificar si el producto ya está en el carrito
+        const index = productosEnCarrito.findIndex(producto => producto.id_producto === idBoton);
+        
+        if (index !== -1) {
             productosEnCarrito[index].cantidad++;
         } else {
-            productoAgregado.cantidad = 1;
-            productosEnCarrito.push(productoAgregado);
+            productosEnCarrito.push({ ...productoAgregado, cantidad: 1 }); // Clonamos y agregamos cantidad
         }
-
-       
+    
+        localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
         actualizarNumerito();
     }
+    
+    
 
 
     // Función para actualizar el numerito del carrito
