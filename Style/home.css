@@ -115,32 +115,7 @@ body {
   #carouselBanner .carousel-indicators .active {
     background-color: #007bff;
   }
-  
-  /* ================================
-     NAV OVERLAY PARA EL HOME
-     ================================ */
-  /* Estilo inicial del nav en Home: superpuesto y transparente */
-  nav.navbar {
-    background: transparent;
-    color: white;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  nav.navbar .nav-link {
-    color: white !important;
-  }
-  
-  /* Cuando se hace scroll, se agrega la clase 'scrolled' para recuperar el estilo normal */
-  nav.navbar.scrolled {
-    background: #ffffff;  /* Fondo blanco o el que uses en nav.css */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  
-  nav.navbar.scrolled .nav-link {
-    color: #3e1515 !important;
-  }
-  
-  
+    
 #carouselPaquetes .carousel-inner {
   padding: 2px;
   /* Espacio interno para que las cards no estén tan ajustadas */

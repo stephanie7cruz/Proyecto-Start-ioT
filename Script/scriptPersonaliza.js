@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const botones = document.querySelectorAll("#vehiculoSelector button");
   const mensaje = document.getElementById("mensaje");
   let productos = [];
-  let contador = 2;
+  let contador = 0;
 
   const imagenesVehiculo = {
       "Carro": "https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739264947/5_la63bl.png",
@@ -21,9 +21,12 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   //-------------------------------------------------------------------------------------------
 
+   /********************************************
+     * FUNCIÓN: actualizarImagenVehiculo (Step 1)
+     * Actualiza la imagen principal y marca el botón seleccionado.
+     ********************************************/
   function actualizarImagenVehiculo(tipoVehiculo) {
       const imagenVehiculo = document.querySelector('.main-image');
-
       if (imagenesVehiculo[tipoVehiculo]) {
           imagenVehiculo.src = imagenesVehiculo[tipoVehiculo];
           imagenVehiculo.alt = tipoVehiculo;
@@ -44,8 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
           botonSeleccionado.classList.add('active', 'btn-dark');
       }
   }
-//----------------------------------------------------
-  // Cargar productos desde el JSON
+   /********************************************
+     * CARGA DE PRODUCTOS (Step 1)
+     ********************************************/
   fetch('../Template/data.json')
       .then(response => response.json())
       .then(data => {
@@ -66,292 +70,299 @@ document.addEventListener("DOMContentLoaded", function () {
 * @param {Array} productosFiltrados - Lista de productos filtrados según el activo.
 * @param {Array} coordenadas - Arreglo de objetos con propiedades top y left para posicionar cada card.
 */
+// Función para pintar productos según el activo actual y coordenadas de posición
 function pintarProductos(productosFiltrados, coordenadas) {
-// Cerrar todos los collapse cards existentes al cambiar de activo.
-document.querySelectorAll('.collapse-card').forEach(card => card.remove());
+  // Guardar globalmente para su uso en otros eventos
+  window.productosFiltrados = productosFiltrados;
+  // Cerrar todos los collapse cards existentes
+  document.querySelectorAll('.collapse-card').forEach(card => card.remove());
+  const productosContainer = document.getElementById('productosContainer');
+  productosContainer.innerHTML = ''; // Limpiar contenedor
+  // Determinar el activo actual: usa window.currentActivo o extrae del primer producto
+  const activo = window.currentActivo || 
+                 (window.productosFiltrados[0] && window.productosFiltrados[0].activo.split(',')[0].trim()) || 
+                 'Activo';
 
-const productosContainer = document.getElementById('productosContainer');
-productosContainer.innerHTML = ''; // Limpiar contenedor
-
-// Determinar el activo actual (usando window.currentActivo o extrayéndolo del primer producto)
-const activo = window.currentActivo || (productosFiltrados[0] && productosFiltrados[0].activo.split(',')[0].trim()) || 'Activo';
-
-// Inicializar objeto global para guardar selecciones por activo (si aún no existe)
-if (!window.seleccionesPorActivo) {
-  window.seleccionesPorActivo = {};
-}
-// Recuperar la selección previamente guardada para este activo (si existe)
-let seleccionGuardada = window.seleccionesPorActivo[activo] || [];
-
-// Reiniciar la selección actual (global) y cargar la selección guardada
-window.productosSeleccionados = seleccionGuardada.slice();
-
-// Filtrar productos por categoría
-const gpsProductos = productosFiltrados.filter(p => p.categoria === 'GPS');
-const accesorios = productosFiltrados.filter(p => p.categoria === 'ACCESORIO');
-
-// Si no hay productos GPS, mostrar un mensaje y salir
-if (!gpsProductos.length) {
-  productosContainer.innerHTML = '<p>No hay productos GPS disponibles.</p>';
-  return;
-}
-
-// Variable para llevar el índice del GPS mostrado (se muestra solo uno a la vez)
-let gpsIndex = 0;
-
-/**
- * Función interna para mostrar el GPS actual y los accesorios compatibles.
- * Se guarda la selección actual antes de re-renderizar.
- */
-function mostrarGPS() {
-  // Guardar la selección actual para este activo
-  window.seleccionesPorActivo[activo] = window.productosSeleccionados.slice();
-
-  productosContainer.innerHTML = '';
-
-  // Mostrar el GPS actual en la primera posición (coordenada 0)
-  const gpsProducto = gpsProductos[gpsIndex];
-  const gpsElement = crearProductoElement(gpsProducto, coordenadas[0] || { top: '10%', left: '10%' }, true, activo);
-  productosContainer.appendChild(gpsElement);
-
-  // Filtrar accesorios compatibles: solo se muestran si el GPS actual está incluido en el campo "Compatible"
-  const accesoriosCompatibles = accesorios.filter(accesorio => {
-    if (!accesorio.Compatible || accesorio.Compatible.trim().toLowerCase() === 'no compatible') {
-      return false;
-    }
-    // Convertir la cadena en un arreglo y eliminar espacios
-    const compatibles = accesorio.Compatible.split(',').map(item => item.trim());
-    return compatibles.includes(gpsProducto.id);
-  });
-
-  // Solo pintar accesorios si hay al menos uno compatible
-  if (accesoriosCompatibles.length > 0) {
-    accesoriosCompatibles.forEach((accesorio, idx) => {
-      const coord = coordenadas[idx + 1] || { top: '50%', left: '50%' };
-      const accesorioElement = crearProductoElement(accesorio, coord, false, activo);
-      productosContainer.appendChild(accesorioElement);
-    });
+  // Asegurar que exista el objeto global para guardar selecciones por activo
+  if (!window.seleccionesPorActivo) {
+    window.seleccionesPorActivo = {};
   }
-}
 
-/**
- * Función para crear la card de un producto (GPS o accesorio).
- * Si el producto ya estaba seleccionado previamente, se restauran sus estilos.
- * @param {Object} producto - Datos del producto.
- * @param {Object} coordenada - Objeto con propiedades top y left para posicionar la card.
- * @param {Boolean} esGPS - true si es GPS; false si es accesorio.
- * @param {String} activo - Activo actual (para mantener la selección).
- * @returns {HTMLElement} La card del producto.
- */
-function crearProductoElement(producto, coordenada, esGPS, activo) {
-  const productoElement = document.createElement('div');
-  productoElement.className = 'producto-card';
-  productoElement.style.position = 'absolute';
-  productoElement.style.top = coordenada.top;
-  productoElement.style.left = coordenada.left;
-  productoElement.style.width = '180px';
-  productoElement.style.height = '220px';
-  productoElement.style.backgroundColor = 'white';
-  productoElement.style.border = '1px solid #ccc';
-  productoElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-  productoElement.style.cursor = 'pointer';
-  productoElement.style.transition = 'transform 0.3s, box-shadow 0.3s, background-color 0.3s';
-  productoElement.style.padding = '10px';
-  productoElement.style.overflow = 'hidden';
+  // Recuperar la selección guardada en localStorage para este activo
+  let almacenado = JSON.parse(localStorage.getItem('seleccionesPorActivo')) || {};
+  if (!almacenado[activo]) {
+    almacenado[activo] = [];
+  }
+  // Actualizar la selección global con la que ya estaba guardada
+  window.productosSeleccionados = almacenado[activo].slice();
 
-  productoElement.innerHTML = `
-    <div class="card-content">
-      <div class="producto-img-wrapper" style="width:100%; height:120px; display:flex; align-items:center; justify-content:center; background:#f1f1f1; border-radius:4px; margin-bottom:5px;">
-        <img src="${producto.img}" alt="${producto.name}" class="producto-img" style="max-width:100%; max-height:100%; object-fit:contain;">
-      </div>
-      <p class="producto-nombre" style="margin:5px 0; font-size:16px; text-align:center;">${producto.name}</p>
-      <div class="producto-actions" style="text-align:center;">
-        ${ esGPS ? '<i class="fas fa-sync-alt cambiar-gps" title="Cambiar GPS" style="cursor:pointer; margin-right:5px;"></i>' : '' }
-        <i class="fas fa-chevron-down collapse-btn" title="Ver Descripción" style="cursor:pointer;"></i>
-      </div>
-    </div>
-  `;
+  // Filtrar productos en dos categorías: GPS y ACCESORIO
+  const gpsProductos = productosFiltrados.filter(p => p.categoria === 'GPS');
+  const accesorios = productosFiltrados.filter(p => p.categoria === 'ACCESORIO');
 
-  // Si el producto ya estaba seleccionado en una sesión anterior para este activo, se marca
-  if (seleccionGuardada.some(p => p.id === producto.id)) {
-    productoElement.classList.add('seleccionado');
+  if (!gpsProductos.length) {
+    productosContainer.innerHTML = '<p>No hay productos GPS disponibles.</p>';
+    return;
+  }
+
+  // Índice para el GPS mostrado (se muestra uno a la vez)
+  let gpsIndex = 0;
+
+  // Función interna para renderizar el GPS actual y sus accesorios compatibles
+  function mostrarGPS() {
+    // Guardar la selección actual para este activo en localStorage
+    almacenado[activo] = window.productosSeleccionados.slice();
+    localStorage.setItem('seleccionesPorActivo', JSON.stringify(almacenado));
+
+    productosContainer.innerHTML = '';
+
+    // Mostrar el GPS actual en la primera posición (coordenada 0)
+    const gpsProducto = gpsProductos[gpsIndex];
+    const gpsElement = crearProductoElement(gpsProducto, coordenadas[0] || { top: '10%', left: '10%' }, true, activo);
+    productosContainer.appendChild(gpsElement);
+
+    // Filtrar accesorios compatibles según el campo "Compatible"
+    const accesoriosCompatibles = accesorios.filter(accesorio => {
+      if (!accesorio.Compatible || accesorio.Compatible.trim().toLowerCase() === 'no compatible') {
+        return false;
+      }
+      const compatibles = accesorio.Compatible.split(',').map(item => item.trim());
+      return compatibles.includes(gpsProducto.id);
+    });
+
+    // Mostrar accesorios compatibles, si existen
+    if (accesoriosCompatibles.length > 0) {
+      accesoriosCompatibles.forEach((accesorio, idx) => {
+        const coord = coordenadas[idx + 1] || { top: '50%', left: '50%' };
+        const accesorioElement = crearProductoElement(accesorio, coord, false, activo);
+        productosContainer.appendChild(accesorioElement);
+      });
+    }
+  }
+
+  /**
+   * Función para crear la card de un producto.
+   * Restaura el estado si ya estaba seleccionado.
+   */
+  function crearProductoElement(producto, coordenada, esGPS, activo) {
+    const productoElement = document.createElement('div');
+    productoElement.className = 'producto-card';
+    productoElement.style.position = 'absolute';
+    productoElement.style.top = coordenada.top;
+    productoElement.style.left = coordenada.left;
+    productoElement.style.width = '180px';
+    productoElement.style.height = '220px';
     productoElement.style.backgroundColor = 'white';
     productoElement.style.border = '1px solid #ccc';
     productoElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
     productoElement.style.cursor = 'pointer';
-    if (!window.productosSeleccionados.some(p => p.id === producto.id)) {
-      window.productosSeleccionados.push(producto);
-    }
-  } else {
-    productoElement.style.opacity = '0.8';
-  }
+    productoElement.style.transition = 'transform 0.3s, box-shadow 0.3s, background-color 0.3s';
+    productoElement.style.padding = '10px';
+    productoElement.style.overflow = 'hidden';
 
-  // Efectos de hover
-  productoElement.addEventListener('mouseenter', () => {
-    productoElement.style.transform = 'scale(1.05)';
-    productoElement.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-  });
-  productoElement.addEventListener('mouseleave', () => {
-    productoElement.style.transform = 'scale(1)';
-    productoElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-  });
-
-  // Evento para mostrar/ocultar la descripción (collapse)
-  const collapseBtn = productoElement.querySelector('.collapse-btn');
-  collapseBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleCollapse(producto, esGPS, productoElement);
-    collapseBtn.classList.toggle('fa-chevron-down');
-    collapseBtn.classList.toggle('fa-chevron-up');
-  });
-
-  // Si el producto es GPS, agregar el botón para cambiar de GPS
-  if (esGPS) {
-    const cambiarBtn = productoElement.querySelector('.cambiar-gps');
-    cambiarBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      gpsIndex = (gpsIndex + 1) % gpsProductos.length;
-      // Guardar la selección actual antes de cambiar
-      window.seleccionesPorActivo[activo] = window.productosSeleccionados.slice();
-      mostrarGPS();
-    });
-  }
-
- // Evento para seleccionar/deseleccionar la card (cada selección representa un kit)
-productoElement.addEventListener('click', () => {
-if (productoElement.classList.contains('seleccionado')) {
-  // Deseleccionar: quitar la clase 'seleccionado' y remover el ícono
-  productoElement.classList.remove('seleccionado');
-  // Quitar el ícono de check si existe
-  const checkIcon = productoElement.querySelector('.selected-icon');
-  if (checkIcon) {
-    checkIcon.remove();
-  }
-  // Remover la clase de animación de salto (si se desea reiniciar la animación en futuras selecciones)
-  productoElement.classList.remove('jump-animation');
-  // Remover el producto de las listas de selección
-  window.productosSeleccionados = window.productosSeleccionados.filter(p => p.id !== producto.id);
-  if (window.seleccionesPorActivo[activo]) {
-    window.seleccionesPorActivo[activo] = window.seleccionesPorActivo[activo].filter(p => p.id !== producto.id);
-  }
-} else {
-  // Seleccionar: agregar la clase 'seleccionado' y aplicar la animación de salto
-  productoElement.classList.add('seleccionado');
-  productoElement.classList.add('jump-animation');
-  // Agregar un ícono de check (FontAwesome) en la esquina superior derecha
-  let checkIcon = productoElement.querySelector('.selected-icon');
-  if (!checkIcon) {
-    checkIcon = document.createElement('i');
-    checkIcon.className = 'fas fa-check selected-icon';
-    
-    // Estilos en línea (puedes moverlos a CSS)
-    checkIcon.style.position = 'absolute';
-    checkIcon.style.top = '10px';
-    checkIcon.style.right = '10px';
-    checkIcon.style.color = 'green';
-    checkIcon.style.fontSize = '35px';
-    productoElement.appendChild(checkIcon);
-  }
-  // Agregar el producto a la selección global y por activo
-  window.productosSeleccionados.push(producto);
-  if (!window.seleccionesPorActivo[activo]) {
-    window.seleccionesPorActivo[activo] = [];
-  }
-  window.seleccionesPorActivo[activo].push(producto);
-}
-});
-
-
-  return productoElement;
-}
-
-/**
- * Función para crear o eliminar la card de descripción (collapse) de un producto.
- * Se posiciona a la izquierda para GPS o a la derecha para accesorios.
- * @param {Object} producto - Datos del producto.
- * @param {Boolean} esGPS - true si el producto es GPS; false si es accesorio.
- * @param {HTMLElement} productElement - La card sobre la que se hizo clic.
- */
-function toggleCollapse(producto, esGPS, productElement) {
-  const descId = 'collapse-' + producto.id;
-  let descCard = document.getElementById(descId);
-  if (descCard) {
-    // Si la card ya está visible, se elimina
-    descCard.remove();
-  } else {
-    // Se crea la card de descripción con detalles del producto
-    descCard = document.createElement('div');
-    descCard.id = descId;
-    descCard.className = 'collapse-card card';
-    descCard.innerHTML = `
-      <div class="card-body">
-        <h5 class="card-title" style="font-size:16px;">${producto.name}</h5>
-        <p class="card-text" style="font-size:14px;">${producto.description}</p>
-        <p class="card-text"><small class="text-muted">${producto.especificaciones || ''}</small></p>
+    productoElement.innerHTML = `
+      <div class="card-content">
+        <div class="producto-img-wrapper" style="width:100%; height:120px; display:flex; align-items:center; justify-content:center; background:#f1f1f1; border-radius:4px; margin-bottom:5px;">
+          <img src="${producto.img}" alt="${producto.name}" class="producto-img" style="max-width:100%; max-height:100%; object-fit:contain;">
+        </div>
+        <p class="producto-nombre" style="margin:5px 0; font-size:16px; text-align:center;">${producto.name}</p>
+        <div class="producto-actions" style="text-align:center;">
+          ${ esGPS ? '<i class="fas fa-sync-alt cambiar-gps" title="Cambiar GPS" style="cursor:pointer; margin-right:5px;"></i>' : '' }
+          <i class="fas fa-chevron-down collapse-btn" title="Ver Descripción" style="cursor:pointer;"></i>
+        </div>
       </div>
     `;
-    // Posicionar la card de descripción fuera de la card principal
-    const rect = productElement.getBoundingClientRect();
+
+    // Efectos de hover para animación
+    productoElement.addEventListener('mouseenter', () => {
+      productoElement.style.transform = 'scale(1.05)';
+      productoElement.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+    });
+    productoElement.addEventListener('mouseleave', () => {
+      productoElement.style.transform = 'scale(1)';
+      productoElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+    });
+
+    // Evento para mostrar/ocultar la descripción (collapse)
+    const collapseBtn = productoElement.querySelector('.collapse-btn');
+    collapseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleCollapse(producto, esGPS, productoElement);
+      collapseBtn.classList.toggle('fa-chevron-down');
+      collapseBtn.classList.toggle('fa-chevron-up');
+    });
+
+    // Para GPS: botón para cambiar el GPS
     if (esGPS) {
-      descCard.style.left = (rect.left - 270) + 'px';
-    } else {
-      descCard.style.left = (rect.right + 20) + 'px';
+      const cambiarBtn = productoElement.querySelector('.cambiar-gps');
+      cambiarBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        gpsIndex = (gpsIndex + 1) % gpsProductos.length;
+        almacenado[activo] = window.productosSeleccionados.slice();
+        localStorage.setItem('seleccionesPorActivo', JSON.stringify(almacenado));
+        mostrarGPS();
+      });
     }
-    descCard.style.top = rect.top + 'px';
-    descCard.style.position = 'absolute';
-    descCard.style.width = '220px';
-    descCard.style.zIndex = '1000';
-    descCard.style.backgroundColor = '#fff';
-    descCard.style.border = '1px solid #ccc';
-    descCard.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-    descCard.style.padding = '10px';
 
-  
+    // Evento para seleccionar/deseleccionar la card
+    productoElement.addEventListener('click', () => {
+      if (productoElement.classList.contains('seleccionado')) {
+        // Deseleccionar
+        productoElement.classList.remove('seleccionado');
+        productoElement.style.background = '';
+        const checkIcon = productoElement.querySelector('.selected-icon');
+        if (checkIcon) {
+          checkIcon.remove();
+        }
+        productoElement.classList.remove('jump-animation');
+        window.productosSeleccionados = window.productosSeleccionados.filter(p => p.id !== producto.id);
+        if (window.seleccionesPorActivo[activo]) {
+          window.seleccionesPorActivo[activo] = window.seleccionesPorActivo[activo].filter(p => p.id !== producto.id);
+        }
+      } else {
+        // Seleccionar: agregar clases y animación, y cambiar el fondo
+        productoElement.classList.add('seleccionado');
+        productoElement.classList.add('jump-animation');
+        productoElement.style.background = 'linear-gradient(135deg, #284170, #943c7a)';
+        let checkIcon = productoElement.querySelector('.selected-icon');
+        if (!checkIcon) {
+          checkIcon = document.createElement('i');
+          checkIcon.className = 'fas fa-award selected-icon';
+          checkIcon.style.position = 'absolute';
+          checkIcon.style.top = '10px';
+          checkIcon.style.right = '10px';
+          checkIcon.style.color = '#d4af37'; // Dorado
+          checkIcon.style.fontSize = '35px';
+          productoElement.appendChild(checkIcon);
+        }
+        window.productosSeleccionados.push(producto);
+        if (!window.seleccionesPorActivo[activo]) {
+          window.seleccionesPorActivo[activo] = [];
+        }
+        window.seleccionesPorActivo[activo].push(producto);
+      }
+      // Actualizar localStorage para este activo
+      almacenado[activo] = window.productosSeleccionados.slice();
+      localStorage.setItem('seleccionesPorActivo', JSON.stringify(almacenado));
+    });
 
-    document.body.appendChild(descCard);
+    return productoElement;
   }
+
+  // Función para crear o eliminar la card de descripción (collapse) del producto
+  function toggleCollapse(producto, esGPS, productElement) {
+    const descId = 'collapse-' + producto.id;
+    let descCard = document.getElementById(descId);
+    if (descCard) {
+      descCard.remove();
+    } else {
+      descCard = document.createElement('div');
+      descCard.id = descId;
+      descCard.className = 'collapse-card card';
+      descCard.innerHTML = `
+        <div class="card-body">
+          <h5 class="card-title" style="font-size:16px;">${producto.name}</h5>
+          <p class="card-text" style="font-size:14px;">${producto.description}</p>
+          <p class="card-text"><small class="text-muted">${producto.especificaciones || ''}</small></p>
+        </div>
+      `;
+      const rect = productElement.getBoundingClientRect();
+      if (esGPS) {
+        descCard.style.left = (rect.left - 270) + 'px';
+      } else {
+        descCard.style.left = (rect.right + 20) + 'px';
+      }
+      descCard.style.top = rect.top + 'px';
+      descCard.style.position = 'absolute';
+      descCard.style.width = '220px';
+      descCard.style.zIndex = '1000';
+      descCard.style.backgroundColor = '#fff';
+      descCard.style.border = '1px solid #ccc';
+      descCard.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+      descCard.style.padding = '10px';
+      document.body.appendChild(descCard);
+    }
+  }
+
+  // Mostrar inicialmente el GPS y accesorios compatibles
+  mostrarGPS();
 }
 
-// Evento para el botón "ADD": muestra alert, agrega los kits a la lista global (factura)
-// y actualiza el contenido del modal con la factura en formato de tabla.
+// Evento para el botón "ADD Productos"
 document.getElementById('addProductos').addEventListener('click', () => {
   if (window.productosSeleccionados.length === 0) {
-    alert('No hay productos seleccionados.');
+    alert('No hay productos seleccionados para este activo.');
     return;
   }
-  // Determinar el activo actual y obtener su nombre
-  const activo = window.currentActivo || (productosFiltrados[0] && productosFiltrados[0].activo.split(',')[0].trim()) || 'Activo';
+  // Determinar el activo actual utilizando window.productosFiltrados
+    const activo = window.currentActivo ? window.currentActivo : 'Activo';
+
+
+  // Obtener la cantidad del contador
   const kitCount = parseInt(document.getElementById('contador').textContent, 10) || 1;
-  const productosNombres = window.productosSeleccionados.map(p => p.name).join(', ');
+
+  // Recuperar o inicializar la estructura en localStorage llamada "listaDeKits" como un arreglo
+  let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
   
-  // Agregar la selección actual a la lista de kits (factura), guardando también el nombre del activo
-  if (!window.listaDeKits) {
-    window.listaDeKits = [];
-  }
-  window.listaDeKits = window.listaDeKits.concat(window.productosSeleccionados.map(item => ({ ...item, activo })));
-  
-  
-  // Actualizar el contenido del modal (factura) mediante generateFacturaHTML
+  // Crear un nuevo kit (no actualizar el existente)
+  const newKit = {
+    activo: activo,
+    productos: window.productosSeleccionados.slice(), // copia de la selección actual
+    cantidad_Kits: kitCount,
+    gps: window.productosSeleccionados.filter(p => p.categoria === 'GPS').length,
+    accesorios: window.productosSeleccionados.filter(p => p.categoria === 'ACCESORIO').length,
+    id: Date.now(), // Nuevo id único para este kit
+    plan:"",
+    total_suscripciones: 0,
+    detalles_plan: "",
+  };
+
+  listaDeKits.push(newKit);
+  localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+
+  alert(`${kitCount} producto(s) para ${activo} añadidos.`);
+
+  // Actualizar el contenido del modal factura y resumen (suponiendo que estas funciones existen)
   const facturaElement = document.getElementById('factura');
   if (facturaElement) {
-    facturaElement.innerHTML = generateFacturaHTML(window.listaDeKits);
+    facturaElement.innerHTML = generateFacturaHTML(listaDeKits);
   }
-   // Actualizar el bloque "Detalles del Kit"
-   updateCollapseKit(window.listaDeKits);
-  
-   // Actualizar el "Resumen de la Compra" (total, dispositivos y licencias)
-   updateFacturaSummary(window.listaDeKits);
-  
-  // Luego de "Add": limpiar la selección, cerrar colapsos y re-renderizar el activo
+  updateCollapseKit(listaDeKits);
+  updateFacturaSummary(listaDeKits);
+
+   // Limpiar la selección actual para este activo y reiniciar el contador
   window.productosSeleccionados = [];
-  window.seleccionesPorActivo[activo] = [];
+  if (window.seleccionesPorActivo[activo]) {
+    window.seleccionesPorActivo[activo] = [];
+  }
   document.querySelectorAll('.collapse-card').forEach(card => card.remove());
-  mostrarGPS();
+  // Re-pintar los productos (manteniendo las coordenadas, ajusta según corresponda)
+  pintarProductos(window.productosFiltrados, []);
+  // Reiniciar visualmente el contador y la variable interna
+  document.getElementById('contador').textContent = '0';
+  contador = 0;
+  
+  // Lógica para incrementar y decrementar el contador
+ incrementar = document.getElementById('incrementar');
+ decrementar = document.getElementById('decrementar');
+ contadorElement = document.getElementById('contador');
+ contador = parseInt(contadorElement.textContent, 10) || 0;
+
+incrementar.addEventListener('click', () => {
+  contador++;
+  contadorElement.textContent = contador;
 });
 
-// Mostrar inicialmente el GPS actual y sus accesorios compatibles
-mostrarGPS();
-}
+decrementar.addEventListener('click', () => {
+  if (contador > 0) {
+    contador--;
+    contadorElement.textContent = contador;
+  }
+});
+});
+
+/*  HAhora vamos al step2*/
+
 
 /**
 * Función para generar el HTML de la factura (lista de kits) en forma de tabla.
@@ -406,110 +417,125 @@ return html;
 
 //-----------------------------------------------------------------------------------------------------------------------------
 
-  botones.forEach(boton => {
-      boton.addEventListener('click', function () {
-          let tipoVehiculo = this.getAttribute("data-vehiculo");
+botones.forEach(boton => {
+  boton.addEventListener('click', function () {
+      let tipoVehiculo = this.getAttribute("data-vehiculo");
+      
+      // Actualiza el activo global y reinicia las selecciones y contador para el nuevo activo
+      window.currentActivo = tipoVehiculo;
+      window.productosSeleccionados = [];
+      // Reinicia o crea la entrada para este activo en seleccionesPorActivo
+      if (!window.seleccionesPorActivo) {
+          window.seleccionesPorActivo = {};
+      }
+      window.seleccionesPorActivo[tipoVehiculo] = [];
+      document.getElementById('contador').textContent = '1';
+      contador = 1;
+      
+      // Actualiza el kit según el tipo de vehículo
+      switch (tipoVehiculo) {
+          case "Carro":
+            mensaje.innerHTML = "¡<i class='fas fa-car'></i> Protege a tu familia y tu inversión!<br>Diseña el sistema de seguridad perfecto para tu carro: ubica, rastrea y controla en <strong>tiempo real</strong> prevenir es mejor que lamentar.";
+            actualizarImagenVehiculo(tipoVehiculo);
+            const productosCarro = filtrarProductosPorActivo("Carro");
+            pintarProductos(productosCarro, [
+                { top: '50%', left: '3%' },
+                { top: '50%', left: '80%' },
+                { top: '3%', left: '80%' },
+                { top: '0%', left: '1%' },
+            ]);
+            nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CARRO";
+            autoSelectPlan()
+            break;
 
-          // Actualiza el kit según el tipo de vehículo
-          switch (tipoVehiculo) {
-              case "Carro":
-                mensaje.innerHTML = "¡<i class='fas fa-car'></i> Protege a tu familia y tu inversión!<br>Diseña el sistema de seguridad perfecto para tu carro: ubica, rastrea y controla en <strong>tiempo real</strong>  prevenir es mejor que lamentar.";
-                actualizarImagenVehiculo(tipoVehiculo);
-                  const productosCarro = filtrarProductosPorActivo("Carro");
-                  pintarProductos(productosCarro, [
-                      { top: '50%', left: '3%' },
-                      { top: '50%', left: '80%' },
-                      { top: '3%', left: '80%' },
-                      { top: '0%', left: '1%' },
-                      
-                  ]);
-                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CARRO";
-                  break;
+          case "Moto":
+            mensaje.innerHTML = "¡<i class='fas fa-motorcycle'></i> Toma el control total de tu moto!<br>Activa un GPS preciso que te permite apagarla remotamente y gestionar cada trayecto.";
+            actualizarImagenVehiculo(tipoVehiculo);
+            const productosMoto = filtrarProductosPorActivo("Moto");
+            pintarProductos(productosMoto, [
+                { top: '2%', left: '13%' },
+                { top: '49%', left: '6%' },
+            ]);
+            nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA MOTO";
+            autoSelectPlan()
+            break;
 
-              case "Moto":
-                mensaje.innerHTML = "¡<i class='fas fa-motorcycle'></i> Toma el control total de tu moto!<br>Activa un GPS preciso que te permite apagarla remotamente y gestionar cada trayecto.";
-                actualizarImagenVehiculo(tipoVehiculo);
-                  const productosMoto = filtrarProductosPorActivo("Moto");
-                  pintarProductos(productosMoto, [
-                      { top: '2%', left: '13%' },
-                      { top: '49%', left: '6%' },
+          case "Camion":
+            mensaje.innerHTML = "¡<i class='fas fa-truck'></i> Optimiza la gestión de tu camión!<br>Ubica y rastrea cada ruta en <strong>tiempo real</strong> para mejorar la logística y la seguridad de tus activos.";
+            actualizarImagenVehiculo(tipoVehiculo);
+            const productosCamion = filtrarProductosPorActivo("Camion");
+            pintarProductos(productosCamion, [
+                { top: '50%', left: '2%' },
+                { top: '50%', left: '20%' },
+                { top: '50%', left: '80%' },
+                { top: '50%', left: '50%' },
+                { top: '0%', left: '80%' },
+                { top: '0%', left: '1%' }
+            ]);
+            nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CAMIÓN";
+            autoSelectPlan()
+            break;
 
-                     
-                  ]);
-                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA MOTO";
-                  break;
+          case "Personas":
+            mensaje.innerHTML = "¡<i class='fas fa-users'></i> Protege a tu equipo!<br>Activa el botón de pánico y gestiona la seguridad de tus colaboradores con rastreo en <strong>tiempo real</strong>.";
+            actualizarImagenVehiculo(tipoVehiculo);
+            const productosPersonas = filtrarProductosPorActivo("Personas");
+            pintarProductos(productosPersonas, [
+                { top: '25%', left: '80%' },
+            ]);
+            nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA PERSONAS";
+            autoSelectPlan()
+            break;
 
-              case "Camion":
-                mensaje.innerHTML = "¡<i class='fas fa-truck'></i> Optimiza la gestión de tu camión!<br>Ubica y rastrea cada ruta en <strong>tiempo real</strong> para mejorar la logística y la seguridad de tus activos.";
-                actualizarImagenVehiculo(tipoVehiculo);
-                  const productosCamion = filtrarProductosPorActivo("Camion");
-                  pintarProductos(productosCamion, [
-                      { top: '50%', left: '2%' },
-                      { top: '50%', left: '20%' },
-                      { top: '50%', left: '80%' },
-                      { top: '50%', left: '50%' },
-                      { top: '0%', left: '80%' },
-                      { top: '0%', left: '1%' }
-                  ]);
-                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CAMIÓN";
-                  break;
+          case "Carga":
+            mensaje.innerHTML = "¡<i class='fas fa-box'></i> Maximiza la eficiencia de tus envíos!<br>Controla y gestiona cada carga con un rastreo satelital preciso y en <strong>tiempo real</strong>.";
+            actualizarImagenVehiculo(tipoVehiculo);
+            const productosCarga = filtrarProductosPorActivo("Carga");
+            pintarProductos(productosCarga, [
+                { top: '1%', left: '80%' },
+                { top: '50%', left: '40%' },
+                { top: '50%', left: '20%' },
+                { top: '50%', left: '0%' },
+                { top: '0%', left: '1%' },
+                { top: '60%', left: '20%' }
+            ]);
+            nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CARGA";
+            autoSelectPlan()
+            break;
 
-              case "Personas":
-                mensaje.innerHTML = "¡<i class='fas fa-users'></i> Protege a tu equipo!<br>Activa el botón de pánico y gestiona la seguridad de tus colaboradores con rastreo en <strong>tiempo real</strong>.";
-                actualizarImagenVehiculo(tipoVehiculo);
-                  const productosPersonas = filtrarProductosPorActivo("Personas");
-                  pintarProductos(productosPersonas, [
-                      { top: '25%', left: '80%' },
-                  ]);
-                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA PERSONAS";
-                  break;
+          case "Flotas":
+            mensaje.innerHTML = "¡<i class='fas fa-truck-moving'></i> Gestiona tu flota con precisión!<br>Ubica y controla todos tus vehículos en <strong>tiempo real</strong> para optimizar la seguridad y recuperación.";
+            actualizarImagenVehiculo(tipoVehiculo);
+            const productosFlotas = filtrarProductosPorActivo("Flotas");
+            pintarProductos(productosFlotas, [
+                { top: '5%', left: '75%' },
+                { top: '50%', left: '5%' },
+                { top: '0%', left: '20%' },
+                { top: '50%', left: '80%' },
+                { top: '1%', left: '5%' },
+                { top: '50%', left: '20%' }
+            ]);
+            nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA FLOTAS";
+            autoSelectPlan()
+            break;
 
-              case "Carga":
-                mensaje.innerHTML = "¡<i class='fas fa-box'></i> Maximiza la eficiencia de tus envíos!<br>Controla y gestiona cada carga con un rastreo satelital preciso y en <strong>tiempo real</strong>.";
-                actualizarImagenVehiculo(tipoVehiculo);
-                  const productosCarga = filtrarProductosPorActivo("Carga");
-                  pintarProductos(productosCarga, [
-                      { top: '1%', left: '80%' },
-                      { top: '50%', left: '40%' },
-                      { top: '50%', left: '20%' },
-                      { top: '50%', left: '0%' },
-                      { top: '0%', left: '1%' },
-                      { top: '60%', left: '20%' }
-                  ]);
-                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA CARGA";
-                  break;
+          case "Mascotas":
+            mensaje.innerHTML = "¡<i class='fas fa-paw'></i> Cuida a tus peludos!<br>Rastrea a tus mascotas en <strong>tiempo real</strong> y asegúrate de que nunca se alejen de tu lado.";
+            actualizarImagenVehiculo(tipoVehiculo);
+            const productosMascotas = filtrarProductosPorActivo("Mascotas");
+            pintarProductos(productosMascotas, [
+                { top: '1%', left: '80%' },
+            ]);
+            nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA MASCOTAS";
+            autoSelectPlan()
+            break;
 
-              case "Flotas":
-                mensaje.innerHTML = "¡<i class='fas fa-truck-moving'></i> Gestiona tu flota con precisión!<br>Ubica y controla todos tus vehículos en <strong>tiempo real</strong> para optimizar la seguridad y recuperación.";
-                actualizarImagenVehiculo(tipoVehiculo);
-                  const productosFlotas = filtrarProductosPorActivo("Flotas");
-                  pintarProductos(productosFlotas, [
-                      { top: '5%', left: '75%' },
-                      { top: '50%', left: '5%' },
-                      { top: '0%', left: '20%' },
-                      { top: '50%', left: '80%' },
-                      { top: '1%', left: '5%' },
-                      { top: '50%', left: '20%' }
-                  ]);
-                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA FLOTAS";
-                  break;
-
-              case "Mascotas":
-                mensaje.innerHTML = "¡<i class='fas fa-paw'></i> Cuida a tus peludos!<br>Rastrea a tus mascotas en <strong>tiempo real</strong> y asegúrate de que nunca se alejen de tu lado.";
-                actualizarImagenVehiculo(tipoVehiculo);
-                  const productosMascotas = filtrarProductosPorActivo("Mascotas");
-                  pintarProductos(productosMascotas, [
-                      { top: '1%', left: '80%' },
-                     
-                  ]);
-                  nombrePaquete.innerHTML = "<i class='fas fa-plus-circle'></i> AÑADE TU KIT GPS PARA MASCOTAS";
-                  break;
-
-              default:
-                  mensaje.textContent = "Selecciona una opción.";
-          }
-      });
+          default:
+              mensaje.textContent = "Selecciona una opción.";
+      }
   });
+});
+
 
   // Lógica para incrementar y decrementar el contador
   incrementar.addEventListener('click', () => {
