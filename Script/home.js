@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const contenedorProductos = document.querySelector("#list-items");
 
     // Cargar productos desde el archivo data.json
-    fetch('../Template/data.json')
+    fetch('http://localhost:8080/productos/traer')
         .then(response => response.json())
         .then(data => {
-
-            productosMasVendidos = data.item.slice(0, 4);
+            console.log("Productos obtenidos:", data); 
+            productosMasVendidos = data.slice(0, 4);
             cargarProductos(productosMasVendidos, "#contenedorTopProductos");
         })
         .catch(error => console.error("Error al cargar los productos:", error));
@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="info">
                         <p class="categoria">${producto.categoria}</p>
-                        <h5 class="card-title">${producto.name}</h5>
+                        <h5 class="card-title">${producto.nombre}</h5>
                         <p class="precio">${producto.precio}</p>
-                        <p class="descripcion">${producto.description}</p>
+                        <p class="descripcion">${producto.descripcion}</p>
                         <div class="clasificacion" id="clasificacion-${index}"></div>
                     </div>
                     <a href="#" class="btn btn-cart w-100 producto-agregar" id="${producto.id}">
@@ -107,8 +107,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Función para agregar al carrito
     function agregarAlCarrito(e) {
         e.preventDefault();
-        const boton = e.currentTarget;
+        const boton = e.currentTarget.id;
         const idBoton = e.currentTarget.id;
+        console.log("ID del botón:", idBoton);
+        
         const productoAgregado = productosMasVendidos.find(producto => producto.id === idBoton);
 
         const textoOriginal = boton.innerHTML;
@@ -131,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             productosEnCarrito.push(productoAgregado);
         }
 
-        localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+       
         actualizarNumerito();
     }
 
@@ -289,12 +291,6 @@ function showProductDetails(imgElement) {
     let description = card.querySelector(".descripcion")?.textContent || "Sin descripción";
     let productId = card.querySelector(".producto-agregar")?.id || null;
 
-    console.log("Imagen:", img);
-    console.log("Nombre:", name);
-    console.log("Categoría:", category);
-    console.log("Precio:", price);
-    console.log("Descripción:", description);
-
     // Verifica si los elementos del modal existen antes de asignar valores
     let modalImg = document.getElementById("modalProductImg");
     let modalName = document.getElementById("modalProductName");
@@ -365,7 +361,3 @@ function handleModalAddToCart(e) {
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
     actualizarNumerito();
 }
-// modalagregar
-
-
-// 22222
