@@ -287,6 +287,143 @@ function pintarProductos(productosFiltrados, coordenadas) {
   // Mostrar inicialmente el GPS y accesorios compatibles
   mostrarGPS();
 }
+function calcularYMostrarTotalCompra() {
+  let totalCompra = 0;
+  const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+
+  listaDeKits.forEach(kit => {
+      totalCompra += kit.PrecioTotal;
+  });
+
+  // Formatear como COP
+  const formattedTotal = totalCompra.toLocaleString('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+  });
+
+  // Mostrar en el elemento con id "totalKits"
+  const totalKitsElement = document.getElementById('totalKits');
+  if (totalKitsElement) {
+      totalKitsElement.textContent = formattedTotal;
+  }
+
+  // Mostrar en el elemento con id "totalCompra"
+  const totalCompraElement = document.getElementById('totalCompra');
+  if (totalCompraElement) {
+      totalCompraElement.innerText = formattedTotal; // Use innerText instead of textContent
+  }
+}
+
+function actualizarInformacionDeCompra() {
+  const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+
+  // Actualizar activos seleccionados
+  const botonesActivos = document.querySelectorAll('#activosSeleccionados button');
+  const activosEnKits = [...new Set(listaDeKits.map(kit => kit.activo))];
+
+  botonesActivos.forEach(boton => {
+      const activo = boton.textContent;
+
+      if (activosEnKits.includes(activo)) {
+          boton.classList.remove('btn-outline-dark');
+          boton.classList.add('btn-dark');
+      } else {
+          boton.classList.remove('btn-dark');
+          boton.classList.add('btn-outline-dark');
+      }
+  });
+
+  // Calcular totales para mostrar en el resumen de compra
+  let totalGPS = 0;
+  let totalAccesorios = 0;
+  let totalDispositivos = 0; // Incluye GPS y accesorios
+  let totalLicenciasTrackeadas = 0;
+
+  listaDeKits.forEach(kit => {
+      totalGPS += kit.gps * kit.cantidad_Kits; // Suma de GPS por cada kit multiplicado por cantidad de kits
+      totalAccesorios += kit.accesorios * kit.cantidad_Kits; // Suma de accesorios por cada kit multiplicado por cantidad de kits
+
+      // Dispositivos totales incluyen tanto GPS como accesorios, pero aquí solo contamos los dispositivos trackeados (GPS)
+      totalDispositivos += (kit.gps + kit.accesorios) * kit.cantidad_Kits;
+
+      // Licencias trackeadas son equivalentes a los dispositivos GPS, ya que cada uno requiere una licencia para ser rastreado.
+      totalLicenciasTrackeadas += (kit.totalLicencias) * kit.cantidad_Kits;
+      
+});
+
+// Mostrar información en el resumen de compra
+document.getElementById('gpsUnits').textContent = `${totalGPS} unidades`;
+document.getElementById('accesoriosUnits').textContent = `${totalAccesorios} unidades`;
+document.getElementById('dispositivosCount').textContent = `${totalDispositivos} unidades`;
+document.getElementById('licenciasCount').textContent = `${totalLicenciasTrackeadas} Licencias track`;
+
+}
+
+document.getElementById('deleteProductos').addEventListener('click', function() {
+  // Determinar el activo actual
+  const activoActual = window.currentActivo ? window.currentActivo : 'Activo';
+
+  // Obtener la lista de kits desde localStorage
+  let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+
+  // Filtrar la lista para mantener solo los kits de otros activos
+  const kitsAEliminar = listaDeKits.filter(kit => kit.activo === activoActual);
+
+ if(kitsAEliminar.length === 0){
+  return alert(`No hay kits para eliminar en el activo actual ${activoActual}`);
+ }
+
+  // Confirmación antes de eliminar
+  if (confirm(`¿Eliminar todos los kits de ${activoActual}?`)) {
+      // Filtrar la lista para excluir los kits del activo actual
+      listaDeKits = listaDeKits.filter(kit => kit.activo !== activoActual);
+
+      // Guardar la lista actualizada en localStorage
+      localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+
+      // Recalcular y mostrar el total de la compra
+      calcularYMostrarTotalCompra();
+
+      // Opcional: Mostrar mensaje de éxito
+      alert(`¡Todos los kits de ${activoActual} han sido eliminados!`);
+  } else {
+      // Si el usuario cancela
+      alert("Eliminación cancelada.");
+  }
+});
+
+
+const PLANES = {
+  start: 15000,
+  starter: 20000,
+  enterprise: 30000
+};
+let isRealTimeEnabled = false;
+
+
+function definirPlan(gpsCount, vehiculo) {
+    if (gpsCount < 3 && (vehiculo === 'Carro' || vehiculo === 'Moto')) {
+        return 'start';
+    } else if (gpsCount >= 4 && gpsCount <= 6 && (vehiculo === 'Camion' || vehiculo === 'Carga')) {
+        return 'starter';
+    } else if (gpsCount > 6 || vehiculo === 'Flotas') {
+        return 'enterprise';
+    } else {
+        return 'start'; // Plan por defecto
+    }
+}
+
+
+function calcularPrecioTotal(productos, cantidadKits) {
+  return productos.reduce((total, producto) => total + producto.precio * cantidadKits, 0);
+}
+
+window.toggleRealTime = function (checkbox) {
+  isRealTimeEnabled = checkbox.checked;
+};
+
+
 
 // Evento para el botón "ADD Productos"
 document.getElementById('addProductos').addEventListener('click', () => {
@@ -300,6 +437,14 @@ document.getElementById('addProductos').addEventListener('click', () => {
 
   // Obtener la cantidad del contador
   const kitCount = parseInt(document.getElementById('contador').textContent, 10) || 1;
+  const cantidadGPS = window.productosSeleccionados.filter(p => p.categoria === 'GPS').length;
+  const planSeleccionado = definirPlan(cantidadGPS, activo);
+
+  let costoPlanPorKit = isRealTimeEnabled ? PLANES[planSeleccionado] * cantidadGPS : 0;
+  let costoTotalPlan = costoPlanPorKit * kitCount;
+
+  let precioTotalProductos = calcularPrecioTotal(window.productosSeleccionados, kitCount);
+  let precioTotalFinal = precioTotalProductos + costoTotalPlan;
 
   // Recuperar o inicializar la estructura en localStorage llamada "listaDeKits" como un arreglo
   let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
@@ -312,15 +457,18 @@ document.getElementById('addProductos').addEventListener('click', () => {
     gps: window.productosSeleccionados.filter(p => p.categoria === 'GPS').length,
     accesorios: window.productosSeleccionados.filter(p => p.categoria === 'ACCESORIO').length,
     id: Date.now(), // Nuevo id único para este kit
-    plan:"Plan Start",
-    totalLicencias:window.productosSeleccionados.filter(p => p.categoria === 'GPS').length,
+    plan: definirPlan(window.productosSeleccionados.filter(p => p.categoria === 'GPS').length, window.currentActivo ? window.currentActivo : 'Activo'),
+    totalLicencias: kitCount,
     detallesPlan: "alertas personalizadas",
     Suscripcion:"indefinido",
-    Total:100000
+    PrecioTotal: precioTotalFinal
   };
 
   listaDeKits.push(newKit);
   localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+  calcularYMostrarTotalCompra();
+  actualizarInformacionDeCompra()
+
 
 const popup = document.createElement('div');
 popup.style.position = 'fixed';
@@ -407,6 +555,13 @@ function getActiveIcon(activo) {
     default: return "fas fa-box";
   }
 }
+
+actualizarInformacionDeCompra()
+calcularYMostrarTotalCompra();
+
+
+
+
 
 function generateFacturaHTML() {
   // Recuperar o inicializar la lista de kits desde localStorage
