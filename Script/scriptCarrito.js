@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 const productoHTML = `
                 <div class="cart-item">
                     <div class="cart-item-producto">
-                        <img src="${producto.img}" alt="${producto.name}" class="cart-item-img">
-                        <span>${producto.name}</span>
+                        <img src="${producto.img}" alt="${producto.nombre}" class="cart-item-img">
+                        <span>${producto.nombre}</span>
                     </div>
                     <div class="cart-item-precio">$${producto.precio.toFixed(2)}</div>
                     <div class="cart-item-cantidad">${producto.cantidad}</div>
                     <div class="cart-item-acciones">
-                        <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${producto.id}')">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${producto.id_producto}')">Eliminar</button>
                     </div>
                 </div>
             `;
@@ -45,8 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Eliminar producto del carrito
     window.eliminarDelCarrito = function (idProducto) {
-        console.log("Eliminando producto con ID:", idProducto);
-        productosEnCarrito = productosEnCarrito.filter(producto => producto.id !== idProducto);
+        productosEnCarrito = productosEnCarrito.filter(producto => producto.id_producto !== parseInt(idProducto, 10));
         localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
         mostrarCarrito();
     };
