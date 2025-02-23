@@ -348,7 +348,6 @@ function actualizarInformacionDeCompra() {
       totalDispositivos += (kit.gps + kit.accesorios) * kit.cantidad_Kits;
 
       // Licencias trackeadas son equivalentes a los dispositivos GPS, ya que cada uno requiere una licencia para ser rastreado.
-      totalLicenciasTrackeadas += (kit.totalLicencias) * kit.cantidad_Kits;
       
 });
 
@@ -356,7 +355,6 @@ function actualizarInformacionDeCompra() {
 document.getElementById('gpsUnits').textContent = `${totalGPS} unidades`;
 document.getElementById('accesoriosUnits').textContent = `${totalAccesorios} unidades`;
 document.getElementById('dispositivosCount').textContent = `${totalDispositivos} unidades`;
-document.getElementById('licenciasCount').textContent = `${totalLicenciasTrackeadas} Licencias track`;
 
 }
 
@@ -443,6 +441,12 @@ document.getElementById('addProductos').addEventListener('click', () => {
   let costoPlanPorKit = isRealTimeEnabled ? PLANES[planSeleccionado] * cantidadGPS : 0;
   let costoTotalPlan = costoPlanPorKit * kitCount;
 
+  if (isRealTimeEnabled) {
+      totalLicenciasTrackeadas = cantidadGPS * kitCount;
+      // Si el toggle está activado, cuenta la cantidad de GPS multiplicada por la cantidad de kits
+  } else {
+      totalLicenciasTrackeadas = 0; // Si el toggle está desactivado, no cuenta ninguna licencia
+  }
   let precioTotalProductos = calcularPrecioTotal(window.productosSeleccionados, kitCount);
   let precioTotalFinal = precioTotalProductos + costoTotalPlan;
 
@@ -458,7 +462,7 @@ document.getElementById('addProductos').addEventListener('click', () => {
     accesorios: window.productosSeleccionados.filter(p => p.categoria === 'ACCESORIO').length,
     id: Date.now(), // Nuevo id único para este kit
     plan: definirPlan(window.productosSeleccionados.filter(p => p.categoria === 'GPS').length, window.currentActivo ? window.currentActivo : 'Activo'),
-    totalLicencias: kitCount,
+    totalLicencias: totalLicenciasTrackeadas,
     detallesPlan: "alertas personalizadas",
     Suscripcion:"indefinido",
     PrecioTotal: precioTotalFinal
