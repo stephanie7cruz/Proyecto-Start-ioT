@@ -34,70 +34,39 @@
         <h4 class="mt-3 text-center">
           Da click en los componentes que mejor se adapten a tus necesidades.
         </h4>
-         <!-- 5. SELECTOR DE ACTIVOS -->
-         <div id="vehiculoSelector" class="btn-group mt-3 d-flex justify-content-center" role="group">
-          <button class="btn btn-outline-dark" data-vehiculo="Carro"><i class='fas fa-car'></i> Carro</button>
-          <button class="btn btn-outline-dark" data-vehiculo="Moto"><i class='fas fa-motorcycle'></i> Moto</button>
-          <button class="btn btn-outline-dark" data-vehiculo="Camion"><i class='fas fa-truck'></i> Camión</button>
-          <button class="btn btn-outline-dark" data-vehiculo="Carga"><i class='fas fa-box'></i> Carga</button>
-          <button class="btn btn-outline-dark" data-vehiculo="Flotas"><i class='fas fa-users'></i> Flotas</button>
-          <button class="btn btn-outline-dark" data-vehiculo="Personas"><i class='fas fa-user-friends'></i> Personas</button>
-          <button class="btn btn-outline-dark" data-vehiculo="Mascotas"><i class='fas fa-paw'></i> Mascotas</button>
-        </div>
-    
-        <!-- 1. BARRA PRINCIPAL: Información del kit y botón "Siguiente" -->
-        <div class="container mt-4">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <div class="row">
-                <!-- Columna Izquierda: Información del kit -->
-                <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end">
-                  <h5 id="nombrePaquete" class="text-dark mb-2">
-                    <i class="fas fa-map-marker-alt me-2"></i>
-                    CONFIRGURA LA MEJOR OPCION PARA PROTEGER TU (VEHÍCULO)
-                  </h5>
-                  <p class="text-muted mb-0">
-                    <i class="fas fa-info-circle me-1"></i>
-                    Aquí puedes añadir kits para personalizar tu sistema de rastreo y seguridad. 
-                    ¡Activa la tecnología de punta en tu vehículo! 🚀
-                  </p>
-                </div>
-    
-                <!-- Columna Derecha: Botones y Toggle Switch -->
-                <div class="col-md-6 d-flex align-items-center justify-content-end position-relative">
-                  <!-- Botones - / + -->
-                  <button class="btn btn-lg btn-outline-secondary me-3" id="decrementar">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <div id="kitCountBox"
-                       class="border rounded px-3 py-2 d-flex align-items-center me-3"
-                       style="min-width: 80px; font-size: 1.5rem; justify-content: center;">
-                    <i class="fas fa-layer-group me-2"></i>
-                    <span id="contador">0</span>
-                  </div>
-                  <button class="btn btn-lg btn-outline-secondary me-4" id="incrementar">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                  <!-- Botón "AGREGAR KIT" -->
-                  <button class="btn btn-lg btn-danger px-4 me-3" id="addProductos">
-                    <i class="fas fa-plus-circle me-2"></i>
-                    ADD
-                  </button>
-    
-                  <!-- Botón "Siguiente" -->
-                  <button class="btn btn-primary btn-lg" id="goStep2">
-                    <i class="fas fa-arrow-right me-2"></i>
-                    Siguiente
-                  </button>
-    
-                   
-                </div>
-    
-              </div>
+            <!-- Botón "Siguiente" -->
+          
+         <!-- 4. BARRA DE PROGRESO -->
+         <div class="container mt-1">
+          <div class="progress" id="wizardProgress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%"
+                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              Paso 1 de 4
             </div>
           </div>
         </div>
     
+
+<div id="vehiculoSelector" class="btn-group mt-3 d-flex justify-content-center" role="group">
+  <button class="btn btn-outline-dark" data-vehiculo="Carro"><i class='fas fa-car'></i> Carro</button>
+  <button class="btn btn-outline-dark" data-vehiculo="Moto"><i class='fas fa-motorcycle'></i> Moto</button>
+  <button class="btn btn-outline-dark" data-vehiculo="Camion"><i class='fas fa-truck'></i> Camión</button>
+  <button class="btn btn-outline-dark" data-vehiculo="Carga"><i class='fas fa-box'></i> Carga</button>
+  <button class="btn btn-outline-dark" data-vehiculo="Flotas"><i class='fas fa-users'></i> Flotas</button>
+  <button class="btn btn-outline-dark" data-vehiculo="Personas"><i class='fas fa-user-friends'></i> Personas</button>
+  <button class="btn btn-outline-dark" data-vehiculo="Mascotas"><i class='fas fa-paw'></i> Mascotas</button>
+</div>
+
+         
+           <!-- 3. MENSAJE SOBRE LA BARRA DE PROGRESO -->
+        <div class="container mt-3 text-center">
+          <p id="mensaje" class="text-secondary" style="font-size: 1.2rem;">
+            <i class="fas fa-satellite-dish me-2"></i>
+            Descubre cómo proteger lo que más te importa
+            <i class="fas fa-map-marker-alt ms-2"></i>
+          </p>
+        </div>
+
         <!-- 2. IMAGEN PRINCIPAL Y PRODUCTOS ENCIMA -->
         <div class="row align-items-center" style="width: 100%; max-width: 1200px; margin: auto;">
           <div class="col-md-12 position-relative">
@@ -107,10 +76,7 @@
                  class="main-image" alt="Kit">
     
             <!-- Precio Total de Kits -->
-            <div id="precioTotal" 
-                 style="position: absolute; bottom: 20px; right: 20px; background-color: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; text-align: center;">
-              Precio Total: $<span id="totalKits">0</span> COP
-            </div>
+          
     
             <div id="productosContainer"
                  class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-around align-items-center">
@@ -119,26 +85,107 @@
           </div>
         </div>
     
-        <!-- 3. MENSAJE SOBRE LA BARRA DE PROGRESO -->
-        <div class="container mt-3 text-center">
-          <p id="mensaje" class="text-secondary" style="font-size: 1.2rem;">
-            <i class="fas fa-satellite-dish me-2"></i>
-            Descubre cómo proteger lo que más te importa
-            <i class="fas fa-map-marker-alt ms-2"></i>
-          </p>
-        </div>
+       
     
-        <!-- 4. BARRA DE PROGRESO -->
-        <div class="container mt-1">
-          <div class="progress" id="wizardProgress">
-            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%"
-                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              Paso 1 de 4
+ 
+    
+          <!-- 5. SELECTOR DE ACTIVOS -->
+     
+       
+<!-- 1. BARRA PRINCIPAL: Información del kit y botón "Siguiente" -->
+<div class="container mt-4" id="step1">
+  <div class="card shadow-sm principal-barra">
+    <div class="card-body">
+      <div class="row">
+        <!-- Columna Izquierda: Información del kit -->
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end">
+          <h5 id="nombrePaquete" class="text-dark mb-2">
+            <i class="fas fa-map-marker-alt me-2"></i>
+            CONFIGURA LA MEJOR OPCIÓN PARA PROTEGER TU (VEHÍCULO)
+          </h5>
+          
+          <!-- Precio y Toggle en la misma línea -->
+          <div class="d-flex align-items-center justify-content-center w-100">
+            <div class="text-center me-4">
+              <p id="totalCompra" class="fw-bold text-primary fs-1">0 COP</p>
+            </div>
+            
+            <!-- Toggle Switch -->
+            <div class="toggle-switch-container">
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="toggleRealTime(this)">
+                <span class="slider" onclick="togglePriceColor(this)">
+                  <div class="slider-content">
+                    <div class="radar-effect"></div>
+                    <span class="slider-circle">
+                      <i class="fas fa-satellite"></i>
+                    </span>
+                    <span class="status-text on">TRACKING ON</span>
+                    <span class="status-text off">TRACKING OFF</span>
+                  </div>
+                </span>
+              </label>
             </div>
           </div>
         </div>
-    
-       
+
+      <!-- Columna Derecha: Botones -->
+<div class="col-md-6">
+  <div class="d-flex align-items-center justify-content-center w-100 flex-wrap">
+    <!-- Botón "Eliminar" -->
+    <button class="btn btn-lg btn-danger px-4 me-3" id="deleteProductos">
+      <i class="fas fa-trash-alt me-2"></i>
+      Delete
+    </button>
+
+    <!-- Botón Decrementar -->
+    <button class="btn btn-lg btn-outline-secondary me-3" id="decrementar">
+      <i class="fas fa-minus"></i>
+    </button>
+
+    <!-- Contador -->
+    <div id="kitCountBox" class="border rounded px-3 py-2 d-flex align-items-center me-3" style="min-width: 80px; font-size: 1.5rem; justify-content: center;">
+      <i class="fas fa-layer-group me-2"></i>
+      <span id="contador">0</span>
+    </div>
+
+    <!-- Botón Incrementar -->
+    <button class="btn btn-lg btn-outline-secondary me-4" id="incrementar">
+      <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Botón "AGREGAR KIT" -->
+    <button class="btn btn-lg btn-success px-4 me-3 fw-bold shadow-lg" id="addProductos" style="background-color: #28a745; border-color: #28a745;">
+      <i class="fas fa-cart-plus me-2"></i>
+      ADD
+    </button>
+  </div>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-end">
+  <button class="btn btn-primary btn-lg" id="goStep2">
+    <i class="fas fa-arrow-right me-2"></i>
+    Siguiente
+  </button>
+</div>
+
+<script>
+function togglePriceColor(checkbox) {
+  const priceElement = document.getElementById('totalCompra');
+  if (checkbox.previousElementSibling.checked) {
+    priceElement.classList.remove('text-primary');
+    priceElement.classList.add('text-muted');
+  } else {
+    priceElement.classList.remove('text-muted');
+    priceElement.classList.add('text-primary');
+  }
+}
+</script>
     
         <!-- 6. BARRA DE CONTROL: Toggle ON/OFF, Botonera de +/-, y Botón "AGREGAR KIT" -->
         <!-- Este bloque se ha reubicado dentro del bloque anterior -->
@@ -267,7 +314,7 @@
           <!-- Card Principal: Detalles del Kit -->
           <div class="card shadow-sm mb-4">
             <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-box me-2"></i> Detalles del Kit</h5>
+
 
               <!-- Desplegable 1: Detalles del Kit -->
               <div class="card mb-3" id="detallesKitCard">
@@ -369,105 +416,52 @@
 
 
   <!-- =========================
-       STEP 3: PAGO / DATOS DE ENVÍO
+       STEP 3: CONFIRMACIÓN
        ========================= -->
   <div id="step3" class="container mt-4 fade-step d-none">
     <div class="step-container">
-      <h2 class="text-center mb-4">Pago / Datos de Envío</h2>
-      <div class="row">
-        <div class="col-md-8 mx-auto">
-          <div class="card shadow-sm mb-4">
-            <div class="card-body">
-              <h5 class="card-title">Información de Envío</h5>
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre Completo</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre" />
-              </div>
-              <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="direccion" placeholder="Dirección de entrega" />
-              </div>
-              <div class="mb-3">
-                <label for="ciudad" class="form-label">Ciudad</label>
-                <input type="text" class="form-control" id="ciudad" placeholder="Ciudad" />
-              </div>
-              <div class="mb-3">
-                <label for="metodoPago" class="form-label">Método de Pago</label>
-                <select class="form-select" id="metodoPago">
-                  <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
-                  <option value="Transferencia">Transferencia Bancaria</option>
-                  <option value="Efectivo">Pago contra entrega</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Botones Step 3 (mismo lugar) -->
-          <div class="step-buttons">
+        <h2 class="text-center mb-4">Revisa tus Kits</h2>
+        <div id="kit-display-area" class="row">
+            <!-- Kits will be dynamically inserted here -->
+        </div>
+        <div class="step-buttons">
             <button class="btn btn-secondary btn-lg" id="backToStep2">
-              <i class="fas fa-arrow-left me-2"></i>
-              Anterior
+                <i class="fas fa-arrow-left me-2"></i>
+                Anterior
             </button>
-            <button class="btn btn-primary btn-lg" id="goStep4">
-              <i class="fas fa-arrow-right me-2"></i>
-              Siguiente
+            <button class="btn btn-primary btn-lg" id="goToStep4">
+                Siguiente
+                <i class="fas fa-arrow-right me-2"></i>
             </button>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <!-- =========================
-       STEP 4: CONFIRMACIÓN
-       ========================= -->
-  <div id="step4" class="container mt-4 fade-step d-none">
+<div id="step4" class="container mt-4 fade-step d-none">
     <div class="step-container">
-      <h2 class="text-center mb-4">Confirmación</h2>
-      <div class="row">
-        <div class="col-md-8 mx-auto">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-body text-center">
-              <h5 class="card-title">Tu Compra Está Casi Lista</h5>
-              <p class="text-muted">Revisa los detalles finales y procede a finalizar tu pedido.</p>
-              <hr />
-              <!-- Botón Factura -->
-              <button id="PREVIEW" class="btn btn-info me-3" data-bs-toggle="modal" data-bs-target="#facturaModal">
-                Preview Factura
-              </button>
-              <button class="btn btn-success" id="finalPlaceOrder">Place Order</button>
-            </div>
-          </div>
+        <h2 class="text-center mb-4">Confirmación</h2>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Tu Compra Está Casi Lista</h5>
+                        <p class="text-muted">Revisa los detalles finales y procede a finalizar tu pedido.</p>
+                        <hr />
+                        <button class="btn btn-success" id="finalPlaceOrder">Place Order</button>
+                    </div>
+                </div>
 
-          <!-- Botones Step 4 (mismo lugar) -->
-          <div class="step-buttons">
-            <button class="btn btn-secondary btn-lg" id="backToStep3">
-              <i class="fas fa-arrow-left me-2"></i>
-              Anterior
-            </button>
-          </div>
+                <!-- Botones Step 4 (mismo lugar) -->
+                <div class="step-buttons">
+                    <button class="btn btn-secondary btn-lg" id="backToStep3">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Anterior
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Modal Factura -->
-      <div class="modal fade" id="facturaModal" tabindex="-1" aria-labelledby="facturaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="facturaModalLabel">Factura - Lista de Kits</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="factura">
-              <!-- Se inyectará el contenido de la factura -->
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
   <!-- SCRIPTS ORIGINALES (sin modificar) -->
   <!-- Script para manejar el colapso de los desplegables -->
@@ -486,147 +480,186 @@
   </script>
 
   <!-- Script de Planes (ya en tu código) -->
-  <SCRIpt>
-    // Función para seleccionar un plan y marcarlo visualmente
+  <script>
+    // Function to select a plan and mark it visually
     function selectPlan(planId) {
-      // Deselecciona todos los planes: remueve la clase 'selected' y desmarca el radio input
-      document.querySelectorAll('.plan-card').forEach(function (card) {
-        card.classList.remove('selected');
-        const input = card.querySelector('input[type="radio"]');
-        if (input) {
-          input.checked = false;
+        // Deselect all plans: remove the 'selected' class and uncheck the radio input
+        document.querySelectorAll('.plan-card').forEach(function (card) {
+            card.classList.remove('selected');
+            const input = card.querySelector('input[type="radio"]');
+            if (input) {
+                input.checked = false;
+            }
+        });
+    
+        // Select the input corresponding to the clicked plan
+        const selectedInput = document.getElementById(planId);
+        if (selectedInput) {
+            selectedInput.checked = true;
+    
+            // Mark the containing card as selected
+            const selectedCard = selectedInput.closest('.plan-card');
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+            }
         }
-      });
-
-      // Selecciona el input correspondiente al plan clickeado
-      const selectedInput = document.getElementById(planId);
-      if (selectedInput) {
-        selectedInput.checked = true;
-        // Marca la tarjeta (plan-card) contenedora como seleccionada
-        const selectedCard = selectedInput.closest('.plan-card');
-        if (selectedCard) {
-          selectedCard.classList.add('selected');
-        }
-      }
-
-      // Actualiza los detalles del plan (alertas, precio, etc.)
-      updatePlanDetails(planId);
+    
+        // Update the plan details (alerts, price, etc.)
+        updatePlanDetails(planId);
+    
+        // Update the plan details in localStorage
+        updatePlanInLocalStorage(planId);
     }
-
-    // Configuración de los detalles para cada plan
+    
     const planDetails = {
-      planStart: {
-        title: "Plan Start - $1750",
-        alerts: [
-          { id: "sosAlert", label: "Botón SOS" },
-          { id: "geofenceAlert", label: "Geocerca" },
-          { id: "speedAlert", label: "Alerta de Velocidad" },
-          { id: "motorLockAlert", label: "Bloqueo de Motor" },
-          { id: "distanceReportAlert", label: "Distancia de Recorrido" },
-          { id: "stoppageReportAlert", label: "Reporte de Paradas/tiempo de detenido" },
-          { id: "ignitionAlert", label: "Alerta de Encendido/Apagado" }
-        ]
-      },
-      planStarter: {
-        title: "Plan Starter - $2950",
-        alerts: [
-          { id: "sosAlert", label: "Botón SOS" },
-          { id: "geofenceAlert", label: "Geocerca" },
-          { id: "speedAlert", label: "Alerta de Velocidad" },
-          { id: "ignitionAlert", label: "Alerta de Encendido/Apagado" },
-          { id: "towingAlert", label: "Entrega de Pedidos" },
-          { id: "motorLockAlert", label: "Bloqueo de Motor" },
-          { id: "stoppageReportAlert", label: "Reporte de Paradas/tiempo de detenido" },
-          { id: "batteryDisconnectionAlert", label: "Desconexión de Batería" },
-          { id: "geofenceSpeedAlert", label: "Alertas de Velocidad en Geocercas" },
-          { id: "distanceReportAlert", label: "Distancia de Recorrido" },
-          { id: "offHoursAlert", label: "Evento fuera de Horario de Trabajo" },
-          { id: "geofenceInOutAlert", label: "Ingreso y Salida de Geocerca" }
-        ]
-      },
-      planEnterprise: {
-        title: "Plan Enterprise - $4950",
-        alerts: [
-          { id: "sosAlert", label: "Botón SOS" },
-          { id: "geofenceAlert", label: "Geocerca" },
-          { id: "speedAlert", label: "Alerta de Velocidad" },
-          { id: "ignitionAlert", label: "Control de Encendido/Apagado" },
-          { id: "towingAlert", label: "Alerta de Recogida y Entrega" },
-          { id: "motorLockAlert", label: "Bloqueo de Motor" },
-          { id: "stoppageReportAlert", label: "Reporte de Paradas/tiempo de detenido" },
-          { id: "batteryDisconnectionAlert", label: "Desconexión de Batería" },
-          { id: "geofenceSpeedAlert", label: "Alertas de Velocidad en Geocercas" },
-          { id: "distanceReportAlert", label: "Distancia de Recorrido" },
-          { id: "offHoursAlert", label: "Evento fuera de Horario de Trabajo" },
-          { id: "geofenceInOutAlert", label: "Ingreso y Salida de Geocerca" },
-          { id: "harshDrivingAlert", label: "Alertas de Conducción Brusca" },
-          { id: "maintenanceAlert", label: "Alerta de Mantenimiento" },
-          { id: "excessSpeedAlert", label: "Exceso de Velocidad" },
-          { id: "vehicleOffRouteAlert", label: "Vehículo Fuera de Ruta" },
-          { id: "noReportAlert", label: "Alerta de Equipo sin Reportar" },
-          { id: "vehicleInBrandAlert", label: "Vehículo en Marca" },
-          { id: "antiJammingAlert", label: "Anti-Jamming" },
-          { id: "idleAlert", label: "Alerta de Ralentí" },
-          { id: "hookEngagementAlert", label: "Alerta de Enganche y Desenganche del Planchón" },
-          { id: "accessoriesAlert", label: "Alerta de Accesorios/Sensores" },
-          { id: "vehicleDistanceAlert", label: "Alerta de Distancia entre Vehículos" }
-        ]
-      }
+        planStart: {
+            title: "Plan Start - $1750",
+            alerts: [
+                { id: "sosAlert", label: "Botón SOS" },
+                { id: "geofenceAlert", label: "Geocerca" },
+                { id: "speedAlert", label: "Alerta de Velocidad" },
+                { id: "motorLockAlert", label: "Bloqueo de Motor" },
+                { id: "distanceReportAlert", label: "Distancia de Recorrido" },
+                { id: "stoppageReportAlert", label: "Reporte de Paradas/tiempo de detenido" },
+                { id: "ignitionAlert", label: "Alerta de Encendido/Apagado" }
+            ]
+        },
+        planStarter: {
+            title: "Plan Starter - $2950",
+            alerts: [
+                { id: "sosAlert", label: "Botón SOS" },
+                { id: "geofenceAlert", label: "Geocerca" },
+                { id: "speedAlert", label: "Alerta de Velocidad" },
+                { id: "ignitionAlert", label: "Alerta de Encendido/Apagado" },
+                { id: "towingAlert", label: "Entrega de Pedidos" },
+                { id: "motorLockAlert", label: "Bloqueo de Motor" },
+                { id: "stoppageReportAlert", label: "Reporte de Paradas/tiempo de detenido" },
+                { id: "batteryDisconnectionAlert", label: "Desconexión de Batería" },
+                { id: "geofenceSpeedAlert", label: "Alertas de Velocidad en Geocercas" },
+                { id: "distanceReportAlert", label: "Distancia de Recorrido" },
+                { id: "offHoursAlert", label: "Evento fuera de Horario de Trabajo" },
+                { id: "geofenceInOutAlert", label: "Ingreso y Salida de Geocerca" }
+            ]
+        },
+        planEnterprise: {
+            title: "Plan Enterprise - $4950",
+            alerts: [
+                { id: "sosAlert", label: "Botón SOS" },
+                { id: "geofenceAlert", label: "Geocerca" },
+                { id: "speedAlert", label: "Alerta de Velocidad" },
+                { id: "ignitionAlert", label: "Control de Encendido/Apagado" },
+                { id: "towingAlert", label: "Alerta de Recogida y Entrega" },
+                { id: "motorLockAlert", label: "Bloqueo de Motor" },
+                { id: "stoppageReportAlert", label: "Reporte de Paradas/tiempo de detenido" },
+                { id: "batteryDisconnectionAlert", label: "Desconexión de Batería" },
+                { id: "geofenceSpeedAlert", label: "Alertas de Velocidad en Geocercas" },
+                { id: "distanceReportAlert", label: "Distancia de Recorrido" },
+                { id: "offHoursAlert", label: "Evento fuera de Horario de Trabajo" },
+                { id: "geofenceInOutAlert", label: "Ingreso y Salida de Geocerca" },
+                { id: "harshDrivingAlert", label: "Alertas de Conducción Brusca" },
+                { id: "maintenanceAlert", label: "Alerta de Mantenimiento" },
+                { id: "excessSpeedAlert", label: "Exceso de Velocidad" },
+                { id: "vehicleOffRouteAlert", label: "Vehículo Fuera de Ruta" },
+                { id: "noReportAlert", label: "Alerta de Equipo sin Reportar" },
+                { id: "vehicleInBrandAlert", label: "Vehículo en Marca" },
+                { id: "antiJammingAlert", label: "Anti-Jamming" },
+                { id: "idleAlert", label: "Alerta de Ralentí" },
+                { id: "hookEngagementAlert", label: "Alerta de Enganche y Desenganche del Planchón" },
+                { id: "accessoriesAlert", label: "Alerta de Accesorios/Sensores" },
+                { id: "vehicleDistanceAlert", label: "Alerta de Distancia entre Vehículos" }
+            ]
+        }
     };
-
-    // Función para actualizar los detalles del plan en el panel
+    
+    // Function to update the plan details in the panel
     function updatePlanDetails(planId) {
-      const details = planDetails[planId];
-      if (!details) return;
-
-      let html = `<p class="fw-bold">${details.title}</p>
-                <h6 class="card-subtitle mb-2">Alertas Incluidas</h6>`;
-      details.alerts.forEach(function (alert) {
-        html += `<div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="${alert.id}">
-                    <label class="form-check-label small" for="${alert.id}">${alert.label}</label>
-                </div>`;
-      });
-
-      const detailsContainer = document.getElementById('planDetailsBody');
-      if (detailsContainer) {
-        detailsContainer.innerHTML = html;
-      }
-    }
-
-    // Función para seleccionar (pin) un plan y actualizar la interfaz
-    function selectPlan(planId) {
-      // Deseleccionar todas las tarjetas
-      document.querySelectorAll('.plan-card').forEach(function (card) {
-        card.classList.remove('selected');
-        const input = card.querySelector('input[type="radio"]');
-        if (input) {
-          input.checked = false;
+        const details = planDetails[planId];
+        if (!details) return;
+    
+        let html = `<p class="fw-bold">${details.title}</p>
+                    <h6 class="card-subtitle mb-2">Alertas Incluidas</h6>`;
+        details.alerts.forEach(function (alert) {
+            html += `<div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="${alert.id}" onchange="updateAlertsInLocalStorage('${planId}', '${alert.id}', this.checked)">
+                        <label class="form-check-label small" for="${alert.id}">${alert.label}</label>
+                    </div>`;
+        });
+    
+        const detailsContainer = document.getElementById('planDetailsBody');
+        if (detailsContainer) {
+            detailsContainer.innerHTML = html;
         }
-      });
-
-      // Marcar el input del plan seleccionado y resaltar la tarjeta
-      const selectedInput = document.getElementById(planId);
-      if (selectedInput) {
-        selectedInput.checked = true;
-        const selectedCard = selectedInput.closest('.plan-card');
-        if (selectedCard) {
-          selectedCard.classList.add('selected');
-        }
-      }
-
-      // Actualizar el panel de detalles según el plan seleccionado
-      updatePlanDetails(planId);
+    
+         // After updating the HTML, check the checkboxes based on localStorage data
+         checkStoredAlerts(planId);
     }
-
-    // Opcional: Para asegurarte de que el DOM esté cargado antes de asignar eventos
+    
+    // Function to check stored alerts and update the checkbox states
+    function checkStoredAlerts(planId) {
+        const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+    
+        // Loop through each kit in localStorage
+        listaDeKits.forEach(kit => {
+            // Check if the kit's plan matches the current plan
+            if (kit.plan === planId) {
+                // Loop through each alert in the plan
+                planDetails[planId].alerts.forEach(alert => {
+                    const alertCheckbox = document.getElementById(alert.id);
+                    if (alertCheckbox) {
+                        // Check if the alert is in the kit's detailsPlan array
+                        alertCheckbox.checked = kit.detallesPlan.includes(alert.id);
+                    }
+                });
+            }
+        });
+    }
+    
+    // Function to update the plan and details in localStorage
+    function updatePlanInLocalStorage(planId) {
+        // Get all kits from local storage
+        const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+    
+        // Loop through each kit in localStorage
+        listaDeKits.forEach(kit => {
+            // Update the plan to the selected plan
+            kit.plan = planId;
+    
+            // Update the detailsPlan to an empty array
+            kit.detallesPlan = [];
+        });
+    
+        // Save the updated array to localStorage
+        localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+    }
+    
+    // Function to update alerts and details in localStorage
+    function updateAlertsInLocalStorage(planId, alertId, isChecked) {
+        // Get all kits from local storage
+        const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+    
+        // Loop through each kit in localStorage
+        listaDeKits.forEach(kit => {
+            // Update the detailsPlan based on whether the checkbox is checked or unchecked
+            if (isChecked) {
+                if (!kit.detallesPlan.includes(alertId)) {
+                    kit.detallesPlan.push(alertId);
+                }
+            } else {
+                kit.detallesPlan = kit.detallesPlan.filter(detail => detail !== alertId);
+            }
+        });
+    
+        // Save the updated array to localStorage
+        localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+    }
+    
+    // Optional: To ensure that the DOM is loaded before assigning events
     document.addEventListener("DOMContentLoaded", function () {
-      // Si lo deseas, puedes inicializar algún plan por defecto
-      // selectPlan('planStart');
+        // If you wish, you can initialize some default plan
+        // selectPlan('planStart');
     });
-
-  </SCRIpt>
-
+    </script>
+    
   <!-- Script Principal Personaliza -->
   <script src="../Script/scriptPersonaliza.js"></script>
 

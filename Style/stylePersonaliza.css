@@ -505,135 +505,250 @@ h4 {
     }
   }
   
-  /* ------------------------------------------
-     ESTILOS DE LA BARRA PRINCIPAL (SUPERIOR)
-     ------------------------------------------ */
-  #step1 .card {
-    border: none;
+/* ------------------------------------------
+   1) TARJETA PRINCIPAL CON BORDE GRADIENTE
+   ------------------------------------------ */
+   .principal-barra {
+    position: relative;
     border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-    margin-top: 20px;
+    overflow: hidden;
+    background-color: #fff; /* Interior en blanco */
   }
   
-  #step1 .card-body {
-    padding: 20px;
+  /* Borde con gradiente en el contorno */
+  .principal-barra::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    border-radius: 14px;
   }
   
-  /* Estilos para la información del kit */
-  #step1 #nombrePaquete {
-    font-size: 1.5rem;
+  /* ------------------------------------------
+     2) ESTILOS DEL PRECIO
+     ------------------------------------------ */
+  .precio-total {
+    background: #dc3545 ;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* ------------------------------------------
+     3) BOTONES (+, -, ADD, SIGUIENTE)
+     ------------------------------------------ */
+  /* Botones outline (- / +) */
+  .btn-outline-secondary {
+    border-color: #aaa;
+    color: #555;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn-outline-secondary:hover {
+    border-color: #888;
     color: #333;
-    margin-bottom: 8px;
+    background-color: transparent; /* sin efecto exagerado */
   }
   
-  #step1 .text-muted {
-    font-size: 1rem;
-    color: #777;
+  /* Contador */
+  #kitCountBox {
+    border-color: #aaa;
+    font-size: 1.7rem;
+    color: #333;
   }
   
-  /* Estilos para los botones de paso */
-  #step1 .step-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.5rem;
-  }
-  
-  #step1 .btn-primary {
-    background-color: #1e2d58;
-    border-color: #1e2d58;
-    color: white;
+  /* Botón ADD */
+  #addProductos {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
     padding: 12px 25px;
     font-size: 1.1rem;
     border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  #addProductos:hover {
+    background-color: #b31e29; /* tono más oscuro sin “salto” */
+    border-color: #b31e29;
   }
   
-  #step1 .btn-primary:hover {
-    background-color: #182345;
-    border-color: #182345;
-    transform: translateY(-2px);
+  /* Botón Siguiente */
+  .btn-primary {
+    background-color: #1e2d58;
+    border-color: #1e2d58;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #1c264e; /* ligero cambio */
+    border-color: #1c264e;
   }
   
- /* ------------------------------------------
-   ESTILOS DEL TOGGLE SWITCH (PLATAFORMA) - ¡IMPACTO MÁXIMO!
-   ------------------------------------------ */
-#step1 .switch-container {
+  /* ------------------------------------------
+     4) TOGGLE: CUADRADO, GRANDE, CENTRADO
+     ------------------------------------------ */
+  
+/* Contenedor principal centrado */
+.toggle-switch-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 10px;
+}
+
+/* Estructura básica del toggle */
+.toggle-switch {
   position: relative;
   display: inline-block;
-  width: 120px;  /* Aún más ancho */
-  height: 60px;   /* Aún más alto */
-  margin-right: 25px; /* Espacio a la derecha */
-  margin-left: -60px; /* Lo corremos más a la izquierda */
-  transform: scale(1.1); /* Aumenta el tamaño general */
+  width: 160px;   /* Ancho del toggle */
+  height: 50px;   /* Alto del toggle */
 }
 
-#step1 .switch-input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+/* Ocultamos el checkbox real */
+.toggle-switch input {
+  display: none;
 }
 
-#step1 .switch-label {
+/* Slider (fondo) en estado OFF */
+.slider {
   position: absolute;
-  cursor: pointer;
-  top: 0;
+  top: 0; 
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ddd; /* Un gris más claro inicialmente */
-  transition: background-color 0.4s, box-shadow 0.4s;
-  border-radius: 60px; /* Muy redondeado */
-  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3); /* Sombra pronunciada */
+  width: 100%; 
+  height: 100%;
+  background-color: #bbb;                  /* gris OFF */
+  border: 2px solid #1e2d58;               /* borde azul oscuro */
+  border-radius: 25px;                     /* esquinas redondeadas */
+  cursor: pointer;
+  transition: background-color 0.4s;
+  overflow: hidden;                        /* para el radar */
 }
 
-#step1 .switch-label::before {
-  content: "";
+/* Efecto radar para la animación de rastreo */
+.radar-effect {
   position: absolute;
-  left: 8px;   /* Ajustamos posición */
-  top: 8px;    /* Ajustamos posición */
-  width: 44px;  /* Aumentamos tamaño */
-  height: 44px; /* Aumentamos tamaño */
-  background-color: #fff;
-  transition: transform 0.4s;
+  width: 200%; 
+  height: 200%;
+  top: -50%; 
+  left: -50%;
+  background: radial-gradient(circle, rgba(30,45,88,0.2) 20%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+/* Círculo que se desliza de izquierda a derecha */
+.slider-circle {
+  position: absolute;
+  top: 5px; 
+  left: 5px;
+  width: 40px; 
+  height: 40px;
+  background-color: #333;                  /* círculo oscuro */
   border-radius: 50%;
-}
-
-#step1 .switch-handle {
-  position: absolute;
-  top: 8px;   /* Ajustamos posición */
-  left: 8px;   /* Ajustamos posición */
-  width: 44px;  /* Aumentamos tamaño */
-  height: 44px; /* Aumentamos tamaño */
-  display: flex;
-  align-items: center;
+  display: flex; 
+  align-items: center; 
   justify-content: center;
   transition: transform 0.4s;
-  color: #777; /* Un gris más oscuro para el icono */
-  font-size: 24px; /* Aumentamos el tamaño del icono */
-  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 
-#step1 .switch-input:checked + .switch-label {
-  background-color: #66bb6a; /* Verde más atractivo */
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4); /* Sombra más intensa al activarse */
+/* Icono de Font Awesome dentro del círculo */
+.slider-circle i {
+  color: #1e2d58;                           /* azul oscuro en OFF */
+  font-size: 20px;
+  transition: color 0.4s;
 }
 
-#step1 .switch-input:checked + .switch-label::before {
-  transform: translateX(60px); /* Ajustamos el recorrido */
+/* Texto de estado centrado en el toggle */
+.status-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: opacity 0.4s;
 }
 
-#step1 .switch-input:checked + .switch-label .switch-handle {
-  transform: translateX(60px); /* Ajustamos el recorrido */
+/* "TRACKING ON" (oculto por defecto) */
+.status-text.on {
   color: #fff;
+  opacity: 0;
 }
 
-#step1 .text-switch {
-  font-size: 1.5rem; /* Aún más grande */
-  font-weight: 700; /* Más negrita */
-  letter-spacing: 0.5px; /* Espaciado para mayor legibilidad */
-  color: #333; /* Texto más oscuro */
+/* "TRACKING OFF" (visible por defecto) */
+.status-text.off {
+  color: #333;
+  opacity: 1;
 }
 
+/* =========================
+   ESTADO ON (CHECKED)
+   ========================= */
+
+/* Fondo morado y sin cambiar el tamaño del borde */
+.toggle-switch input:checked + .slider {
+  background-color: #943c7a;               /* morado ON */
+}
+
+/* El círculo se desliza a la derecha */
+.toggle-switch input:checked + .slider .slider-circle {
+  transform: translateX(110px);
+  background-color: #333;                  /* mantiene color oscuro */
+  box-shadow: 0 0 10px rgba(148,60,122,0.6);
+}
+
+/* El icono dentro del círculo se vuelve blanco y hace pulso */
+.toggle-switch input:checked + .slider .slider-circle i {
+  color: #fff;
+  animation: pulse 2s infinite;
+}
+
+/* El radar se vuelve visible y gira */
+.toggle-switch input:checked + .slider .radar-effect {
+  opacity: 1;
+  animation: radar 3s infinite linear;
+}
+
+/* El texto ON aparece, OFF desaparece */
+.toggle-switch input:checked + .slider .status-text.on {
+  opacity: 1;
+}
+.toggle-switch input:checked + .slider .status-text.off {
+  opacity: 0;
+}
+
+/* =========================
+   ANIMACIONES
+   ========================= */
+
+/* Pulso para el icono */
+@keyframes pulse {
+  0%   { transform: scale(1);   }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1);   }
+}
+
+/* Giro del radar */
+@keyframes radar {
+  0%   { transform: rotate(0deg);   }
+  100% { transform: rotate(360deg); }
+}
+
+ 
   /* ------------------------------------------
      ESTILOS DE LOS TEXTOS DINÁMICOS (ANIMACIONES)
      ------------------------------------------ */
@@ -684,52 +799,7 @@ h4 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
   
-  /* ------------------------------------------
-     ESTILOS DE LA BARRA DE CONTROL INFERIOR
-     ------------------------------------------ */
-  #step1 .flow-control {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  }
-  
-  /* Estilos para los botones de incremento/decremento */
-  #step1 .btn-outline-secondary {
-    border-color: #aaa;
-    color: #555;
-    transition: border-color 0.3s ease, color 0.3s ease;
-  }
-  
-  #step1 .btn-outline-secondary:hover {
-    border-color: #777;
-    color: #333;
-    background-color: transparent;
-  }
-  
-  /* Estilos para el contador */
-  #step1 #kitCountBox {
-    border-color: #aaa;
-    font-size: 1.7rem;
-    color: #333;
-  }
-  
-  /* Estilos para el botón "AGREGAR KIT" */
-  #step1 #addProductos {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: white;
-    padding: 12px 25px;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  #step1 #addProductos:hover {
-    background-color: #c82333;
-    border-color: #c82333;
-    transform: translateY(-2px);
-  }
+
   
   /* ------------------------------------------
      ESTILOS GENERALES DE BOTONES (UNIFICACIÓN)
@@ -751,6 +821,4 @@ h4 {
   #step1 .container {
     padding-bottom: 30px;
   }
-  
-
   
