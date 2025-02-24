@@ -1,4 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll('.card-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const target = header.getAttribute('data-bs-target');
+      const collapse = document.querySelector(target);
+      document.querySelectorAll('.collapse').forEach(c => {
+        if (c !== collapse) {
+          c.classList.remove('show');
+        }
+      });
+    });
+  });
+  
+
   // Botones y lógica de selección
   const nombrePaquete = document.getElementById('nombrePaquete');
   const contadorElement = document.getElementById('contador');
@@ -309,10 +323,13 @@ function calcularYMostrarTotalCompra() {
   }
 
   // Mostrar en el elemento con id "totalCompra"
-  const totalCompraElement = document.getElementById('totalCompra');
-  if (totalCompraElement) {
-      totalCompraElement.innerText = formattedTotal; // Use innerText instead of textContent
+  const totalCompraElement1 = document.getElementById('totalCompra');
+  const totalCompraElement2 = document.getElementById('totalCompra');
+  if (totalCompraElement1) {
+      totalCompraElement1.innerText = formattedTotal; // Use innerText instead of textContent
+      totalCompraElement2.innerText = formattedTotal; // Use innerText instead of textContent
   }
+
 }
 
 function actualizarInformacionDeCompra() {
@@ -344,19 +361,21 @@ function actualizarInformacionDeCompra() {
       totalGPS += kit.gps * kit.cantidad_Kits; // Suma de GPS por cada kit multiplicado por cantidad de kits
       totalAccesorios += kit.accesorios * kit.cantidad_Kits; // Suma de accesorios por cada kit multiplicado por cantidad de kits
 
-      // Dispositivos totales incluyen tanto GPS como accesorios, pero aquí solo contamos los dispositivos trackeados (GPS)
+      // Dispositivos totales incluyen tanto GPS como accesorios
       totalDispositivos += (kit.gps + kit.accesorios) * kit.cantidad_Kits;
 
       // Licencias trackeadas son equivalentes a los dispositivos GPS, ya que cada uno requiere una licencia para ser rastreado.
-      
-});
+      totalLicenciasTrackeadas += kit.gps * kit.cantidad_Kits; // Suma de licencias por cada kit multiplicado por cantidad de kits
+  });
 
-// Mostrar información en el resumen de compra
-document.getElementById('gpsUnits').textContent = `${totalGPS} unidades`;
-document.getElementById('accesoriosUnits').textContent = `${totalAccesorios} unidades`;
-document.getElementById('dispositivosCount').textContent = `${totalDispositivos} unidades`;
-
+  // Mostrar información en el resumen de compra
+  document.getElementById('gpsUnits').textContent = `${totalGPS} unidades`;
+  document.getElementById('accesoriosUnits').textContent = `${totalAccesorios} unidades`;
+  document.getElementById('dispositivosCount').textContent = `${totalDispositivos} unidades`;
+  document.getElementById('licenciasCount').textContent = `${totalLicenciasTrackeadas} licencias`;
 }
+
+
 
 document.getElementById('deleteProductos').addEventListener('click', function() {
   // Determinar el activo actual
@@ -393,11 +412,11 @@ document.getElementById('deleteProductos').addEventListener('click', function() 
 
 
 const PLANES = {
-  start: 15000,
-  starter: 20000,
+  start: 20000,
+  starter: 25000,
   enterprise: 30000
 };
-let isRealTimeEnabled = false;
+let isRealTimeEnabled = true;
 
 
 function definirPlan(gpsCount, vehiculo) {
@@ -448,7 +467,6 @@ document.getElementById('addProductos').addEventListener('click', () => {
       totalLicenciasTrackeadas = 0; // Si el toggle está desactivado, no cuenta ninguna licencia
   }
   let precioTotalProductos = calcularPrecioTotal(window.productosSeleccionados, kitCount);
-  let precioTotalFinal = precioTotalProductos + costoTotalPlan;
 
   // Recuperar o inicializar la estructura en localStorage llamada "listaDeKits" como un arreglo
   let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
@@ -463,9 +481,11 @@ document.getElementById('addProductos').addEventListener('click', () => {
     id: Date.now(), // Nuevo id único para este kit
     plan: definirPlan(window.productosSeleccionados.filter(p => p.categoria === 'GPS').length, window.currentActivo ? window.currentActivo : 'Activo'),
     totalLicencias: totalLicenciasTrackeadas,
-    detallesPlan: "alertas personalizadas",
-    Suscripcion:"indefinido",
-    PrecioTotal: precioTotalFinal
+    detallesPlan: "",
+    Suscripcion:"",
+    PrecioTotal: precioTotalProductos,
+    costoTotalPlan:0
+    
   };
 
   listaDeKits.push(newKit);
@@ -573,136 +593,13 @@ function generateFacturaHTML() {
   let html = '';
 
   // Agregar estilos CSS personalizados (puedes mover este bloque a tu archivo de estilos)
-  html += `
-  <style>
-    /* Estilos globales para las cards de kit */
-    .kit-card {
-      border: none;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      background-color: #fff;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .kit-card:hover {
-      transform: translateY(-5px);
-    }
-    .kit-card-header {
-      background: linear-gradient(135deg, #284170, #943c7a);
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-    .kit-header-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .kit-header-controls h4 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: #fff;
-    }
-    .kit-info {
-      margin-top: 0.5rem;
-      text-align: center;
-      color: #fff;
-      font-size: 0.9rem;
-    }
-    .kit-info span {
-      margin-right: 1rem;
-    }
-    .collapse-header {
-      background: #f8f9fa;
-      border-radius: 4px;
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-weight: bold;
-      font-size: 1rem;
-      color: #333;
-    }
-    .collapse-header:hover {
-      background: #e9ecef;
-    }
-    .product-item {
-      position: relative;
-      background-size: cover;
-      background-position: center;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 0.5rem;
-      min-height: 100px;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-    .product-item:hover {
-      transform: scale(1.02);
-    }
-    .product-overlay {
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      padding: 0.5rem;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      font-size: 0.9rem;
-    }
-    .subscription-section {
-      border-top: 1px solid #ddd;
-      padding-top: 1rem;
-      margin-top: 1rem;
-    }
-    .subscription-btn {
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .subscription-btn:hover, .subscription-btn.active {
-      background: #284170;
-      color: #fff;
-    }
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 1.25rem;
-      background-color: #f8f9fa;
-    }
-    .remove-kit-footer {
-      color: #6c757d;
-      cursor: pointer;
-    }
-    .remove-kit-footer:hover {
-      color: #dc3545;
-    }
-    /* Transiciones para el modal de producto */
-    .tracking-modal-enter {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    .tracking-modal-enter-active {
-      opacity: 1;
-      transform: scale(1);
-      transition: all 0.3s ease;
-    }
-    .tracking-modal-exit {
-      opacity: 1;
-      transform: scale(1);
-    }
-    .tracking-modal-exit-active {
-      opacity: 0;
-      transform: scale(0.9);
-      transition: all 0.3s ease;
-    }
-  </style>
-  `;
+  
 
   // Título principal con más estilo
   html += `
   <div class="text-center my-4">
     <h3 style="font-family: 'Helvetica Neue', sans-serif; font-weight: bold;">Descubre Tus Kits Personalizados</h3>
-    <p class="text-muted" style="font-size: 1rem;">Explora y ajusta cada detalle de tus kits, creados especialmente para ti.</p>
+    <p class="text-muted" style="font-size: 1rem;">confirma y ajusta cada detalle de tus kits gps personalizados, creados especialmente para ti.</p>
   </div>
   `;
 
@@ -732,16 +629,14 @@ function generateFacturaHTML() {
               <i class="fas fa-minus"></i>
             </button>
             <h4>
-              <i class="${getActiveIcon(kit.activo)}"></i> Kit para ${kit.activo}
+              <i class="${getActiveIcon(kit.activo)}"></i> ${kit.cantidad_Kits} Kit para ${kit.activo}
             </h4>
             <button class="btn btn-outline-light btn-sm increment-kit" data-kit-id="${kit.id}">
               <i class="fas fa-plus"></i>
             </button>
           </div>
           <div class="kit-info">
-            <span><i class="fas fa-layer-group"></i> Kits: ${kit.cantidad_Kits}</span>
-            <span><i class="fas fa-satellite-dish"></i> GPS: ${kit.gps}</span>
-            <span><i class="fas fa-plug"></i> Accesorios: ${kit.accesorios}</span>
+          
             <span><i class="fas fa-key"></i> Licencias: ${kit.totalLicenses || kit.totalLicencias || 0}</span>
             <span><i class="fas fa-bell"></i> Suscripciones: ${kit.Suscripcion || 0}</span>
             <span><i class="fas fa-file-alt"></i> Plan: ${kit.plan || "N/A"}</span>
@@ -752,7 +647,7 @@ function generateFacturaHTML() {
             <!-- Columna: Productos GPS -->
             <div class="col-md-4 mb-3">
               <div class="collapse-header" data-bs-toggle="collapse" data-bs-target="#collapseGps${kit.id}" aria-expanded="false" aria-controls="collapseGps${kit.id}">
-                <i class="fas fa-chevron-down"></i> Productos GPS
+                <i class="fas fa-satellite-dish"></i> Productos GPS: ${kit.gps}  
               </div>
               <div class="collapse" id="collapseGps${kit.id}">
                 <div class="list-group">
@@ -770,7 +665,7 @@ function generateFacturaHTML() {
             <!-- Columna: Accesorios -->
             <div class="col-md-4 mb-3">
               <div class="collapse-header" data-bs-toggle="collapse" data-bs-target="#collapseAcc${kit.id}" aria-expanded="false" aria-controls="collapseAcc${kit.id}">
-                <i class="fas fa-chevron-down"></i> Accesorios
+                <i class="fas fa-plug"></i> Accesorios: ${kit.accesorios}
               </div>
               <div class="collapse" id="collapseAcc${kit.id}">
                 <div class="list-group">
@@ -788,7 +683,7 @@ function generateFacturaHTML() {
             <!-- Columna: Detalles del Plan -->
             <div class="col-md-4 mb-3">
               <div class="collapse-header" data-bs-toggle="collapse" data-bs-target="#collapsePlan${kit.id}" aria-expanded="false" aria-controls="collapsePlan${kit.id}">
-                <i class="fas fa-chevron-down"></i> Detalles del Plan
+                <i class="fas fa-file-alt"></i></i> Tus alertas 
               </div>
               <div class="collapse" id="collapsePlan${kit.id}">
                 <ul class="list-group">
@@ -797,43 +692,111 @@ function generateFacturaHTML() {
               </div>
             </div>
           </div>
-          <!-- Sección de Suscripción -->
-          <div class="subscription-section">
-            <div class="row align-items-center">
-              <div class="col-md-8">
-                <div class="btn-group d-flex" role="group">
-                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="Demo">
-                    <i class="fas fa-play"></i> Demo
-                  </button>
-                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="3 Meses">
-                    <i class="fas fa-calendar-alt"></i> 3 Meses
-                  </button>
-                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="1 Año">
-                    <i class="fas fa-calendar-alt"></i> 1 Año
-                  </button>
-                  <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-kit-id="${kit.id}" data-value="Indefinido">
-                    <i class="fas fa-infinity"></i> Indefinido
-                  </button>
+      <!-- Sección de Suscripción -->
+        <div class="subscription-section p-3">
+          <div class="row g-3">
+            <!-- Columna 1: Costo del Plan -->
+            <div class="col-md-4">
+              <div class="card text-start shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-1">
+                    <i class="fas fa-file-invoice-dollar fa-lg me-2" style="color: #2d3262;"></i>
+                    <h5 class="kit-total mb-0">
+                      Plan: ${formatPrice(kit.costoTotalPlan || 0)}
+                    </h5>
+                  </div>
+                  <small class="text-muted">Se cobra tras el 1er mes</small>
                 </div>
               </div>
-              <div class="col-md-4 text-end">
-                <h5 class="kit-total">Total: ${formatPrice(kit.Total || 0)}</h5>
+            </div>
+            
+            <!-- Columna 2: Costo de Productos -->
+            <div class="col-md-4">
+              <div class="card text-start shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-1">
+                    <i class="fas fa-shopping-cart fa-lg me-2" style="color: #2d3262;"></i>
+                    <h5 class="kit-total mb-0">
+                      Productos: ${formatPrice(kit.PrecioTotal || 0)}
+                    </h5>
+                  </div>
+                  <small class="text-muted">Tus kits</small>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Columna 3: Total a Pagar -->
+            <div class="col-md-4">
+              <div class="card text-start shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-1">
+                    <i class="fas fa-hand-holding-usd fa-lg me-2" style="color: #2d3262;"></i>
+                    <h5 class="kit-total mb-0">
+                      Total: ${formatPrice((kit.costoTotalPlan || 0) + (kit.PrecioTotal || 0))}
+                    </h5>
+                  </div>
+                  <small class="text-muted">Plan + Productos</small>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+
+
+        </div>
         <div class="card-footer">
-          <button class="btn btn-outline-secondary btn-sm remove-kit-footer" data-kit-id="${kit.id}">
-            <i class="fas fa-trash-alt"></i> Eliminar
-          </button>
+         <button class="btn btn-outline-secondary btn-sm remove-kit-footer" data-kit-id="${kit.id}">
+          <i class="fas fa-trash-alt"></i> Eliminar
+        </button>
+
           <span>ID del Kit: ${kit.id}</span>
         </div>
+        
       </div>
+      
     `;
   });
 
   return html;
 }
+
+function highlightActiveButtonsFromKits() {
+  // Recupera la lista de kits desde localStorage (o un arreglo vacío)
+  const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+  
+  // Crear un Set con los valores únicos (en minúsculas) de la propiedad "activo"
+  const activosSet = new Set();
+  listaDeKits.forEach(kit => {
+    if (kit.activo) {
+      activosSet.add(kit.activo.toLowerCase());
+    }
+  });
+  
+  // Selecciona todos los botones del selector de activos
+  const botones = document.querySelectorAll('#activosSelector button');
+  botones.forEach(boton => {
+    // Se extrae el texto del botón y se convierte a minúsculas para la comparación
+    const textoBoton = boton.textContent.trim().toLowerCase();
+    // Si el Set contiene ese activo, se resalta el botón
+    if (activosSet.has(textoBoton)) {
+      boton.classList.add('active');
+      boton.classList.remove('btn-outline-dark');
+      boton.classList.add('btn-dark');
+    } else {
+      boton.classList.remove('active');
+      boton.classList.remove('btn-dark');
+      boton.classList.add('btn-outline-dark');
+    }
+  });
+}
+
+// Ejemplo: llamar a la función cuando se haga clic en el botón "Siguiente" del Step 1 (o el que corresponda)
+document.getElementById('goStep2').addEventListener('click', function() {
+  highlightActiveButtonsFromKits();
+  // Aquí puedes agregar la lógica para pasar al siguiente paso del wizard
+});
+
 
 
 
@@ -972,12 +935,7 @@ botones.forEach(boton => {
       }
   });
 
-  // Actualiza el contenido del modal (factura) al hacer clic en el botón Preview
-document.getElementById('PREVIEW').addEventListener('click', () => {
-const facturaElement = document.getElementById('factura');
-// Se asume que generateFacturaHTML es la función que genera el HTML de la factura
-facturaElement.innerHTML = generateFacturaHTML(window.listaDeKits);
-});
+
 /**
  * Actualiza el resumen de la compra en el panel de detalles.
  * Se actualizan:
@@ -1014,10 +972,7 @@ function updateFacturaSummary(lista) {
   }
 
   // Actualizar Total de Compra
-  const totalCompraEl = document.getElementById("totalCompra");
-  if (totalCompraEl) {
-    totalCompraEl.textContent = `$${total.toFixed(2)} COP`;
-  }
+ 
 
   // Actualizar cantidad de Dispositivos
   const dispositivosCountEl = document.getElementById("dispositivosCount");
@@ -1075,6 +1030,140 @@ function updateCollapseKit(lista) {
     supportMessage.textContent = "Incluye instalación profesional y soporte técnico.";
   }
 }
+
+
+
+const subscriptionButtons = document.querySelectorAll('.subscription-btn');
+
+subscriptionButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    // Deselecciona todos los botones y ajusta sus clases
+    subscriptionButtons.forEach(btn => {
+      btn.classList.remove('active', 'btn-dark');
+      btn.classList.add('btn-outline-dark');
+    });
+    // Activa el botón clickeado
+    this.classList.add('active');
+    this.classList.remove('btn-outline-dark');
+    this.classList.add('btn-dark');
+
+    // Obtener el valor del botón seleccionado
+    const selectedValue = this.getAttribute('data-value');
+    console.log('Suscripción seleccionada:', selectedValue);
+
+    // Definir el multiplicador según el tiempo seleccionado
+    let multiplicador = 1;
+    switch(selectedValue) {
+      case 'Demo':
+        multiplicador = 0; // Asumimos que Demo es gratuito
+        break;
+      case '3 Meses':
+        multiplicador = 3;
+        break;
+      case '6 Meses':
+        multiplicador = 6;
+        break;
+      case '1 Año':
+        multiplicador = 12;
+        break;
+      case 'Indefinido':
+        multiplicador = 24; // O el valor que consideres para indefinido
+        break;
+      default:
+        multiplicador = 1;
+    }
+
+    // Actualizar cada kit en la lista del localStorage:
+    // Se asume que cada kit tiene las propiedades:
+    //   - plan: un string, por ejemplo, "Plan Enterprise - $30.000"
+    //   - gps: cantidad de productos GPS
+    //   - cantidad_Kits: cantidad de kits solicitados
+    let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+    listaDeKits.forEach(kit => {
+      // Extraer la clave del plan. Ej: "Plan Enterprise - $30.000"
+      // Se asume que el formato es "Plan [NombrePlan] - $Valor"
+      const planParts = kit.plan.split(' ');
+      const planKey = planParts[1].toLowerCase(); // "enterprise", "starter" o "start"
+
+      // Calcular el costo por kit: costo base * cantidad de productos GPS
+      const costoPlanPorKit = PLANES[planKey] * kit.gps;
+      // Actualizar el costo total del plan:
+      // Se multiplica por la cantidad de kits y por el multiplicador de tiempo seleccionado
+      kit.costoTotalPlan = costoPlanPorKit * kit.cantidad_Kits * multiplicador;
+      // Actualizar la suscripción
+      kit.Suscripcion = selectedValue;
+    });
+    localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+    console.log('Lista de kits actualizada:', listaDeKits);
+  });
+});
+
+
+
+    
+// Función para limpiar los campos de plan en los kits sin licencias trackeadas
+function cleanKitsWithoutLicenses() {
+  // Recupera la lista de kits desde localStorage (o inicializa un arreglo vacío si no existe)
+  let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+  
+  // Recorre cada kit
+  listaDeKits.forEach(kit => {
+    // Si totalLicencias es 0, se limpian los campos relacionados al plan
+    if (Number(kit.totalLicencias) === 0) {
+      kit.detallesPlan = "";
+      kit.Suscripcion = "";
+      kit.plan = "";
+      kit.precioPlan = 0; // Se asigna 0 o una cadena vacía según prefieras
+      kit.costoTotalPlan = 0;
+    }
+  });
+  
+  // Guarda la lista actualizada en el localStorage
+  localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+}
+
+// Evento para el botón "Siguiente" del Step 2 (que lleva al Step 3)
+document.getElementById('goStep3').addEventListener('click', function() {
+  // Limpia los kits que no tienen licencias trackeadas
+  cleanKitsWithoutLicenses();
+  const facturaElement = document.getElementById('kit-display-area');
+  // Se asume que generateFacturaHTML es la función que genera el HTML de la factura
+  facturaElement.innerHTML = generateFacturaHTML(window.listaDeKits);
+  // Luego, procede al siguiente paso (por ejemplo, usando tu función showStep)
+  showStep(3);
+});
+
+
+function eliminarKit(kitId) {
+  // Convertir kitId a número para la comparación
+  const id = parseInt(kitId, 10);
+  let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+  
+  // Filtrar la lista para excluir el kit con el ID dado
+  listaDeKits = listaDeKits.filter(kit => kit.id !== id);
+  
+  // Guardar la lista actualizada en localStorage
+  localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
+  
+  alert(`¡El kit con ID ${kitId} ha sido eliminado!`);
+  
+  // Actualiza la página para reflejar los cambios
+  window.location.reload();
+}
+
+// Usar event delegation y closest para capturar el botón correctamente
+document.addEventListener('click', function(event) {
+  const btn = event.target.closest('.remove-kit-footer');
+  if (btn) {
+    const kitId = btn.getAttribute('data-kit-id');
+    if (confirm(`¿Eliminar el kit con ID ${kitId}?`)) {
+      eliminarKit(kitId);
+    } else {
+      alert("Eliminación cancelada.");
+    }
+  }
+});
+
 
 
 
