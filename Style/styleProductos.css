@@ -874,3 +874,66 @@ body {
         /* Hace checkboxes y radios más pequeños */
     }
 }
+
+/* Estilo general de la ventana emergente */
+.modal02 {
+  border-radius: 10px;
+}
+
+/* Posición de la X en la esquina superior derecha */
+.modal02-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal02-header .btn-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+/* Estilo para la imagen y la información del producto */
+.modal02-body {
+  display: flex;
+  align-items: center;
+}
+
+.image-container {
+  max-width: 150px; /* Tamaño de la imagen */
+}
+
+.info-container {
+  flex-grow: 1;
+}
+
+/* Asegurando que los productos recomendados se vean bien */
+.recommended-products {
+  border-top: 1px solid #f1f1f1;
+  padding-top: 10px;
+}
+
+.recommended-list {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.recommended-item {
+  text-align: center;
+}
+
+.recommended-item img {
+  max-width: 100px;
+  margin-bottom: 5px;
+}
+
+.recommended-item p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botón de agregar al carrito */
+#modalAddToCart {
+  margin-top: 20px;
+}

@@ -137,53 +137,54 @@
 
 
 
- <!-- Modal para detalles del producto -->
- <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered">
-     <div class="modal-content modal02">
-       <div class="modal02-header">
-         <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-       </div>
-       <div class="modal02-body">
-         <!-- Imagen a la izquierda -->
-         <div class="image-container">
-           <img id="modalProductImg" src="" class="img-fluid">
-         </div>
+ 
+<!-- Modal para detalles del producto -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal02">
+      <div class="modal02-header">
+        <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal02-body d-flex">
+        <!-- Imagen a la izquierda -->
+        <div class="image-container flex-shrink-0">
+          <img id="modalProductImg" src="" class="img-fluid">
+        </div>
 
-         <!-- Información del producto a la derecha -->
-         <div class="info-container">
-           <h5 id="modalProductName"></h5>
-           <p id="modalProductCategory" class="text-muted"></p>
-           <p id="modalProductPrice" class="fw-bold"></p>
-           <p id="modalProductDescription"></p>
-           <button type="button" class="btn btn-primary " id="modalAddToCart">
-             <i class="fas fa-shopping-cart"></i> Agregar al carrito
-           </button>
-         </div>
-       </div>
+        <!-- Información del producto a la derecha -->
+        <div class="info-container ms-3">
+          <h5 id="modalProductName"></h5>
+          <p id="modalProductCategory" class="text-muted"></p>
+          <p id="modalProductPrice" class="fw-bold"></p>
+          <p id="modalProductDescription"></p>
+          <button type="button" class="btn btn-primary" id="modalAddToCart">
+            <i class="fas fa-shopping-cart"></i> Agregar al carrito
+          </button>
+        </div>
+      </div>
 
-       <!-- Productos recomendados debajo -->
-       <div class="recommended-products">
-         <h6>También te puede interesar</h6>
-         <div class="recommended-list">
-           <div class="recommended-item">
-             <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739268446/23_h1izw5.png" alt="Producto 1">
-             <p>Producto 1</p>
-           </div>
-           <div class="recommended-item">
-             <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307210/STRT17.IMAGEN.061142_jsxcr4.png" alt="Producto 2">
-             <p>Producto 2</p>
-           </div>
-           <div class="recommended-item">
-             <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT9.IMAGEN.192908_aoeqak.png" alt="Producto 3">
-             <p>Producto 3</p>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>
+      <!-- Productos recomendados debajo -->
+      <div class="recommended-products mt-3">
+        <h6>También te puede interesar</h6>
+        <div class="recommended-list d-flex">
+          <div class="recommended-item">
+            <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1739268446/23_h1izw5.png" alt="Producto 1">
+            <p>Producto 1</p>
+          </div>
+          <div class="recommended-item">
+            <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307210/STRT17.IMAGEN.061142_jsxcr4.png" alt="Producto 2">
+            <p>Producto 2</p>
+          </div>
+          <div class="recommended-item">
+            <img src="https://res.cloudinary.com/dsr4y9xyl/image/upload/v1738307205/STRT9.IMAGEN.192908_aoeqak.png" alt="Producto 3">
+            <p>Producto 3</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </main>
 
