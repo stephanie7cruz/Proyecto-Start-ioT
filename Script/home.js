@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Función para agregar al carrito
     function agregarAlCarrito(e) {
         e.preventDefault();
-    
+
         const boton = e.currentTarget; // Obtenemos el botón HTML
         const idBoton = boton.id ? parseInt(boton.id, 10) : null; // Convertimos el ID a número si existe
 
@@ -115,25 +115,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const textoOriginal = boton.innerHTML;
         boton.classList.add("clicked");
         boton.innerHTML = `<i class="fas fa-check mb-3"></i> AGREGADO AL CARRITO`;
-    
+
         setTimeout(() => {
             boton.classList.remove("clicked");
             boton.innerHTML = textoOriginal;
         }, 2000);
-    
+
         // Verificar si el producto ya está en el carrito
         const index = productosEnCarrito.findIndex(producto => producto.id_producto === idBoton);
-        
+
         if (index !== -1) {
             productosEnCarrito[index].cantidad++;
         } else {
             productosEnCarrito.push({ ...productoAgregado, cantidad: 1 }); // Clonamos y agregamos cantidad
         }
-    
+
         localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
         actualizarNumerito();
     }
-    
+
 
     // Función para actualizar el numerito del carrito
     function actualizarNumerito() {
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarCarrito();  // Refresca la vista del carrito
     }
     document.getElementById("checkoutButton").addEventListener("click", () => {
-        window.location.href = "carrito.html";
+        window.location.href = "carritonuevo.html";
     });
 
 
@@ -310,7 +310,7 @@ function showProductDetails(imgElement) {
 // modalagregar
 function handleModalAddToCart(e) {
     e.preventDefault();
-    
+
     // Convertir el ID a número
     const productId = Number(e.currentTarget.dataset.productId);
 
