@@ -1,0 +1,374 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* Ajuste para navbar absoluto */
+.carrito-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1100px;
+    /* Reducido el ancho total */
+    margin: 150px auto 20px auto;
+    /* Margen superior para navbar absoluto */
+    gap: 30px;
+}
+
+/* Sección de facturación más ancha */
+.facturacion {
+    flex: 1.5;
+    /* Un poco más ancha para mejor organización */
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.facturacion form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Dos columnas */
+    gap: 15px;
+}
+
+.facturacion label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    display: block;
+}
+
+.facturacion input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.boton-enviar {
+    grid-column: span 2;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Contenedor del carrito y detalles del pedido */
+.carrito-detalles-container {
+    flex: 1.2;
+    /* Reducido el ancho */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+#cartItemsContainer {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 15px;
+}
+
+#cartItemsContainer::-webkit-scrollbar {
+    width: 8px;
+    /* Ancho de la barra de desplazamiento */
+    visibility: visible;
+    /* Asegurarse de que sea visible siempre */
+}
+
+#cartItemsContainer::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* Color de la barra */
+    border-radius: 4px;
+}
+
+#cartItemsContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+    /* Color al pasar el mouse */
+}
+
+
+
+.cart-item-precio {
+    white-space: pre;
+    font-family: monospace;
+}
+
+/* Estilos para cada producto en el carrito */
+.cart-item {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    gap: 15px;
+    /* padding: 10px; */
+    /* border-bottom: 1px solid #ddd; */
+    background: white;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+/* Columnas con ancho fijo para alinear los elementos */
+.cart-item-producto {
+    flex: 2;
+    /* Más espacio para el nombre del producto */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* Imagen del producto */
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* Información del producto */
+.cart-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #333;
+}
+
+
+/* Cantidad ajustada */
+.cart-item-cantidad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-right: 10px;
+}
+
+/* .cart-item-cantidad button {
+    background-color: #ddd;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 25px;
+    text-align: center;
+} */
+
+/* Botón eliminar más compacto */
+/* .cart-item-acciones button {
+    background-color: white;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
+} */
+
+/* Detalles del pedido */
+/* .carrito-detalles {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    text-align: ce;
+} */
+
+/* carrito modificado */
+.carrito-detalles {
+    padding: 10px;
+
+}
+
+.detalle-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 16px;
+}
+
+.detalle-titulo {
+    font-weight: 500;
+    color: #333;
+}
+
+.detalle-tituloT {
+    font-weight: 500;
+    color: #6064ff;
+    font-size: 20px;
+}
+
+.detalle-precio {
+    font-weight: 600;
+    color: #555;
+}
+
+.total-pagar .detalle-precio {
+    color: #6064ff;
+    font-size: 20px;
+}
+
+/* carrito modificado */
+
+.boton-pagar {
+    display: block;
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Métodos de pago */
+.metodos-pago {
+    margin-top: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.metodos-pago img {
+    width: 50px;
+    margin: 5px;
+}
+
+
+/* login */
+
+.mensaje-login-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.mensaje-login {
+    color: #555;
+    font-size: 16px;
+}
+
+.boton-login {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #1f345a, #7b325f);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton-login:hover {
+    background-color: #e5673b;
+}
+
+.section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.header {
+    padding: 10px 20px;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+    padding: 20px;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.content.active {
+    display: block;
+}
+
+.edit-icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Estilos base */
+input,
+select {
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+
+/* Campos en error (rojo) */
+input.is-invalid,
+select.is-invalid {
+    border-color: #dc3545 !important;
+    animation: shake 0.2s 2;
+}
+
+/* Campos validados correctamente (verde) */
+input.is-valid,
+select.is-valid {
+    border-color: #28a745 !important;
+}
+
+/* Efecto de sacudida */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+}
+
+/* Estilos para campos habilitados/deshabilitados */
+input[disabled] {
+    background-color: #f1f1f1;
+    color: #777;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
+
+.form-label {
+    font-size: 14px;
+    /* Haz la letra un poco más pequeña */
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente con los inputs */
+}
+
+.form-control {
+    margin-top: 0px;
+    /* Alineación horizontal con los labels */
+}
