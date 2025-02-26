@@ -1,305 +1,824 @@
-/* Estilos Generales */
-body {
-    font-family: sans-serif; /* Fuente legible y moderna */
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8; /* Fondo muy claro para un look minimalista */
-    color: #333; /* Color de texto principal */
+
+
+
+/* ===========================
+   Ejemplo de integración con tus colores
+   =========================== */
+/* Ajuste general para que no “rechine” con tu nav y footer. 
+   Puedes ajustar gradientes o fondos para cada paso. */
+   .step-container {
+    background: linear-gradient(135deg, #fdfdfd, #f0f0f0);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.6s ease;
   }
   
-  .header-container {
-    text-align: center; /* Centrar el contenido de la cabecera */
-    padding: 2rem 1rem; /* Espaciado vertical y horizontal */
-    background-color: #fff; /* Fondo blanco para la cabecera */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sutil sombra para destacar la cabecera */
-  }
-  
-  h1 {
-    font-size: 2.5rem; /* Tamaño de fuente para el título principal */
-    font-weight: 600; /* Grosor de fuente semi-negrita */
-    margin-bottom: 0.5rem; /* Espacio debajo del título */
-    color: #2c3e50; /* Color del título */
-  }
-  
-  h4 {
-    font-size: 1.1rem; /* Tamaño de fuente para el subtítulo */
-    font-weight: 400; /* Grosor de fuente normal */
-    color: #777; /* Color del subtítulo (más suave) */
-    line-height: 1.6; /* Espaciado entre líneas para mejor legibilidad */
-    max-width: 600px; /* Ancho máximo para evitar que el texto se extienda demasiado */
-    margin: 0 auto; /* Centrar horizontalmente */
-  }
-  
-  /* Media Queries para Responsividad */
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 2rem; /* Reducir el tamaño del título en pantallas más pequeñas */
-    }
-  
-    h4 {
-      font-size: 1rem; /* Reducir el tamaño del subtítulo en pantallas más pequeñas */
-      padding: 0 1rem; /* Añadir un poco de padding lateral en pantallas pequeñas */
-    }
-  
-    .header-container {
-      padding: 1.5rem 0.5rem; /* Reducir el padding en pantallas pequeñas */
-    }
-  }
-  
-.product-img {
-    width: 100px;
-    height: auto;
-}
-
-.main-image {
-    width: 250px;
-    height: auto;
-}
-.custom-alert {
-    position: fixed;
-    top: 88px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(10, 13, 179, 0.8);
-    color: white;
-    padding: 25px 30px; /* Más padding para agrandar */
-    border-radius: 5px;
-    display: none;
-    z-index: 1151; /* Mayor que el modal de Bootstrap */
-    font-size: 22px;
-    text-align: center;
-    min-width: 250px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Agrega sombra */
-}
-
-
-.product-img { width: 100px; height: auto; }
-
-
-
-body {
-    background:#ffffff;
-    font-family: Arial, sans-serif;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-}
-
-
-.product-img {
-    width: 80px;
-    height: auto;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 5px;
-
-    background: white;
-}
-
-.main-image {
-    max-width: 1200px;
-    width: 200%;
-    height: auto;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: box-shadow 0.3s ease;
-}
-
-.main-image:hover {
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-
-    background: rgb(255, 255, 255);
-
-}
-
-.price {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.in-stock {
-    color: green;
-    font-weight: bold;
-}
-
-.plan-container {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-
-.plan-option {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-}
-
-.plan-option input {
-    margin-right: 10px;
-}
-
-.category-btn {
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    border-radius: 8px;
-    margin: 5px;
-}
-
-.order-summary {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.place-order-btn {
-    background-color: #1e2d58;
-    color: white;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 15px;
-    }
-    .row {
-        flex-direction: column;
-        align-items: center;
-    }
-    .col-2, .col-4 {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 15px;
-    }
-    .product-img {
-        width: 60px;
-    }
-    .main-image {
-        max-width: 100%;
-    }
-    .btn-group {
-        flex-wrap: wrap;
-    }
-    .btn {
-        width: 100%;
-        margin: 5px 0;
-    }
-}
-
-.plan-card {
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-.plan-card:hover {
-    background-color: #cfcfd1;
-    border-color: #0d6efd;
-}
-.selected-plan {
-    background-color: #e9f5ff;
-    border-color: #0d6efd !important;
-}
-
-
-
-
-.plan-card.selected {
-    border: 2px solid #113e6e;         /* Azul oscuro elegante */
-    background-color: #0d6efd;           /* Tono sutil y minimalista */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    color: #fff;                       /* Texto en blanco para destacar */
-  }
-  
-  /* Aseguramos que todos los elementos de texto dentro de la tarjeta seleccionada sean blancos */
-  .plan-card.selected .form-check-label,
-  .plan-card.selected p,
-  .plan-card.selected a {
-    color: #fff !important;
-  }
-  
- 
-
-
-
-
-
-
-/* mensaje personaliza */
-/* Estilos para el contenedor del mensaje (card) - Refinado */
-.mensaje-container {
-    background-color: #e0eafc; /* Azul muy claro */
-    color: #333; /* Texto principal oscuro */
-    padding: 1rem 1.5rem; /* Espaciado */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    margin: 1rem auto; /* Centrado y margen */
-    max-width: 800px; /* Ancho máximo */
-    text-align: center; /* Texto centrado */
-    border: 1px solid #c6d4ef; /* Borde sutil */
-  }
-  
-  /* Estilos para el texto del mensaje */
-  #mensaje {
-    font-size: 1.1rem; /* Tamaño de fuente */
-    font-weight: 400; /* Grosor normal */
-    margin: 0; /* Sin margen */
-    color: #555; /* Color de texto secundario */
-  }
-  
-  /* Eliminar animación de aparición */
-  @keyframes fadeIn {
+  /* Animación suave al mostrar un step */
+  @keyframes fadeInUp {
     from {
-      opacity: 1;
-      transform: translateY(0);
+      opacity: 0;
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  /* Eliminar animacion linea brillante */
-  .mensaje-container::before {
-    content: "";
+  
+  /* Ocultamos temporalmente cada paso con .d-none,
+     y añadimos una clase .fade-step para la transición */
+  .fade-step {
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  /* Wizard Progress: un color que combine con tu top-bar (#284170, #943c7a) */
+  #wizardProgress .progress-bar {
+    background: linear-gradient(135deg, #284170, #943c7a);
+    transition: width 0.6s ease;
+  }
+  
+  /* Botones de Step en la misma posición (parte inferior derecha) */
+  .step-buttons {
+    display: flex;
+    justify-content: flex-end; /* o center, según prefieras */
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Ejemplo de hover más vistoso en botones */
+  .btn-primary:hover {
+    background: #943c7a !important; /* Cambia a tu gusto */
+    border-color: #943c7a !important;
+  }
+  
+  .btn-secondary:hover {
+    background: #284170 !important;
+    border-color: #284170 !important;
+    color: #fff !important;
+  }
+  
+  /* Pequeño realce en cards */
+  .card:hover {
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+  
+  /* NUEVO: Añadir margen superior al contenedor de la barra de progreso */
+
+  
+/* ================================
+   ESTILOS GENERALES DEL BODY
+   ================================ */
+
+   body {
+    font-family: sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding-top: 100px; /* Añade padding en la parte superior */
+    background: #ffffff;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: none; /* Elimina el ancho máximo */
+    margin: 0 auto;
+    animation: fadeInPage 0.5s ease-in-out;
+  }
+  
+  footer {
+    max-width: none; /* Elimina el ancho máximo para el footer */
   }
   
 
-/* Contenedor principal de productos (banner) */
-/* Contenedor principal de productos (banner) */
-/* Contenedor principal de productos (banner) */
-/* Contenedor principal de productos (banner) */
-/* Contenedor principal de productos (banner) */
-/* Contenedor principal de productos (banner) */
-/* Contenedor principal de productos (banner) */
+
+/* Animación para el body */
+@keyframes fadeInPage {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+/* ================================
+ ENCABEZADO (header-container)
+ ================================ */
+.header-container {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #777;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Media Query para pantallas <= 768px */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h4 {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  .header-container {
+    padding: 1.5rem 0.5rem;
+  }
+}
+
+/* ================================
+ ALERTAS PERSONALIZADAS
+ ================================ */
+.custom-alert {
+  position: fixed;
+  top: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 13, 179, 0.8);
+  color: white;
+  padding: 25px 30px; /* Más padding para agrandar */
+  border-radius: 5px;
+  display: none;
+  z-index: 1151; /* Mayor que el modal de Bootstrap */
+  font-size: 22px;
+  text-align: center;
+  min-width: 250px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  /* NUEVO: Animación de desvanecido al mostrar */
+  animation: fadeInAlert 0.4s ease-in-out;
+}
+
+@keyframes fadeInAlert {
+  from {
+      opacity: 0;
+      transform: translate(-50%, -20px);
+  }
+  to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+  }
+}
+
+/* ================================
+ IMÁGENES DE PRODUCTO
+ ================================ */
+.product-img {
+  width: 80px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  background: white;
+  transition: transform 0.3s ease;
+}
+.product-img:hover {
+  transform: scale(1.05);
+}
+
+/* ================================
+ IMAGEN PRINCIPAL (main-image)
+ ================================ */
+.main-image {
+  max-width: 1200px;
+  width: 200%;
+  height: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* NUEVO: Añadido transform */
+}
+.main-image:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  background: rgb(255, 255, 255);
+  transform: scale(1.01); /* Sutil zoom */
+}
+
+/* ================================
+ PRECIOS, STOCK, ETC.
+ ================================ */
+.price {
+  font-size: 24px;
+  font-weight: bold;
+}
+.in-stock {
+  color: green;
+  font-weight: bold;
+}
+
+/* ================================
+ PLANES (plan-container, plan-option)
+ ================================ */
+.plan-container {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+}
+.plan-option {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+.plan-option input {
+  margin-right: 10px;
+}
+
+/* ================================
+ BOTONES DE CATEGORÍA
+ ================================ */
+.category-btn {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 5px;
+}
+
+/* ================================
+ RESUMEN DE COMPRA
+ ================================ */
+.order-summary {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* ================================
+ BOTÓN PLACE-ORDER
+ ================================ */
+.place-order-btn {
+  background-color: #1e2d58;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.place-order-btn:hover {
+  background-color: #182345;
+  transform: scale(1.02);
+}
+
+/* ================================
+ RESPONSIVE (GENERAL)
+ ================================ */
+@media (max-width: 768px) {
+  .container {
+      padding: 0 15px;
+  }
+  .row {
+      flex-direction: column;
+      align-items: center;
+  }
+  .col-2, .col-4 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+  }
+  .btn-group {
+      flex-wrap: wrap;
+  }
+  .btn {
+      width: 100%;
+      margin: 5px 0;
+  }
+}
+
+/* ================================
+ PLAN-CARD (selección de plan)
+ ================================ */
+.plan-card {
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.plan-card:hover {
+  background-color: #cfcfd1;
+  border-color: #0d6efd;
+}
+.selected-plan {
+  background-color: #e9f5ff;
+  border-color: #0d6efd !important;
+}
+
+.plan-card.selected {
+  border: 2px solid #113e6e; /* Azul oscuro elegante */
+  background-color: #0d6efd; /* Tono sutil y minimalista */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #fff !important; /* Texto en blanco */
+}
+/* Asegura que todo texto dentro de .selected sea blanco */
+.plan-card.selected .form-check-label,
+.plan-card.selected p,
+.plan-card.selected a {
+  color: #fff !important;
+}
+
+/* ================================
+ MENSAJE DE PERSONALIZACIÓN
+ ================================ */
+.mensaje-container {
+  background-color: #e0eafc; /* Azul muy claro */
+  color: #333;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto;
+  max-width: 800px;
+  text-align: center;
+  border: 1px solid #c6d4ef;
+}
+#mensaje {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0;
+  color: #555;
+}
+/* Elimina animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.mensaje-container::before {
+  content: "";
+}
+
+/* ================================
+ CONTENEDOR DE PRODUCTOS (BANNER)
+ ================================ */
 #productosContainer {
   position: relative;
   width: 500px;
   height: 600px; /* Altura del banner */
   overflow: hidden;
 }
-
-/* Estilo base para las cards de producto */
 .producto-card {
   border-radius: 5px;
   transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
   opacity: 0.8;
 }
-
-/* Estilo para la card seleccionada */
 .producto-card.seleccionado {
   background-color: green;
   opacity: 1 !important;
 }
 
-/* Estilos para la card de descripción (collapse) */
+/* ================================
+ CARD DE DESCRIPCIÓN (collapse)
+ ================================ */
 .collapse-card {
   border-radius: 5px;
 }
 
-/* Estilos para el modal de factura */
+/* ================================
+ MODAL FACTURA
+ ================================ */
 #factura {
   margin-top: 20px;
 }
+
+ /* ===========================
+       Ejemplo de integración con tus colores
+       =========================== */
+    /* Ajuste general para que no “rechine” con tu nav y footer. 
+       Puedes ajustar gradientes o fondos para cada paso. */
+
+       .step-container {
+        background: linear-gradient(135deg, #fdfdfd, #f0f0f0);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        animation: fadeInUp 0.6s ease;
+      }
+  
+      /* Animación suave al mostrar un step */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+  
+      /* Ocultamos temporalmente cada paso con .d-none,
+         y añadimos una clase .fade-step para la transición */
+      .fade-step {
+        transition: opacity 0.5s ease-in-out;
+      }
+  
+      /* Wizard Progress: un color que combine con tu top-bar (#284170, #943c7a) */
+      #wizardProgress .progress-bar {
+        background: linear-gradient(135deg, #284170, #943c7a);
+        transition: width 0.6s ease;
+      }
+  
+      /* Botones de Step en la misma posición (parte inferior derecha) */
+      .step-buttons {
+        display: flex;
+        justify-content: flex-end; /* o center, según prefieras */
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+  
+      /* Ejemplo de hover más vistoso en botones */
+      .btn-primary:hover {
+        background: #943c7a !important; /* Cambia a tu gusto */
+        border-color: #943c7a !important;
+      }
+  
+      .btn-secondary:hover {
+        background: #284170 !important;
+        border-color: #284170 !important;
+        color: #fff !important;
+      }
+  
+      /* Pequeño realce en cards */
+      .card:hover {
+        box-shadow: 0 0 12px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+      }
+/*------------------------------------------*/
+
+
+
+
+
+.jump-animation {
+  animation: jump 0.5s ease;
+}
+
+@keyframes jump {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+/* =========================
+   STEP 1: PERSONALIZA TU KIT - ESTILOS ESPECÍFICOS
+   ========================= */
+
+/* ------------------------------------------
+   ESTILOS GENERALES DEL CONTENEDOR DE STEP 1
+   ------------------------------------------ */
+   #step1 .step-container {
+    background: #fdfdfd;
+    padding: 30px; /* Aumentamos el padding para más espacio */
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.6s ease;
+  }
+  
+  /* Animación suave al mostrar el step */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+/* ------------------------------------------
+   1) TARJETA PRINCIPAL CON BORDE GRADIENTE
+   ------------------------------------------ */
+   .principal-barra {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff; /* Interior en blanco */
+  }
+  
+  /* Borde con gradiente en el contorno */
+  .principal-barra::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    border-radius: 14px;
+  }
+  
+  /* ------------------------------------------
+     2) ESTILOS DEL PRECIO
+     ------------------------------------------ */
+  .precio-total {
+    background: #dc3545 ;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* ------------------------------------------
+     3) BOTONES (+, -, ADD, SIGUIENTE)
+     ------------------------------------------ */
+  /* Botones outline (- / +) */
+  .btn-outline-secondary {
+    border-color: #aaa;
+    color: #555;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn-outline-secondary:hover {
+    border-color: #888;
+    color: #333;
+    background-color: transparent; /* sin efecto exagerado */
+  }
+  
+  /* Contador */
+  #kitCountBox {
+    border-color: #aaa;
+    font-size: 1.7rem;
+    color: #333;
+  }
+  
+  /* Botón ADD */
+  #addProductos {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  #addProductos:hover {
+    background-color: #b31e29; /* tono más oscuro sin “salto” */
+    border-color: #b31e29;
+  }
+  
+  /* Botón Siguiente */
+  .btn-primary {
+    background-color: #1e2d58;
+    border-color: #1e2d58;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #1c264e; /* ligero cambio */
+    border-color: #1c264e;
+  }
+  
+  /* ------------------------------------------
+     4) TOGGLE: CUADRADO, GRANDE, CENTRADO
+     ------------------------------------------ */
+  
+/* Contenedor principal centrado */
+.toggle-switch-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 10px;
+}
+
+/* Estructura básica del toggle */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 160px;   /* Ancho del toggle */
+  height: 50px;   /* Alto del toggle */
+}
+
+/* Ocultamos el checkbox real */
+.toggle-switch input {
+  display: none;
+}
+
+/* Slider (fondo) en estado OFF */
+.slider {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background-color: #bbb;                  /* gris OFF */
+  border: 2px solid #1e2d58;               /* borde azul oscuro */
+  border-radius: 25px;                     /* esquinas redondeadas */
+  cursor: pointer;
+  transition: background-color 0.4s;
+  overflow: hidden;                        /* para el radar */
+}
+
+/* Efecto radar para la animación de rastreo */
+.radar-effect {
+  position: absolute;
+  width: 200%; 
+  height: 200%;
+  top: -50%; 
+  left: -50%;
+  background: radial-gradient(circle, rgba(30,45,88,0.2) 20%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+/* Círculo que se desliza de izquierda a derecha */
+.slider-circle {
+  position: absolute;
+  top: 5px; 
+  left: 5px;
+  width: 40px; 
+  height: 40px;
+  background-color: #333;                  /* círculo oscuro */
+  border-radius: 50%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  transition: transform 0.4s;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Icono de Font Awesome dentro del círculo */
+.slider-circle i {
+  color: #1e2d58;                           /* azul oscuro en OFF */
+  font-size: 20px;
+  transition: color 0.4s;
+}
+
+/* Texto de estado centrado en el toggle */
+.status-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: opacity 0.4s;
+}
+
+/* "TRACKING ON" (oculto por defecto) */
+.status-text.on {
+  color: #fff;
+  opacity: 0;
+}
+
+/* "TRACKING OFF" (visible por defecto) */
+.status-text.off {
+  color: #333;
+  opacity: 1;
+}
+
+/* =========================
+   ESTADO ON (CHECKED)
+   ========================= */
+
+/* Fondo morado y sin cambiar el tamaño del borde */
+.toggle-switch input:checked + .slider {
+  background-color: #943c7a;               /* morado ON */
+}
+
+/* El círculo se desliza a la derecha */
+.toggle-switch input:checked + .slider .slider-circle {
+  transform: translateX(110px);
+  background-color: #333;                  /* mantiene color oscuro */
+  box-shadow: 0 0 10px rgba(148,60,122,0.6);
+}
+
+/* El icono dentro del círculo se vuelve blanco y hace pulso */
+.toggle-switch input:checked + .slider .slider-circle i {
+  color: #fff;
+  animation: pulse 2s infinite;
+}
+
+/* El radar se vuelve visible y gira */
+.toggle-switch input:checked + .slider .radar-effect {
+  opacity: 1;
+  animation: radar 3s infinite linear;
+}
+
+/* El texto ON aparece, OFF desaparece */
+.toggle-switch input:checked + .slider .status-text.on {
+  opacity: 1;
+}
+.toggle-switch input:checked + .slider .status-text.off {
+  opacity: 0;
+}
+
+/* =========================
+   ANIMACIONES
+   ========================= */
+
+/* Pulso para el icono */
+@keyframes pulse {
+  0%   { transform: scale(1);   }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1);   }
+}
+
+/* Giro del radar */
+@keyframes radar {
+  0%   { transform: rotate(0deg);   }
+  100% { transform: rotate(360deg); }
+}
+
+ 
+  /* ------------------------------------------
+     ESTILOS DE LOS TEXTOS DINÁMICOS (ANIMACIONES)
+     ------------------------------------------ */
+  #step1 #nombrePaquete {
+    animation: fadeInText 1s ease;
+  }
+  
+  #step1 .text-muted {
+    animation: fadeInText 1.2s ease;
+  }
+  
+  @keyframes fadeInText {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* ------------------------------------------
+     ESTILOS DEL SELECTOR DE ACTIVOS
+     ------------------------------------------ */
+  #step1 #vehiculoSelector .btn {
+    border: 2px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 5px;
+    font-size: 1rem;
+    color: #555;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  #step1 #vehiculoSelector .btn:hover {
+    background-color: #f0f0f0;
+    border-color: #bbb;
+    color: #333;
+  }
+  
+  #step1 #vehiculoSelector .btn:focus,
+  #step1 #vehiculoSelector .btn.active {
+    background-color: #1e2d58;
+    border-color: #1e2d58;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  
+  /* ------------------------------------------
+     ESTILOS GENERALES DE BOTONES (UNIFICACIÓN)
+     ------------------------------------------ */
+  #step1 .btn {
+    font-weight: 500;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  #step1 .btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ------------------------------------------
+     AJUSTE DE PADDING INFERIOR
+     ------------------------------------------ */
+  #step1 .container {
+    padding-bottom: 30px;
+  }
+  

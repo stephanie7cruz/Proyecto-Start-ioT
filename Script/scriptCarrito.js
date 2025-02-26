@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 const productoHTML = `
                 <div class="cart-item">
                     <div class="cart-item-producto">
-                        <img src="${producto.img}" alt="${producto.name}" class="cart-item-img">
-                        <span>${producto.name}</span>
+                        <img src="${producto.img}" alt="${producto.nombre}" class="cart-item-img">
+                        <span>${producto.nombre}</span>
                     </div>
                     <div class="cart-item-precio">$${producto.precio.toFixed(2)}</div>
                     <div class="cart-item-cantidad">${producto.cantidad}</div>
                     <div class="cart-item-acciones">
-                        <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${producto.id}')">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito('${producto.id_producto}')">Eliminar</button>
                     </div>
                 </div>
             `;
@@ -45,14 +45,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Eliminar producto del carrito
     window.eliminarDelCarrito = function (idProducto) {
-        console.log("Eliminando producto con ID:", idProducto);
-        productosEnCarrito = productosEnCarrito.filter(producto => producto.id !== idProducto);
+        productosEnCarrito = productosEnCarrito.filter(producto => producto.id_producto !== parseInt(idProducto, 10));
         localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
         mostrarCarrito();
     };
 
-    // Evento para finalizar compra (solo muestra alerta por ahora)
     document.getElementById("checkoutBtn").addEventListener("click", () => {
+        const usuarioLogueado = localStorage.getItem("usuario"); // Verifica si hay un usuario en sesión
+        
+
+        if (!usuarioLogueado) {
+            // Si el usuario NO ha iniciado sesión, mostrar modal de inicio de sesión
+            Swal.fire({
+                title: "Inicia sesión",
+                text: "Debes iniciar sesión para completar la compra.",
+                icon: "info",
+                confirmButtonText: "Iniciar sesión",
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Abre el modal de inicio de sesión
+                    const modalLogin = new bootstrap.Modal(document.getElementById("modalInicioSesion1"));
+                    modalLogin.show();
+                }
+            });
+            return; // Detener el proceso de compra hasta que inicie sesión
+        }
+    
+        // Si el usuario ha iniciado sesión, proceder con la compra
         if (productosEnCarrito.length > 0) {
             Swal.fire({
                 title: "¡Compra Realizada!",
@@ -77,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
+    
     
 eliminarDelCarrito();
     mostrarCarrito();

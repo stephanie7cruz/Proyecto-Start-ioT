@@ -10,7 +10,13 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- Font Awesome CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+ 
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="../Style/login.css">
+ 
   <title>Formulario de Contacto</title>
 </head>
 
@@ -19,9 +25,15 @@
     <header id="navbar"></header>
 
     <main>
+
+        <!--  modal - Inicio sesion -registro-->
+<section id="homemodales"></section>
+
+<h1>Ayúdanos a entender <span>tus necesidades </span> para ofrecerte la mejor solución.</h1>
       <div class="form-container">
+        
         <div class="form-section">
-          <h1>Ayúdanos a entender tus necesidades para ofrecerte la mejor solución.</h1>
+         
           <h2>Datos Básicos</h2>
           <form action="https://formspree.io/f/xkgganzj" id="miFormulario" method="POST">
             <div class="form-row">
@@ -107,8 +119,9 @@
                   <input type="checkbox" name="interes" value="sensor"> Sensores de Movimiento
                 </label>
                 <label class="checkbox-card">
-                  <input type="checkbox" name="interes" value="sensor"> Detector de Temperatura
+                  <input type="checkbox" name="interes" value="sensor"> Detector de temperatura
                 </label>
+              
               </div>
               <span id="error-interes" class="error-message"></span>
             </div>
@@ -140,10 +153,13 @@
     </main>
     <footer id="footer"></footer>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+
   <!-- cargar nav -->
-
   <script>
-
     fetch('nav.html')
       .then(response => response.text())
       .then(data => {
@@ -152,9 +168,18 @@
       .catch(error => console.error('Error al cargar el navbar:', error));
   </script>
 
+      <!-- cargar login -->
+ <script>
+  fetch('login.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('homemodales').innerHTML = data;
+    })
+    .catch(error => console.error('Error al cargar el login desde home:', error));
+</script>
+
   <!-- cargar footer -->
   <script>
-
     fetch('footer.html')
       .then(response => response.text())
       .then(data => {
@@ -163,10 +188,9 @@
       .catch(error => console.error('Error al cargar el footer:', error));
   </script>
 
-  <script src="Script/contacto.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+  <script src="../Script/contacto.js"></script>
+ 
+    <script src="../Script/login.js"></script>
 </body>
 
 </html>

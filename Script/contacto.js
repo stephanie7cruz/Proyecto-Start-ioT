@@ -1,3 +1,4 @@
+
 function toggleDescription() {
     var checkBox = document.getElementById('agregarDescripcion');
     var descriptionBox = document.getElementById('descriptionBox');
@@ -75,4 +76,6 @@ document.getElementById("miFormulario").addEventListener("submit", function (eve
       this.submit(); // Envía el formulario...
     }
   });
+
+  
   
