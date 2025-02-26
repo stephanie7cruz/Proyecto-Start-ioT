@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch('http://localhost:8080/productos/traer')
         .then(response => response.json())
         .then(data => {
-            console.log("Productos obtenidos:", data); 
+            console.log("Productos obtenidos:", data);
             productos = data;
 
             // Mostrar todos los productos en la sección de "Productos"
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             filterModal.show(); // Mostrar el modal
         }
     });
-  
+
     filterModal.hide(); // Cerrar el modal
 
 
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         const boton = e.currentTarget;
-        const idBoton = boton.id ? parseInt(boton.id, 10) : null; 
+        const idBoton = boton.id ? parseInt(boton.id, 10) : null;
         const productoAgregado = productos.find(producto => producto.id_producto === idBoton);
 
         const textoOriginal = boton.innerHTML;
@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementById("checkoutButton").addEventListener("click", () => {
-        window.location.href = "carrito.html";
+        window.location.href = "carritonuevo.html";
     });
 
 });
@@ -431,7 +431,7 @@ function showProductDetails(imgElement) {
 // modalagregar
 function handleModalAddToCart(e) {
     e.preventDefault();
-    
+
     // Convertir el ID a número
     const productId = Number(e.currentTarget.dataset.productId);
 
