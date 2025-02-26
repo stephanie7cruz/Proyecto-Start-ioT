@@ -25,41 +25,31 @@ function togglePassword(inputId, iconId) {
 function iniciarSesion() {
     let correo = document.getElementById("correoInicio").value.trim();
     let clave = document.getElementById("claveInicio").value.trim();
+    let usuario = JSON.parse(localStorage.getItem(correo));
 
-    // Construir el objeto de datos para enviar al backend
-    let datos = {
-        correo: correo,
-        contrasena: clave
-    };
-
-    // Realizar la petición POST al endpoint de login
-    fetch("http://localhost:8080/usuarios/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(datos)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Error en la autenticación");
-        }
-        return response.json();
-    })
-    .then(usuario => {
-        // Guardar el usuario autenticado en sesión (por ejemplo, en localStorage)
+    if (usuario && atob(usuario.clave) === clave) {
+        // ✅ Guardar al usuario autenticado en sesión
         localStorage.setItem("usuario", JSON.stringify(usuario));
         showMessage("¡Inicio de sesión exitoso!");
-        // Cerrar el modal de inicio de sesión
         var modal = bootstrap.Modal.getInstance(document.getElementById("modalInicioSesion1"));
         modal.hide();
-    })
-    .catch(error => {
-        document.getElementById("errorInicio").textContent = "Correo o contraseña incorrectos.";
-        console.error("Error al iniciar sesión:", error);
-    });
-}
 
+        // puesto para recargar la pagina al iniciar session
+        window.location.reload();
+        // se puede mejorar esta logica, es momentanea
+    } else {
+        document.getElementById("errorInicio").textContent = "Correo o contraseña incorrectos.";
+    }
+}
+// Cargar automáticamente los datos del usuario al iniciar la sección
+window.onload = function () {
+    const userData = JSON.parse(localStorage.getItem('usuario'));
+    if (userData) {
+        document.getElementById('nombre').value = userData.nombre || '';
+        document.getElementById('email').value = userData.correo || '';
+        document.getElementById('telefono').value = userData.telefono || '';
+    }
+};
 
 // Verificar si un usuario existe
 function usuarioExiste(correo) {
@@ -67,12 +57,12 @@ function usuarioExiste(correo) {
 }
 
 // Función para registrar usuario
-async function registrarUsuario() {
+function registrarUsuario() {
     let nombre = document.getElementById("nombreCompleto").value.trim();
     let telefono = document.getElementById("telefonoLogin").value.trim();
     let correo = document.getElementById("correoRegistro").value.trim();
     let clave = document.getElementById("claveRegistro2").value.trim();
-    
+
     let errorMensajes = {
         nombre: document.getElementById("errorRegistro"),
         telefono: document.getElementById("errorRegistroTelefono"),
@@ -103,44 +93,24 @@ async function registrarUsuario() {
         return;
     }
 
+    // Guardar el usuario con el correo como clave y dentro del objeto
+    localStorage.setItem(correo, JSON.stringify({
+        nombre,
+        telefono,
+        correo, // Guardar el correo dentro del objeto también
+        clave: btoa(clave)
+    }));
+
     showMessage("¡Registro exitoso!");
     console.log("Usuario registrado correctamente");
-     // Enviar datos al backend con fetch
-     let fechaRegistro = new Date().toISOString(); // Convertir fecha a formato compatible
-    let usuario = {
-        id_Usuario: null,  // Si la BD genera el ID, puedes enviar null
-        nombre,
-        apellido: "",  // Si no hay campo para apellido, envía vacío
-        contrasena: clave,
-        correo,
-        telefono,
-        direccion:" ",
-        fechaRegistro,
-        pedidos: [],  // Lista vacía para cumplir con el backend
-        activos: []   // Lista vacía para cumplir con el backend
-    };
 
-     try {
-         let response = await fetch("http://localhost:8080/usuarios/crear", {
-             method: "POST",
-             headers: {
-                 "Content-Type": "application/json"
-             },
-             body: JSON.stringify(usuario)
-         });
- 
-         if (!response.ok) {
-             throw new Error("Error al registrar usuario");
-         }
- 
-         let mensaje = await response.text();
-         showMessage(mensaje);
-         console.log("Usuario registrado correctamente en la BD");
-     } catch (error) {
-         console.error("Error:", error);
-         showMessage("Hubo un problema al registrar el usuario.");
-     }
+    // ✅ Iniciar sesión automáticamente después de registrarse
+    document.getElementById("correoInicio").value = correo;
+    document.getElementById("claveInicio").value = clave;
+    iniciarSesion();
+
 }
+
 
 // Recuperar contraseña
 function recuperarClave() {
@@ -158,79 +128,79 @@ function recuperarClave() {
 }
 
 
-       // Validaciones  en tiempo real
+// Validaciones  en tiempo real
 
-       document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(() => {
-            console.log("⚡ DOM completamente cargado, agregando eventos...");
-    
-            function agregarEvento(id, evento, callback) {
-                let elemento = document.getElementById(id);
-                if (elemento) {
-                    elemento.addEventListener(evento, callback);
-                } else {
-                    console.warn(`⚠ El elemento con ID '${id}' no existe en el DOM.`);
-                }
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+        console.log("⚡ DOM completamente cargado, agregando eventos...");
+
+        function agregarEvento(id, evento, callback) {
+            let elemento = document.getElementById(id);
+            if (elemento) {
+                elemento.addEventListener(evento, callback);
+            } else {
+                console.warn(`⚠ El elemento con ID '${id}' no existe en el DOM.`);
             }
-    
-            agregarEvento("correoRegistro", "blur", function () {
-                let correo = this.value.trim();
-                let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
-                let errorMensaje = document.getElementById("errorRegistroCorreo");
-    
-                if (!emailRegex.test(correo)) {
-                    errorMensaje.textContent = "Correo inválido. Debe contener @ y un dominio válido.";
-                    errorMensaje.style.color = "red";
-                } else {
-                    errorMensaje.textContent = "";
-                }
-            });
-    
-            agregarEvento("telefonoLogin", "blur", function () {
-                let telefono = this.value.trim();
-                let errorMensaje = document.getElementById("errorRegistroTelefono");
-    
-                if (telefono.length !== 10 || !/^\d+$/.test(telefono)) {
-                    errorMensaje.textContent = "Ingresa un número de celular válido (10 dígitos).";
-                    errorMensaje.style.color = "red";
-                } else {
-                    errorMensaje.textContent = "";
-                }
-            });
-    
-            agregarEvento("claveRegistro2", "input", function () {
-                let clave = this.value.trim();
-                let errorMensaje = document.getElementById("errorRegistroContra");
-    
-                let claveRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
-    
-                if (!claveRegex.test(clave)) {
-                    errorMensaje.textContent = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.";
-                    errorMensaje.style.color = "red";
-                } else {
-                    errorMensaje.textContent = "";
-                }
-            });
-    
-            agregarEvento("nombreCompleto", "input", function () {
-                let nombre = this.value.trim();
-                let errorMensaje = document.getElementById("errorRegistro");
-    
-                let nombreRegex = /^(?=[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{6,})\b[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\s+[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\b/;
-    
-                if (!nombreRegex.test(nombre)) {
-                    errorMensaje.textContent = "Escribe el nombre completo.";
-                    errorMensaje.style.color = "red";
-                } else {
-                    errorMensaje.textContent = "";
-                }
-            });
-    
-        }, 100); // Espera 100ms para asegurarse de que el DOM está cargado
-    });
-    
-    
-    
+        }
+
+        agregarEvento("correoRegistro", "blur", function () {
+            let correo = this.value.trim();
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+            let errorMensaje = document.getElementById("errorRegistroCorreo");
+
+            if (!emailRegex.test(correo)) {
+                errorMensaje.textContent = "Correo inválido. Debe contener @ y un dominio válido.";
+                errorMensaje.style.color = "red";
+            } else {
+                errorMensaje.textContent = "";
+            }
+        });
+
+        agregarEvento("telefonoLogin", "blur", function () {
+            let telefono = this.value.trim();
+            let errorMensaje = document.getElementById("errorRegistroTelefono");
+
+            if (telefono.length !== 10 || !/^\d+$/.test(telefono)) {
+                errorMensaje.textContent = "Ingresa un número de celular válido (10 dígitos).";
+                errorMensaje.style.color = "red";
+            } else {
+                errorMensaje.textContent = "";
+            }
+        });
+
+        agregarEvento("claveRegistro2", "input", function () {
+            let clave = this.value.trim();
+            let errorMensaje = document.getElementById("errorRegistroContra");
+
+            let claveRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+
+            if (!claveRegex.test(clave)) {
+                errorMensaje.textContent = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número.";
+                errorMensaje.style.color = "red";
+            } else {
+                errorMensaje.textContent = "";
+            }
+        });
+
+        agregarEvento("nombreCompleto", "input", function () {
+            let nombre = this.value.trim();
+            let errorMensaje = document.getElementById("errorRegistro");
+
+            let nombreRegex = /^(?=[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{6,})\b[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\s+[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}\b/;
+
+            if (!nombreRegex.test(nombre)) {
+                errorMensaje.textContent = "Escribe el nombre completo.";
+                errorMensaje.style.color = "red";
+            } else {
+                errorMensaje.textContent = "";
+            }
+        });
+
+    }, 100); // Espera 100ms para asegurarse de que el DOM está cargado
+});
+
+
+
 
 
 
