@@ -199,19 +199,19 @@ function togglePriceColor(checkbox) {
   <div id="step2" class="container mt-4 fade-step d-none">
     <div class="step-container">
 
-      <!-- Botones Step 2 (PARTE SUPERIOR) -->
-      <div class="step-buttons d-flex justify-content-between mb-4">
-        <button class="btn btn-secondary btn-lg" id="backToStep1">
-          <i class="fas fa-arrow-left me-2"></i>
-          Anterior
-        </button>
-        <button class="btn btn-primary btn-lg" id="goStep3">
-          <i class="fas fa-arrow-right me-2"></i>
-          Siguiente
-        </button>
-      </div>
+    
 
       <h2 class="text-center mb-4">Tu Servicio de Rastreo</h2>
+
+         <!-- BARRA DE PROGRESO (MISMA POSICIÓN) -->
+         <div class="container mt-4">
+          <div class="progress" id="wizardProgress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50"
+              aria-valuemin="0" aria-valuemax="100">
+              Paso 2 de 4
+            </div>
+          </div>
+        </div>
 <!-- Selector de Activos (UNA SOLA COLUMNA - INFERIOR) -->
 <div class="row">
   <div class="col-md-12">
@@ -223,7 +223,7 @@ function togglePriceColor(checkbox) {
           <button id="activoMoto" class="btn btn-outline-dark flex-grow-1"><i class="fas fa-motorcycle"></i>
             Moto</button>
           <button id="activoCamion" class="btn btn-outline-dark flex-grow-1"><i class="fas fa-truck"></i>
-            Camión</button>
+            Camion</button>
           <button id="activoCarga" class="btn btn-outline-dark flex-grow-1"><i class="fas fa-box"></i> Carga</button>
           <button id="activoFlotas" class="btn btn-outline-dark flex-grow-1"><i class="fas fa-users"></i>
             Flotas</button>
@@ -236,6 +236,8 @@ function togglePriceColor(checkbox) {
     </div>
   </div>
 </div>
+
+
       
       <div class="row">
         <!-- Columna Planes de Rastreo -->
@@ -309,75 +311,95 @@ function togglePriceColor(checkbox) {
           </div>
         </div>
 
-        <!-- Columna Detalles del Kit y Compatibilidad -->
-        <div class="col-md-4">
-          <!-- Card Principal: Detalles del Kit -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-body">
-
-
-              <!-- Desplegable 1: Detalles del Kit -->
-              <div class="card mb-3" id="detallesKitCard">
+       <!-- Columna Detalles del Kit y Compatibilidad -->
+<div class="col-md-4">
+    <!-- Card Principal: Detalles del Kit -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <!-- Desplegable 1: Detalles del Kit -->
+            <div class="card mb-3" id="detallesKitCard">
                 <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                  data-bs-target="#collapseKit" aria-expanded="true" id="collapseKitHeader">
-                  <span class="fw-bold"><i class="fas fa-info-circle me-1"></i> Detalles del Kit</span>
-                  <i class="fas fa-chevron-down"></i>
+                    data-bs-target="#collapseKit" aria-expanded="true" id="collapseKitHeader">
+                    <span class="fw-bold"><i class="fas fa-info-circle me-1"></i> Detalles del Kit</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="collapse show" id="collapseKit" data-parent="#accordion">
-                  <div class="card-body" id="collapseKitBody">
-                    <p class="fw-bold mb-2">
-                      <i class="fas fa-satellite me-1"></i> GPS: <span id="gpsUnits" class="text-primary"> unidades</span>
-                    </p>
-                    <p class="fw-bold mb-2">
-                      <i class="fas fa-tools me-1"></i> Accesorios: <span id="accesoriosUnits" class="text-primary">
-                        unidades</span>
-                    </p>
-                    <p class="text-muted small" id="supportMessage">
-                      <i class="fas fa-headset me-1"></i> Incluye instalación profesional y soporte técnico.
-                    </p>
-                  </div>
+                    <div class="card-body" id="collapseKitBody">
+                        <p class="fw-bold mb-2">
+                            <i class="fas fa-satellite me-1"></i> GPS: <span id="gpsUnits"
+                                class="text-primary">unidades</span>
+                        </p>
+                        <p class="fw-bold mb-2">
+                            <i class="fas fa-tools me-1"></i> Accesorios: <span id="accesoriosUnits"
+                                class="text-primary">unidades</span>
+                        </p>
+                        <p class="text-muted small" id="supportMessage">
+                            <i class="fas fa-headset me-1"></i> Incluye instalación profesional y soporte técnico.
+                        </p>
+                    </div>
                 </div>
-              </div>
-
-                             <!-- Desplegable 2: Detalles del Plan -->
-                             <div class="card mb-3">
-                                  <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                                    data-bs-target="#collapsePlan" aria-expanded="false">
-                                    <span class="fw-bold"><i class="fas fa-file-invoice-dollar me-1"></i> Detalles del Plan</span>
-                                    <i class="fas fa-chevron-down"></i>
-                                  </div>
-                                  <div class="collapse" id="collapsePlan" data-parent="#accordion">
-                                    <div class="card-body" id="planDetailsBody">
-                                      <!-- Se actualizará con updatePlanDetails() -->
-                                    </div>
-                                  </div>
-                                </div>
-
-              <!-- Compatibilidad -->
-              <div class="mt-4">
-                <h5 class="card-title"><i class="fas fa-check-circle me-2"></i> Compatibilidad</h5>
-                <div class="progress mb-3">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: 95%;" aria-valuenow="95"
-                    aria-valuemin="0" aria-valuemax="100">
-                    95% Compatible
-                  </div>
-                </div>
-                <p class="text-muted small">
-                  <i class="fas fa-exclamation-triangle me-1"></i> Tu compra es compatible con la mayoría de los
-                  dispositivos GPS disponibles en el mercado.
-                </p>
-              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Columna Resumen de la Compra -->
+            <!-- Desplegable 2: Detalles del Plan -->
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                    data-bs-target="#collapsePlan" aria-expanded="false">
+                    <span class="fw-bold"><i class="fas fa-file-invoice-dollar me-1"></i> Detalles del Plan</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapse" id="collapsePlan" data-parent="#accordion">
+                    <div class="card-body" id="planDetailsBody">
+                        <!-- Se actualizará con updatePlanDetails() -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desplegable 3: Suscripción -->
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSubscription" aria-expanded="false">
+                    <span class="fw-bold">Suscripción</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapse" id="collapseSubscription" data-parent="#accordion">
+                    <div class="card-body">
+                        <p class="text-muted small">Elige la duración de tu suscripción.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-value="Demo">Demo</button>
+                            <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-value="3 Meses">3 Meses</button>
+                            <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-value="6 Meses">6 Meses</button>
+                            <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-value="1 Año">1 Año</button>
+                            <button class="btn btn-outline-dark flex-grow-1 subscription-btn" data-value="Indefinido">Indefinido</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compatibilidad -->
+    <div class="mt-4">
+        <h5 class="card-title"><i class="fas fa-check-circle me-2"></i> Compatibilidad</h5>
+        <div class="progress mb-3">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 95%;" aria-valuenow="95"
+                aria-valuemin="0" aria-valuemax="100">
+                95% Compatible
+            </div>
+        </div>
+        <p class="text-muted small">
+            <i class="fas fa-exclamation-triangle me-1"></i> Tu compra es compatible con la mayoría de los
+            dispositivos GPS disponibles en el mercado.
+        </p>
+    </div>
+</div>
+
+
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
             <div class="card-body">
               <h4 class="card-title text-center"><i class="fas fa-shopping-cart me-2"></i> Total de tu Compra</h4>
               <hr />
-              <p id="totalCompra" class="fw-bold text-primary fs-1 text-center">0 COP</p>
+              <p id="totalCompra1" class="fw-bold text-primary fs-1 text-center">0 COP</p>
               <p class="text-muted text-center">
                 Precio final incluye todos los impuestos y descuentos aplicables.
               </p>
@@ -386,7 +408,7 @@ function togglePriceColor(checkbox) {
                 <div class="border p-3 rounded mb-2">
                   <p class="fw-bold mb-0">
                     <i class="fas fa-satellite me-1"></i> Dispositivos: <span id="dispositivosCount"
-                      class="text-primary">9 unidades</span>
+                      class="text-primary">0 unidades</span>
                   </p>
                 </div>
                 <div class="border p-3 rounded mb-2">
@@ -400,16 +422,18 @@ function togglePriceColor(checkbox) {
           </div>
         </div>
       </div>
-
-      <!-- BARRA DE PROGRESO (MISMA POSICIÓN) -->
-      <div class="container mt-4">
-        <div class="progress" id="wizardProgress">
-          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50"
-            aria-valuemin="0" aria-valuemax="100">
-            Paso 2 de 4
-          </div>
-        </div>
-      </div>
+  <!-- Botones Step 2 (PARTE SUPERIOR) -->
+  <div class="step-buttons d-flex justify-content-between mb-4">
+    <button class="btn btn-secondary btn-lg" id="backToStep1">
+      <i class="fas fa-arrow-left me-2"></i>
+      Anterior
+    </button>
+    <button class="btn btn-primary btn-lg" id="goStep3">
+      <i class="fas fa-arrow-right me-2"></i>
+      Siguiente
+    </button>
+  </div>
+   
 
     </div>
   </div>
@@ -421,9 +445,80 @@ function togglePriceColor(checkbox) {
   <div id="step3" class="container mt-4 fade-step d-none">
     <div class="step-container">
         <h2 class="text-center mb-4">Revisa tus Kits</h2>
+
+            <!-- BARRA DE PROGRESO (MISMA POSICIÓN) -->
+            <div class="container mt-4">
+              <div class="progress" id="wizardProgress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="80"
+                  aria-valuemin="0" aria-valuemax="100">
+                  Paso 3 de 4
+                </div>
+              </div>
+            </div>
+
         <div id="kit-display-area" class="row">
             <!-- Kits will be dynamically inserted here -->
         </div>
+
+        <div class="text-center mb-4">
+          <h3 class="fw-bold">El total de tu compra</h3>
+          <p class="text-muted">Para llevar todos tus kits, cancela ahora mismo. Presiona "Ordenar" o guarda en Favoritos para más tarde.</p>
+        </div>
+        <!-- Sección de Totales en 3 columnas -->
+    <div class="row g-3">
+      <!-- Columna 1: Costo del Plan -->
+      <div class="col-md-4">
+        <div class="card text-start shadow-sm">
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <i class="fas fa-file-invoice-dollar fa-lg me-2" style="color: #2d3262;"></i>
+            <div>
+              <h5 class="fw-bold text-primary mb-0">Plan: <span id="totalPlan">0 COP</span></h5>
+              <small class="text-muted">Se cobra tras el 1er mes</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Columna 2: Costo de Productos -->
+      <div class="col-md-4">
+        <div class="card text-start shadow-sm">
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <i class="fas fa-shopping-cart fa-lg me-2" style="color: #2d3262;"></i>
+            <div>
+              <h5 class="fw-bold text-success mb-0">Productos: <span id="totalProductos">0 COP</span></h5>
+              <small class="text-muted">Tus kits</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Columna 3: Total a Pagar -->
+      <div class="col-md-4">
+        <div class="card text-start shadow-sm">
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <i class="fas fa-hand-holding-usd fa-lg me-2" style="color: #2d3262;"></i>
+            <div>
+              <h5 class="fw-bold text-info mb-0">Total: <span id="totalCompras">0 COP</span></h5>
+              <small class="text-muted">Plan + Productos</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones de Acción: Ordenar y Guardar en Favoritos -->
+    <div class="row mt-4">
+      <div class="col-md-6 text-end">
+        <button class="btn btn-primary btn-lg" id="ordenarBtn">
+          <i class="fas fa-check me-2"></i> Ordenar
+        </button>
+      </div>
+      <div class="col-md-6 text-start">
+        <button class="btn btn-outline-secondary btn-lg" id="favoritosBtn">
+          <i class="fas fa-heart me-2"></i> Guardar en Favoritos
+        </button>
+      </div>
+    </div>
+
+
         <div class="step-buttons">
             <button class="btn btn-secondary btn-lg" id="backToStep2">
                 <i class="fas fa-arrow-left me-2"></i>
@@ -436,6 +531,43 @@ function togglePriceColor(checkbox) {
         </div>
     </div>
 </div>
+
+<script>
+  // Función para actualizar los totales del plan, productos y total general
+  function updateTotals() {
+    // Recupera la lista de kits del localStorage
+    let listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
+    let totalPlanSum = 0;
+    let totalProductosSum = 0;
+    
+    listaDeKits.forEach(kit => {
+      totalPlanSum += kit.costoTotalPlan ? parseFloat(kit.costoTotalPlan) : 0;
+      totalProductosSum += kit.PrecioTotal ? parseFloat(kit.PrecioTotal) : 0;
+    });
+    
+    const totalCompras = totalPlanSum + totalProductosSum;
+    
+    // Actualiza el DOM con los valores formateados
+    document.getElementById('totalPlan').innerText = `$${totalPlanSum.toLocaleString('es-CO')}`;
+    document.getElementById('totalProductos').innerText = `$${totalProductosSum.toLocaleString('es-CO')}`;
+    document.getElementById('totalCompras').innerText = `$${totalCompras.toLocaleString('es-CO')}`;
+  }
+
+  // Llama a la función cuando se carga el Step 3
+  document.addEventListener('DOMContentLoaded', updateTotals);
+  
+  // Eventos para los botones "Ordenar" y "Guardar en Favoritos"
+  document.getElementById('ordenarBtn').addEventListener('click', function() {
+    // Aquí agregas la lógica para ordenar (ir a la pasarela de pago, etc.)
+    alert('Ordenar: Procediendo a la pasarela de pagos.');
+  });
+
+  document.getElementById('favoritosBtn').addEventListener('click', function() {
+    // Aquí agregas la lógica para guardar en favoritos
+    alert('Favoritos: Kit guardado en tus favoritos.');
+  });
+</script>
+
 
 <div id="step4" class="container mt-4 fade-step d-none">
     <div class="step-container">
@@ -466,17 +598,7 @@ function togglePriceColor(checkbox) {
   <!-- SCRIPTS ORIGINALES (sin modificar) -->
   <!-- Script para manejar el colapso de los desplegables -->
   <script>
-    document.querySelectorAll('.card-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const target = header.getAttribute('data-bs-target');
-        const collapse = document.querySelector(target);
-        document.querySelectorAll('.collapse').forEach(c => {
-          if (c !== collapse) {
-            c.classList.remove('show');
-          }
-        });
-      });
-    });
+   
   </script>
 
   <!-- Script de Planes (ya en tu código) -->
@@ -491,29 +613,29 @@ function togglePriceColor(checkbox) {
                 input.checked = false;
             }
         });
-    
+
         // Select the input corresponding to the clicked plan
         const selectedInput = document.getElementById(planId);
         if (selectedInput) {
             selectedInput.checked = true;
-    
+
             // Mark the containing card as selected
             const selectedCard = selectedInput.closest('.plan-card');
             if (selectedCard) {
                 selectedCard.classList.add('selected');
             }
         }
-    
+
         // Update the plan details (alerts, price, etc.)
         updatePlanDetails(planId);
-    
+
         // Update the plan details in localStorage
         updatePlanInLocalStorage(planId);
     }
-    
+
     const planDetails = {
         planStart: {
-            title: "Plan Start - $1750",
+            title: "Plan Start - $20.000",
             alerts: [
                 { id: "sosAlert", label: "Botón SOS" },
                 { id: "geofenceAlert", label: "Geocerca" },
@@ -525,7 +647,7 @@ function togglePriceColor(checkbox) {
             ]
         },
         planStarter: {
-            title: "Plan Starter - $2950",
+            title: "Plan Starter - $25.000",
             alerts: [
                 { id: "sosAlert", label: "Botón SOS" },
                 { id: "geofenceAlert", label: "Geocerca" },
@@ -542,7 +664,7 @@ function togglePriceColor(checkbox) {
             ]
         },
         planEnterprise: {
-            title: "Plan Enterprise - $4950",
+            title: "Plan Enterprise - $30.000",
             alerts: [
                 { id: "sosAlert", label: "Botón SOS" },
                 { id: "geofenceAlert", label: "Geocerca" },
@@ -570,96 +692,102 @@ function togglePriceColor(checkbox) {
             ]
         }
     };
-    
+
     // Function to update the plan details in the panel
     function updatePlanDetails(planId) {
         const details = planDetails[planId];
         if (!details) return;
-    
+
         let html = `<p class="fw-bold">${details.title}</p>
                     <h6 class="card-subtitle mb-2">Alertas Incluidas</h6>`;
         details.alerts.forEach(function (alert) {
             html += `<div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="${alert.id}" onchange="updateAlertsInLocalStorage('${planId}', '${alert.id}', this.checked)">
-                        <label class="form-check-label small" for="${alert.id}">${alert.label}</label>
+                        <input type="checkbox" class="form-check-input" id="${alert.label}" data-alert-id="${alert.id}" onchange="updateAlertsInLocalStorage('${planId}', '${alert.label}', this.checked)">
+                        <label class="form-check-label small" for="${alert.label}">${alert.label}</label>
                     </div>`;
         });
-    
+
         const detailsContainer = document.getElementById('planDetailsBody');
         if (detailsContainer) {
             detailsContainer.innerHTML = html;
         }
-    
-         // After updating the HTML, check the checkboxes based on localStorage data
-         checkStoredAlerts(planId);
+
+        // After updating the HTML, check the checkboxes based on localStorage data
+        checkStoredAlerts(planId);
     }
-    
+
     // Function to check stored alerts and update the checkbox states
     function checkStoredAlerts(planId) {
         const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
-    
+
         // Loop through each kit in localStorage
         listaDeKits.forEach(kit => {
             // Check if the kit's plan matches the current plan
             if (kit.plan === planId) {
                 // Loop through each alert in the plan
                 planDetails[planId].alerts.forEach(alert => {
-                    const alertCheckbox = document.getElementById(alert.id);
+                    const alertCheckbox = document.getElementById(alert.label);
                     if (alertCheckbox) {
-                        // Check if the alert is in the kit's detailsPlan array
-                        alertCheckbox.checked = kit.detallesPlan.includes(alert.id);
+                        // Check if the alert is in the kit's detallesPlan array
+                        alertCheckbox.checked = kit.detallesPlan.includes(alert.label);
                     }
                 });
             }
         });
     }
-    
+
     // Function to update the plan and details in localStorage
     function updatePlanInLocalStorage(planId) {
         // Get all kits from local storage
         const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
-    
+
+        // Get the plan title from planDetails
+        const planTitle = planDetails[planId].title;
+
         // Loop through each kit in localStorage
         listaDeKits.forEach(kit => {
-            // Update the plan to the selected plan
-            kit.plan = planId;
-    
+            // Update the plan to the selected plan's title
+            kit.plan = planTitle;
+
             // Update the detailsPlan to an empty array
             kit.detallesPlan = [];
         });
-    
+
         // Save the updated array to localStorage
         localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
     }
-    
+
     // Function to update alerts and details in localStorage
-    function updateAlertsInLocalStorage(planId, alertId, isChecked) {
+    function updateAlertsInLocalStorage(planId, alertLabel, isChecked) {
         // Get all kits from local storage
         const listaDeKits = JSON.parse(localStorage.getItem('listaDeKits')) || [];
-    
+
         // Loop through each kit in localStorage
         listaDeKits.forEach(kit => {
-            // Update the detailsPlan based on whether the checkbox is checked or unchecked
-            if (isChecked) {
-                if (!kit.detallesPlan.includes(alertId)) {
-                    kit.detallesPlan.push(alertId);
+            // Check if the kit's plan matches the current plan's title
+            if (kit.plan === planDetails[planId].title) {
+                // Update the detailsPlan based on whether the checkbox is checked or unchecked
+                if (isChecked) {
+                    if (!kit.detallesPlan.includes(alertLabel)) {
+                        kit.detallesPlan.push(alertLabel);
+                    }
+                } else {
+                    kit.detallesPlan = kit.detallesPlan.filter(detail => detail !== alertLabel);
                 }
-            } else {
-                kit.detallesPlan = kit.detallesPlan.filter(detail => detail !== alertId);
             }
         });
-    
+
         // Save the updated array to localStorage
         localStorage.setItem('listaDeKits', JSON.stringify(listaDeKits));
     }
-    
+
     // Optional: To ensure that the DOM is loaded before assigning events
     document.addEventListener("DOMContentLoaded", function () {
         // If you wish, you can initialize some default plan
         // selectPlan('planStart');
     });
-    </script>
-    
+</script>
+
   <!-- Script Principal Personaliza -->
   <script src="../Script/scriptPersonaliza.js"></script>
 

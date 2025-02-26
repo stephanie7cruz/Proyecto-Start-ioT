@@ -25,19 +25,41 @@ function togglePassword(inputId, iconId) {
 function iniciarSesion() {
     let correo = document.getElementById("correoInicio").value.trim();
     let clave = document.getElementById("claveInicio").value.trim();
-    let usuario = JSON.parse(localStorage.getItem(correo));
-    
-    if (usuario && atob(usuario.clave) === clave) {
-          // ✅ Guardar al usuario autenticado en sesión
-          localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    // Construir el objeto de datos para enviar al backend
+    let datos = {
+        correo: correo,
+        contrasena: clave
+    };
+
+    // Realizar la petición POST al endpoint de login
+    fetch("http://localhost:8080/usuarios/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error en la autenticación");
+        }
+        return response.json();
+    })
+    .then(usuario => {
+        // Guardar el usuario autenticado en sesión (por ejemplo, en localStorage)
+        localStorage.setItem("usuario", JSON.stringify(usuario));
         showMessage("¡Inicio de sesión exitoso!");
+        // Cerrar el modal de inicio de sesión
         var modal = bootstrap.Modal.getInstance(document.getElementById("modalInicioSesion1"));
         modal.hide();
-       
-    } else {
+    })
+    .catch(error => {
         document.getElementById("errorInicio").textContent = "Correo o contraseña incorrectos.";
-    }
+        console.error("Error al iniciar sesión:", error);
+    });
 }
+
 
 // Verificar si un usuario existe
 function usuarioExiste(correo) {
@@ -45,7 +67,7 @@ function usuarioExiste(correo) {
 }
 
 // Función para registrar usuario
-function registrarUsuario() {
+async function registrarUsuario() {
     let nombre = document.getElementById("nombreCompleto").value.trim();
     let telefono = document.getElementById("telefonoLogin").value.trim();
     let correo = document.getElementById("correoRegistro").value.trim();
@@ -81,9 +103,43 @@ function registrarUsuario() {
         return;
     }
 
-    localStorage.setItem(correo, JSON.stringify({ nombre, telefono, clave: btoa(clave) }));
     showMessage("¡Registro exitoso!");
     console.log("Usuario registrado correctamente");
+     // Enviar datos al backend con fetch
+     let fechaRegistro = new Date().toISOString(); // Convertir fecha a formato compatible
+    let usuario = {
+        id_Usuario: null,  // Si la BD genera el ID, puedes enviar null
+        nombre,
+        apellido: "",  // Si no hay campo para apellido, envía vacío
+        contrasena: clave,
+        correo,
+        telefono,
+        direccion:" ",
+        fechaRegistro,
+        pedidos: [],  // Lista vacía para cumplir con el backend
+        activos: []   // Lista vacía para cumplir con el backend
+    };
+
+     try {
+         let response = await fetch("http://localhost:8080/usuarios/crear", {
+             method: "POST",
+             headers: {
+                 "Content-Type": "application/json"
+             },
+             body: JSON.stringify(usuario)
+         });
+ 
+         if (!response.ok) {
+             throw new Error("Error al registrar usuario");
+         }
+ 
+         let mensaje = await response.text();
+         showMessage(mensaje);
+         console.log("Usuario registrado correctamente en la BD");
+     } catch (error) {
+         console.error("Error:", error);
+         showMessage("Hubo un problema al registrar el usuario.");
+     }
 }
 
 // Recuperar contraseña

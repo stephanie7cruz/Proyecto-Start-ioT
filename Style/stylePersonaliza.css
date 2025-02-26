@@ -822,3 +822,126 @@ h4 {
     padding-bottom: 30px;
   }
   
+  /* =========================
+   STEP 3: PERSONALIZA TU KIT - ESTILOS ESPECÍFICOS
+   ========================= */
+   /* Estilos globales para las cards de kit */
+   .kit-card {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background-color: #fff;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .kit-card:hover {
+    transform: translateY(-5px);
+  }
+  .kit-card-header {
+    background: linear-gradient(135deg, #284170, #943c7a);
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+  .kit-header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .kit-header-controls h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+  }
+  .kit-info {
+    margin-top: 0.5rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+  .kit-info span {
+    margin-right: 1rem;
+  }
+  .collapse-header {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+  }
+  .collapse-header:hover {
+    background: #e9ecef;
+  }
+  .product-item {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    min-height: 100px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .product-item:hover {
+    transform: scale(1.02);
+  }
+  .product-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 0.5rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  .subscription-section {
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+  .subscription-btn {
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .subscription-btn:hover, .subscription-btn.active {
+    background: #284170;
+    color: #fff;
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background-color: #f8f9fa;
+  }
+  .remove-kit-footer {
+    color: #6c757d;
+    cursor: pointer;
+  }
+  .remove-kit-footer:hover {
+    color: #dc3545;
+  }
+  /* Transiciones para el modal de producto */
+  .tracking-modal-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .tracking-modal-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease;
+  }
+  .tracking-modal-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .tracking-modal-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+  }
