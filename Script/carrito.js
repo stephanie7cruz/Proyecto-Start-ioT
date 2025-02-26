@@ -53,9 +53,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
     }
+    // Función para generar un ID de pedido único (UUID simple)
+    function generarOrderId() {
+        return 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    }
+
+    // Función asincrónica para generar el hash SHA-256
+    async function generateHash(cadena) {
+        const encodedText = new TextEncoder().encode(cadena);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', encodedText);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
 
     // Función para actualizar los detalles del carrito
-    function actualizarDetallesCarrito(subtotal) {
+    async function actualizarDetallesCarrito(subtotal) {
         const envio = 0; // Envío gratis
         const descuentos = 0; // Sin descuentos por el momento
         const total = subtotal + envio - descuentos;
@@ -64,6 +76,36 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('envio').textContent = 'Gratis';
         document.getElementById('descuentos').textContent = `$${descuentos.toFixed(2)}`;
         document.getElementById('total-a-pagar').textContent = `$${total.toFixed(2)}`;
+
+        const boldScript = document.querySelector('script[data-bold-button]');
+        if (boldScript) {
+            // Convertir el monto a centavos y asegurarse de que sea un número entero
+            const amountInCents = Math.round(total);
+            boldScript.setAttribute('data-amount', amountInCents.toString());
+
+            // Generar un nuevo ID de pedido
+            const orderId = generarOrderId();
+            boldScript.setAttribute('data-order-id', orderId);
+
+            // Valores necesarios para el hash de integridad
+            const currency = 'COP'; // Divisa de la transacción
+            const secretKey = 'xC51qQgSC-8U5NcNceFPkw'; // Llave secreta
+
+            // Concatenar la cadena según las instrucciones del proveedor
+            const cadenaConcatenada = `${orderId}${amountInCents}${currency}${secretKey}`;
+
+            try {
+                // Generar el hash SHA-256
+                const signature = await generateHash(cadenaConcatenada);
+                boldScript.setAttribute('data-integrity-signature', signature);
+                console.log('Firma digital configurada: ', signature);
+            } catch (error) {
+                console.error('Error al generar la firma digital: ', error);
+            }
+
+            console.log('Monto configurado en centavos: ', amountInCents);
+            console.log('ID de Pedido configurado: ', orderId);
+        }
     }
 
 
