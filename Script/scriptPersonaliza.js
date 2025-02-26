@@ -324,7 +324,7 @@ function calcularYMostrarTotalCompra() {
 
   // Mostrar en el elemento con id "totalCompra"
   const totalCompraElement1 = document.getElementById('totalCompra');
-  const totalCompraElement2 = document.getElementById('totalCompra');
+  const totalCompraElement2 = document.getElementById('totalCompra1');
   if (totalCompraElement1) {
       totalCompraElement1.innerText = formattedTotal; // Use innerText instead of textContent
       totalCompraElement2.innerText = formattedTotal; // Use innerText instead of textContent
