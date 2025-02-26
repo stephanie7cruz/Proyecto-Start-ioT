@@ -25,19 +25,41 @@ function togglePassword(inputId, iconId) {
 function iniciarSesion() {
     let correo = document.getElementById("correoInicio").value.trim();
     let clave = document.getElementById("claveInicio").value.trim();
-    let usuario = JSON.parse(localStorage.getItem(correo));
-    
-    if (usuario && atob(usuario.clave) === clave) {
-          // ✅ Guardar al usuario autenticado en sesión
-          localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    // Construir el objeto de datos para enviar al backend
+    let datos = {
+        correo: correo,
+        contrasena: clave
+    };
+
+    // Realizar la petición POST al endpoint de login
+    fetch("http://localhost:8080/usuarios/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error en la autenticación");
+        }
+        return response.json();
+    })
+    .then(usuario => {
+        // Guardar el usuario autenticado en sesión (por ejemplo, en localStorage)
+        localStorage.setItem("usuario", JSON.stringify(usuario));
         showMessage("¡Inicio de sesión exitoso!");
+        // Cerrar el modal de inicio de sesión
         var modal = bootstrap.Modal.getInstance(document.getElementById("modalInicioSesion1"));
         modal.hide();
-       
-    } else {
+    })
+    .catch(error => {
         document.getElementById("errorInicio").textContent = "Correo o contraseña incorrectos.";
-    }
+        console.error("Error al iniciar sesión:", error);
+    });
 }
+
 
 // Verificar si un usuario existe
 function usuarioExiste(correo) {
